@@ -1,0 +1,34 @@
+[{ 
+	"_id" : "01001",
+	"ersteller_id" : "",
+	"name": "Bowling",
+	"beschreibung": "Am Freitag wollen wir in Stammheim in das Bowlingcenter gehen.",
+	"datum": "15.04.2016",
+	"uhrzeit": "18:00",
+	"dauer": "ca. 2 Stunden",
+	"teilnehmer": "3",
+	"bild": "/public/images/activities/activity-1.jpg",
+	"adresse": {
+		"stadt": "Stuttagrt",
+		"strasse": "Rotebülhlplatz",
+		"hausnr": "15B",
+		"plz": "70328"
+	}
+}, 
+{ 
+	"_id" : "00002", 
+	"ersteller_id" : "",
+	"name": "Casino",
+	"beschreibung": "Am Samstag um 19 Uhr wollen wir in das Casino gehen.",
+	"datum": "22.03.2016",
+	"uhrzeit": "20:00",
+	"dauer": "4 St.",
+	"teilnehmer": "5",
+	"bild": "/public/images/activities/activity-2.jpg",
+	"adresse": {
+		"stadt": "München",
+		"strasse": "Hauptstr.",
+		"hausnr": "23",
+		"plz": "69023"
+	}
+}]
