@@ -1,5 +1,42 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+
+	if isAuthenticated
+		.jumbotron.text-center
+			a.btn.btn-default(href="/profile")
+				i.fa.fa-user
+				|  Profile
+			a.btn.btn-default(href="/logout")
+				i.fa.fa-lock
+				|  Logout
+	
+	else
+		.jumbotron.text-center
+			h1
+				i.fa.fa-lock
+				|  Authentication
+			
+			p Login or Register with:
+			
+			a.btn.btn-default(href="/login")
+				i.fa.fa-user
+				|  Local Login
+			
+			a.btn.btn-default(href="/signup")
+				i.fa.fa-user
+				|  Local Signup
+
+			a.btn.btn-primary(href="/auth/facebook")
+				i.fa.fa-facebook
+				|  Facebook
+
+			a.btn.btn-info(href="/auth/twitter")
+				i.fa.fa-twitter
+				|  Twitter
+
+			a.btn.btn-danger(href="/auth/google")
+				i.fa.fa-google-plus
+				|  Google
+
+
