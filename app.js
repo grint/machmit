@@ -25,7 +25,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
+app.use('/public', express.static(__dirname + "/public"));
 
 // required for passport
 app.use(session({ secret: '1e8804554c1f41249ae1b522b23f7937' })); // session secret
@@ -36,8 +37,7 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 // load our routes and pass in our app and fully configured passport
 require('./routes/routes.js')(app, passport); 
 
-require('./config/passport')(passport); // pass passport for configuration
-
+require('./controllers/passport')(passport); // pass passport methods
 
 // // catch 404 and forward to error handler
 // app.use(function(req, res, next) {

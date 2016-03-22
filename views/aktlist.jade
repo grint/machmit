@@ -1,0 +1,55 @@
+extends layout
+
+block content
+	include ../helpers/functions.jade
+
+	h1 Aktivitänten List
+
+	.activities
+		each akt in aktlist
+			.media.activity
+				.media-left
+					.img-thumbnail
+						img(src="/public/images/activities/#{akt.bild}", width="200")
+				.media-body
+					h2.media-heading #{akt.name} 
+
+					p
+						if akt.datum !== ""
+							span.date.label.label-default
+								i.fa.fa-calendar
+								|  #{prettyDate(akt.datum)} 
+							span &nbsp;
+						
+						if akt.uhrzeit !== ""
+							span.time.label.label-default
+								i.fa.fa-clock-o 
+								|  #{akt.uhrzeit} 
+							span &nbsp;
+						
+						if akt.dauer !== ""
+							span.duration.label.label-default
+								i.fa.fa-ellipsis-h 
+								|  #{akt.dauer} 
+							span &nbsp;
+						
+						if akt.teilnehmer !== ""
+							span.persons.label.label-default
+								i.fa.fa-users
+								|  #{akt.teilnehmer} 
+					
+					p.address
+						span.label.label-info
+							i.fa.fa-map-marker
+							|  
+							if akt.adresse.stadt !== ""
+								span.city #{akt.adresse.stadt}, 
+							if akt.adresse.strasse !== ""
+								span.street #{akt.adresse.strasse}
+							if akt.adresse.hausnr !== ""
+								| , #{akt.adresse.hausnr}
+							if akt.adresse.plz !== ""
+								| , 
+								span.plz #{akt.adresse.plz}
+
+					p #{akt.kbeschreibung}
