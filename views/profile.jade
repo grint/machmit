@@ -1,0 +1,98 @@
+extends layout
+
+block content
+	.page-header.text-center
+		h1
+			span.fa.fa-anchor
+			|  Profile Page
+		a.btn.btn-default.btn-sm(href='/logout') Logout
+	
+	.row
+		.col-sm-6
+			.well
+				h3
+					span.fa.fa-user
+					|  Local
+				if user.local.email
+					p
+						strong id
+						| : #{user._id}
+						br
+						strong email
+						| : #{user.local.email}
+						br
+						strong password
+						| : #{user.local.password}
+					a.btn.btn-default(href="/unlink/local") Unlink
+				else
+					a.btn.btn-default(href="/connect/local") Connect Local
+
+		.col-sm-6
+			.well
+				h3
+					span.fa.fa-facebook
+					|  Facebook
+				if user.facebook.token
+					p
+						strong id
+						| : #{user.facebook.id}
+						br
+						strong token
+						| : #{user.facebook.token}
+						br
+						strong email
+						| : #{user.facebook.email}
+						br
+						strong name
+						| : #{user.facebook.name}
+					a.btn.btn-default(href="/unlink/facebook") Unlink
+				else
+					a.btn.btn-default(href="/connect/facebook") Connect Facebook
+
+
+	.row
+		.col-sm-6
+			.well
+				h3
+					span.fa.fa-twitter
+					|  Twitter
+				if user.twitter.token
+					p
+						strong id
+						| : #{user.twitter.id}
+						br
+						strong token
+						| : #{user.twitter.token}
+						br
+						strong username
+						| : #{user.twitter.username}
+						br
+						strong displayName
+						| : #{user.twitter.displayName}
+					a.btn.btn-default(href="/unlink/twitter") Unlink
+				else
+					a.btn.btn-default(href="/connect/twitter") Connect Twitter
+
+		.col-sm-6
+			.well
+				h3
+					span.fa.fa-google-plus
+					|  Google
+				if user.google.token
+					p
+						strong id
+						| : #{user.google.id}
+						br
+						strong token
+						| : #{user.google.token}
+						br
+						strong email
+						| : #{user.google.email}
+						br
+						strong name
+						| : #{user.google.name}
+					a.btn.btn-default(href="/unlink/google") Unlink
+				else
+					a.btn.btn-default(href="/connect/google") Connect Google
+
+
