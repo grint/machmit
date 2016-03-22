@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    h1.
+        Aktivitaenten List
+    ol
+        each akt, i in aktlist
+            li
+               p Aktivitätsname: #{akt.name} <br/> Beschreibung: #{akt.beschreibung} <br/> Datum: #{akt.datum} <br/> Um: #{akt.uhrzeit} <br/> Es wird #{akt.dauer} Stunden dauern <br/> Es können #{akt.teilnehmer} Personen dabaei sein <br/> Adresse: <br/> Stadt: #{akt.adresse.stadt} <br/> Straße: #{akt.adresse.strasse} <br/> Hausnumer: #{akt.adresse.hausnr} <br/> PLZ: #{akt.adresse.plz}
