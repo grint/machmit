@@ -1,0 +1,16 @@
+extends layout
+
+block content
+    h1= title
+    form#formAddAktivi(name="addakti",method="post",action="/addakti")
+        input#inputName(type="text", placeholder="Name", name="Name")
+        input#inputBeschreibung(type="text", placeholder="Beschreibung", name="beschreibung")
+        input#inputDatum(type="Date", placeholder="Datum", name="datum")
+        input#inputUhrzeit(type="time", placeholder="Uhrzeit", name="uhrzeit")
+        input#inputDauer(type="Number", placeholder="Dauer", name="dauer")
+        input#inputTeilnehmer(type="Number", placeholder="Teilnehmer", name="teilnehmer")
+        input#inputStadt(type="text", placeholder="Stadt", name="stadt")
+        input#inputStrasse(type="text", placeholder="Strasse", name="strasse")
+        input#inputHausnr(type="Number", placeholder="Hausnr", name="hausnr")
+        input#inputPlz(type="Number", placeholder="PLZ", name="plz")			
+        button#btnSubmit(type="submit") submit

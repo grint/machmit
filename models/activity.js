@@ -21,4 +21,4 @@ var activitySchema = mongoose.Schema({
 });
 
 // create the model for activities and expose it to our app
-module.exports = mongoose.model('Activity', activitySchema);
+module.exports = mongoose.model('Activity', activitySchema, "activities");

@@ -1,6 +1,6 @@
 [
 	{ 
-		"_id" : "01001",
+		"_id" : "00001",
 		"ersteller_id" : "",
 		"name": "Bowling",
 		"kbeschreibung": "Am Freitag wollen wir in Stammheim in das Bowlingcenter gehen.",
@@ -34,6 +34,24 @@
 			"strasse": "Hauptstr.",
 			"hausnr": "23",
 			"plz": "69023"
+		}
+	},
+	
+	{
+		"_id" : "00003",
+		"ersteller_id" : "",
+		"name" : "Paintball",
+		"beschreibung" : "Am Freitag wollen wir in das Paintball-Club gehen.",
+		"datum" : "Fri Jun 03 2016 10:00:00 GMT+0200 (CEST)",
+		"uhrzeit" : "15:00",
+		"dauer" : "2 St.",
+		"teilnehmer" : "8",
+		"bild" : "/public/images/activities/paintball.jpg",
+		"adresse" : {
+			"stadt" : "Stuttgart",
+			"strasse" : "Bahnhofstr.",
+			"hausnr" : "10",
+			"plz" : "70174"
 		}
 	},
 
@@ -73,5 +91,56 @@
 			"hausnr": "10",
 			"plz": "70499"
 		}
-	} 
+	},
+	
+	{
+		"_id" : "00006",
+		"ersteller_id" : "",
+		"name" : "Lasertag",
+		"beschreibung" : "Am Samsatg wollen wir in das Spiel-Zentrum gehen.",
+		"datum" : "Sun Jul 17 2016 19:00:00 GMT+0200 (CEST)",
+		"uhrzeit" : "17:00",
+		"dauer" : "3 St.",
+		"teilnehmer" : "10",
+		"bild" : "/public/images/activities/lasertag.jpg",
+		"adresse" : {
+			"stadt" : "Stuttgart",
+			"strasse" : "xstr.",
+			"hausnr" : "21",
+			"plz" : "70174"
+		}
+	},
+	{
+		"_id" : ObjectId("56f25da8b1f67f581f83042a"),
+		"name" : "Zocken",
+		"beschreibung" : "wird gezockt",
+		"datum" : "Sun Jul 17 2016 19:00:00 GMT+0200 (CEST)",
+		"uhrzeit" : "12:00",
+		"dauer" : "20",
+		"teilnehmer" : "20",
+		"bild" : "",
+		"adresse" : {
+			"stadt" : "Stuttgart",
+			"strasse" : "Bahnhof",
+			"hausnr" : "1",
+			"plz" : "71220"
+		}
+	},
+	
+	{
+		"_id" : ObjectId("56f26810701d5f2006d189d7"),
+		"name" : "a",
+		"beschreibung" : "a",
+		"datum" : "Sun Jul 17 2016 19:00:00 GMT+0200 (CEST)",
+		"uhrzeit" : "12:00",
+		"dauer" : "2",
+		"teilnehmer" : "2",
+		"bild" : "",
+		"adresse" : {
+			"stadt" : "Stuttgart",
+			"strasse" : "Bahnhof",
+			"hausnr" : "1",
+			"plz" : "71220"
+		}
+	}
 ]
