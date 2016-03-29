@@ -17,41 +17,42 @@
     });
 	
 	/* GET New Aktivitaet page. */
-    app.get('/newaktiviti', function(req, res) {
-    res.render('newaktiviti', { title: 'Add New Aktivitaet' });
-});
+    app.get('/newaktivity', function(req, res) {
+        res.render('newaktivity', { title: 'Add New Aktivitaet' });
+    });
 
 	/* POST to Add User Service */
-    app.post('/addakti', function(req, res) {
+    app.post('/addaktivity', function(req, res) {
 
-    // Set our internal DB variable
-    var Activity = require('../models/activity');
-	var newAkt = new Activity();
+        // load up the activity model
+        var Activity = require('../models/activity');
 
-    // Get our form values. These rely on the "name" attributes
-     newAkt.name = req.body.Name;
-	 newAkt.beschreibung = req.body.beschreibung;
-	 newAkt.datum = req.body.datum;
-	 newAkt.uhrzeit = req.body.uhrzeit;
-	 newAkt.dauer = req.body.dauer;
-	 newAkt.teilnehmer = req.body.teilnehmer;
-	 newAkt.adresse.stadt = req.body.stadt;
-	 newAkt.adresse.strasse = req.body.strasse;
-	 newAkt.adresse.hausnr = req.body.hausnr;
-	 newAkt.adresse.plz = req.body.plz; 
+        // create a new activity object
+    	var newAkt = new Activity();
 
-    // Submit to the DB
-    newAkt.save(        
-    function (err, doc) {
-        if (err) {
-            // If it failed, return error
-            res.send("There was a problem adding the information to the database.");
-        }
-        else {
-            // And forward to success page
-            res.redirect("aktlist");
-        }
+        // Get our form values. These rely on the "name" attributes
+         newAkt.name = req.body.name;
+    	 newAkt.beschreibung = req.body.beschreibung;
+    	 newAkt.datum = req.body.datum;
+    	 newAkt.uhrzeit = req.body.uhrzeit;
+    	 newAkt.dauer = req.body.dauer;
+    	 newAkt.teilnehmer = req.body.teilnehmer;
+    	 newAkt.adresse.stadt = req.body.stadt;
+    	 newAkt.adresse.strasse = req.body.strasse;
+    	 newAkt.adresse.hausnr = req.body.hausnr;
+    	 newAkt.adresse.plz = req.body.plz; 
+
+        // Submit to the DB
+        newAkt.save(function (err, doc) {
+            if (err) {
+                // If it failed, return error
+                res.send("There was a problem adding the information to the database.");
+            }
+            else {
+                // And forward to success page
+                res.redirect("aktlist");
+            }
+        });
     });
-});
 
 }

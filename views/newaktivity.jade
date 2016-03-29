@@ -1,0 +1,80 @@
+extends layout
+
+block content
+   
+
+    
+    form#formAddAktivi.form-horizontal(name="addaktivity", method="post", action="/addaktivity")
+        .row.margin-bottom
+            .col-xs-12.margin-bottom
+                h2 
+                    .pull-left.margin-right Neue Aktivität: 
+                    .pull-left 
+                        input#inputName.form-control(type="text", placeholder="Name", name="name", value="")
+        
+        .row.margin-bottom
+            .col-sm-6
+                .row
+                    .col-sm-6
+                        .form-group
+                            label.col-sm-3.control-label.text-left(for='stadt') Stadt
+                            .col-sm-9
+                                input#inputStadt.form-control(type="text", placeholder="Stadt", name="stadt", value="")
+                    .col-sm-6
+                        .form-group
+                            label.col-sm-4.control-label.text-left(for='plz') PLZ
+                            .col-sm-8
+                                input#inputPlz.form-control(type="number", placeholder="PLZ", name="plz", value="") 
+
+            .col-sm-6
+                .row
+                    .col-sm-6
+                        .form-group
+                            label.col-sm-3.control-label.text-left(for='datum') Datum
+                            .col-sm-9
+                                input#inputDatum.form-control(type="date", placeholder="Datum", name="datum", value="")
+                    .col-sm-6
+                        .form-group
+                            label.col-sm-4.control-label.text-left(for='uhrzeit') Uhrzeit
+                            .col-sm-8
+                                input#inputUhrzeit.form-control(type="time", placeholder="Uhrzeit", name="uhrzeit", value="")                
+
+
+
+        .row.margin-bottom
+            .col-sm-6
+                .row
+                    .col-sm-6
+                        .form-group
+                            label.col-sm-3.control-label.text-left(for='strasse') Straße
+                            .col-sm-9
+                                input#inputStrasse.form-control(type="text", placeholder="Straße", name="strasse", value="")
+                    .col-sm-6
+                        .form-group
+                            label.col-sm-4.control-label.text-left(for='hausnr') Haus Nr.
+                            .col-sm-8
+                                input#inputHausnr.form-control(type="text", placeholder="Haus Nr.", name="hausnr", value="")
+            .col-sm-6 
+                .row
+                    .col-sm-6
+                        .form-group
+                            label.col-sm-3.control-label.text-left(for='dauer') Dauer
+                            .col-sm-9
+                                input#inputDauer.form-control(type="text", placeholder="Dauer", name="dauer", value="")
+
+                    .col-sm-6
+                        .form-group
+                            label.col-sm-4.control-label.text-left(for='teilnehmer') Teilnehmer
+                            .col-sm-8
+                                input#inputTeilnehmer.form-control(type="number", placeholder="Anzahl Teilnehmer", name="teilnehmer", value="")
+
+        .row
+            .col-xs-12
+                .form-group.margin-bottom
+                    label.col-xs-12.margin-bottom(for='beschreibung') Beschreibung
+                    .col-xs-12
+                        textarea#inputBeschreibung.form-control(placeholder="Beschreibung", name="beschreibung", rows="5")
+                
+                .form-group
+                    .col-sm-offset-2.col-sm-10
+                        button#btnSubmit.btn.btn-primary.btn-lg.pull-right(type="submit") Speichern

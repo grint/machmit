@@ -6,6 +6,27 @@ block content
 			span.fa.fa-anchor
 			|  Profile Page
 		a.btn.btn-default.btn-sm(href='/logout') Logout
+
+	.row
+		form#formUpdateProfile.form-horizontal(name="updateprofile", method="post", action="/updateprofile")
+			.col-sm-6
+				.form-group
+					label.col-sm-2.control-label(for='name') Name
+					.col-sm-10
+						input.form-control#name(type="text", placeholder='Name', value="#{user.name}", name="name")
+				
+			.col-sm-6
+				.form-group
+					label.col-sm-2.control-label(for='city') Adresse
+					.col-sm-10
+						.row
+							.col-xs-6
+								input.form-control#city(type="text", placeholder='Stadt', value="#{user.city}", name="city")
+							.col-xs-6
+								input.form-control#address(type="text", placeholder='Adresse', value="#{user.address}", name="address")
+				.form-group
+					.col-sm-offset-2.col-sm-10
+						button.btn.btn-primary.btn-lg.pull-right#btnSubmit(type="submit") Speichern
 	
 	.row
 		.col-sm-6
