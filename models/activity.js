@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 
 // define the schema for our activities model
 var activitySchema = mongoose.Schema({
-	_id             : String,
+	_id                 : mongoose.Schema.Types.ObjectId,
     ersteller_id        : String,
     name                : String,
     kbeschreibung       : String,

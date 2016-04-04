@@ -1,6 +1,6 @@
 [
 	{ 
-		"_id" : "00001",
+		"_id" : ObjectId("86cd799439011507f1f77bcf"),
 		"ersteller_id" : "",
 		"name": "Bowling",
 		"kbeschreibung": "Am Freitag wollen wir in Stammheim in das Bowlingcenter gehen.",
@@ -19,7 +19,7 @@
 	}, 
 
 	{ 
-		"_id" : "00002", 
+		"_id" : ObjectId("0c19729de860ea507f191e81"),
 		"ersteller_id" : "",
 		"name": "Casino",
 		"kbeschreibung": "Am Samstag um 19 Uhr wollen wir in das Casino gehen.",
@@ -38,7 +38,7 @@
 	},
 	
 	{
-		"_id" : "00003",
+		"_id" : ObjectId("507f191e810c19729de860ea"),
 		"ersteller_id" : "",
 		"name" : "Paintball",
 		"beschreibung" : "Am Freitag wollen wir in das Paintball-Club gehen.",
@@ -46,7 +46,7 @@
 		"uhrzeit" : "15:00",
 		"dauer" : "2 St.",
 		"teilnehmer" : "8",
-		"bild" : "/public/images/activities/paintball.jpg",
+		"bild" : "paintball.jpg",
 		"adresse" : {
 			"stadt" : "Stuttgart",
 			"strasse" : "Bahnhofstr.",
@@ -56,7 +56,7 @@
 	},
 
 	{ 
-		"_id" : "00004",
+		"_id" : ObjectId("507f1f77bcf86cd799439011"),
 		"ersteller_id" : "",
 		"name": "Sunday Brunch at Cafe Felix",
 		"kbeschreibung": "Let's meet up for a leisurely Sunday brunch!  Brunch is for own account at €16,50 (one hot beverage included).",
@@ -75,7 +75,7 @@
 	}, 
 
 	{ 
-		"_id" : "00005",
+		"_id" : ObjectId("5349b4ddd2781d08c09890f4"),
 		"ersteller_id" : "",
 		"name": "Mirage Show / Travestie und Sinatra Show",
 		"kbeschreibung": "Lust auf einen bunten, unvergesslichen Abend mit vielen verschiedenen Künstlern? Eine Darbietung von Travestie Künstlern aus namhaften Variete Bühnen.",
@@ -94,7 +94,7 @@
 	},
 	
 	{
-		"_id" : "00006",
+		"_id" : ObjectId("5349b4ddd2781d08c09890f3"),
 		"ersteller_id" : "",
 		"name" : "Lasertag",
 		"beschreibung" : "Am Samsatg wollen wir in das Spiel-Zentrum gehen.",
@@ -102,7 +102,7 @@
 		"uhrzeit" : "17:00",
 		"dauer" : "3 St.",
 		"teilnehmer" : "10",
-		"bild" : "/public/images/activities/lasertag.jpg",
+		"bild" : "laser_tag.jpg",
 		"adresse" : {
 			"stadt" : "Stuttgart",
 			"strasse" : "xstr.",

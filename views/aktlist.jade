@@ -4,13 +4,16 @@ block content
 	include ../helpers/functions.jade
 
 	h1 Aktivitänten List
-	
+
 	.activities
 		each akt in aktlist
 			.media.activity
 				.media-left
 					.img-thumbnail
-						img(src="/public/images/activities/#{akt.bild}", width="200")
+						if akt.bild !== ""
+							img(src="/public/images/activities/#{akt.bild}", width="200")
+						else
+							img(src="/public/images/activities/default.jpg", width="200")
 				.media-body
 					h2.media-heading #{akt.name} 
 
