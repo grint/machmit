@@ -9,7 +9,8 @@
         var Activity = require('../models/activity');
 		
         // query db for all activities
-        Activity.find( function ( err, items, count ){
+        Activity.find( function ( err, items, count ) {
+            console.log(items);
             res.render( 'aktlist', {
                 title : 'Activities',
                 aktlist : items
