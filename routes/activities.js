@@ -7,6 +7,7 @@
     app.get('/aktlist', function(req, res) {
         // load up the activity model
         var Activity = require('../models/activity');
+		
         // query db for all activities
         Activity.find( function ( err, items, count ){
             res.render( 'aktlist', {
@@ -54,5 +55,38 @@
             }
         });
     });
+	
+	app.get('/edit/:id', function(req, res) {
+		var Activity = require('../models/activity');
+		
+		Activity.findById(req.params.id, function (err, activity) {
+            if (err) return handleError(err);
+			res.render( 'edit', {
+                title : 'Edit Aktivität',
+                akt : activity
+            });
+        }); 
+    });	
+	
+	
+	app.post('/update/:id', function(req, res) {
+        // load up the activity model
+        var Activity = require('../models/activity');
+
+		// Submit to DB
+        Activity.findById(req.params.id, function (err, activity) {
+            if (err) return handleError(err);
+
+            // Get form values. 
+			activity.name = req.body.name;
+            activity.beschreibung = req.body.beschreibung;
+			activity.datum = req.body.datum;
+
+            activity.save(function (err) {
+                if (err) return handleError(err);
+                res.redirect("aktlist");
+            });
+        });
+    });	
 
 }

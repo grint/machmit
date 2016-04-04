@@ -5,9 +5,7 @@
 
         // load up the activity model
         var User = require('../models/user');
-
-        // get current user
-        // var user = new User({ _id: req.user._id });
+     
 
         // Submit to DB
         User.findById(req.user._id, function (err, user) {
