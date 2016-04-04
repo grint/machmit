@@ -1,55 +1,9 @@
 extends layout
 
 block content
-	include ../helpers/functions.jade
-
-	h1 Aktivitänten List
-
-	.activities
-		each akt in aktlist
-			.media.activity
-				.media-left
-					.img-thumbnail
-						img(src="/public/images/activities/#{akt.bild}", width="200")
-				.media-body
-					h2.media-heading #{akt.name} 
-
-					p
-						if akt.datum !== ""
-							span.date.label.label-default
-								i.fa.fa-calendar
-								|  #{prettyDate(akt.datum)} 
-							span &nbsp;
-						
-						if akt.uhrzeit !== ""
-							span.time.label.label-default
-								i.fa.fa-clock-o 
-								|  #{akt.uhrzeit} 
-							span &nbsp;
-						
-						if akt.dauer !== ""
-							span.duration.label.label-default
-								i.fa.fa-ellipsis-h 
-								|  #{akt.dauer} 
-							span &nbsp;
-						
-						if akt.teilnehmer !== ""
-							span.persons.label.label-default
-								i.fa.fa-users
-								|  #{akt.teilnehmer} 
-					
-					p.address
-						span.label.label-info
-							i.fa.fa-map-marker
-							|  
-							if akt.adresse.stadt !== ""
-								span.city #{akt.adresse.stadt}, 
-							if akt.adresse.strasse !== ""
-								span.street #{akt.adresse.strasse}
-							if akt.adresse.hausnr !== ""
-								| , #{akt.adresse.hausnr}
-							if akt.adresse.plz !== ""
-								| , 
-								span.plz #{akt.adresse.plz}
-
-					p #{akt.kbeschreibung}
+    h1.
+        Aktivitaenten List
+    ol
+        each akt, i in aktlist
+            li
+               p Aktivitätsname: #{akt.name} <br/> Beschreibung: #{akt.beschreibung} <br/> Datum: #{akt.datum} <br/> Um: #{akt.uhrzeit} <br/> Es wird #{akt.dauer} Stunden dauern <br/> Es können #{akt.teilnehmer} Personen dabaei sein <br/> Adresse: <br/> Stadt: #{akt.adresse.stadt} <br/> Straße: #{akt.adresse.strasse} <br/> Hausnumer: #{akt.adresse.hausnr} <br/> PLZ: #{akt.adresse.plz}
