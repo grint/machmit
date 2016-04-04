@@ -118,7 +118,7 @@
 		"uhrzeit" : "12:00",
 		"dauer" : "20",
 		"teilnehmer" : "20",
-		"bild" : "",
+		"bild" : "zocken.jpg",
 		"adresse" : {
 			"stadt" : "Stuttgart",
 			"strasse" : "Bahnhof",
