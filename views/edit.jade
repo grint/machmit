@@ -1,6 +1,7 @@
 extends layout
 
 block content
+    include ../helpers/functions
    
 
     
@@ -32,7 +33,7 @@ block content
                         .form-group
                             label.col-sm-3.control-label.text-left(for='datum') Datum
                             .col-sm-9
-                                input#inputDatum.form-control(type="text", placeholder="Datum", name="datum", value="#{akt.datum}")
+                                input#inputDatum.form-control(type="text", placeholder="Datum", name="datum", value="#{prettyDate(akt.datum)}")
                     .col-sm-6
                         .form-group
                             label.col-sm-4.control-label.text-left(for='uhrzeit') Uhrzeit
