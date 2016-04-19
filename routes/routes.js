@@ -191,7 +191,7 @@
     app.get('/auth/facebook/callback', 
     	passport.authenticate('facebook', {
 	        successRedirect : '/profile',
-	        failureRedirect : '/'
+	        failureRedirect : '/login'
 	    }),
 
 	    // on error; likely to be something FacebookTokenError token invalid or already used token,
