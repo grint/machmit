@@ -4,7 +4,8 @@ block content
 	include ../helpers/functions.jade
 
 	h1 Aktivitänten List
-
+	a.btn.btn-default.btn-sm(href='/newaktivity') Neue Aktivität
+	a.btn.btn-default.btn-sm(href='/profile') Profil
 	.activities
 		each akt in aktlist
 			.media.activity
