@@ -1,10 +1,12 @@
 // load the things we need
 var mongoose = require('mongoose');
+require('./user.js');
+var user = require('./user'); //see ref
 
 // define the schema for our activities model
 var activitySchema = mongoose.Schema({
 	_id                 : mongoose.Schema.Types.ObjectId,
-    ersteller_id        : String,
+    _idErsteller        : { type: mongoose.Schema.Types.ObjectId, ref: 'user._id' },
     name                : String,
     kbeschreibung       : String,
     beschreibung        : String,

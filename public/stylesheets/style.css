@@ -19,6 +19,11 @@ a {
 	margin-right: 20px;
 }
 
+.margin-right-sm {
+	margin-right: 10px;
+}
+
+
 .text-left {
 	text-align: left !important;
 }

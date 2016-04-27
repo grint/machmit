@@ -1,9 +1,13 @@
 // load the things we need
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
+require('./activity.js');
+var aktivit = require('./activity'); //see ref
 
 // define the schema for our user model
 var userSchema = mongoose.Schema({
+	_id              : mongoose.Schema.Types.ObjectId,
+	aktivitis		 :[{ type: mongoose.Schema.Types.ObjectId, ref: 'aktivit._id' }],
     username:        String,
     name:            String,
     city:            String,
@@ -46,3 +50,5 @@ userSchema.methods.validPassword = function(password) {
 
 // create the model for users and expose it to our app
 module.exports = mongoose.model('User', userSchema);
+
+
