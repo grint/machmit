@@ -83,8 +83,29 @@
                 res.redirect("aktlist");
             }
         });
-    });	
+    });		
 	
+	 app.get('/machmit-:id', function(req, res) {		
+		var Activity = require('../models/activity');
+	    var user = req.user;           		 
+	    Activity.findById(req.params.id, function (err, activity) {            	
+            if (err) {
+				console.log(err);
+				return handleError(err);
+			}
+				
+			//Id vom Teilnehmer wird für Aktivität in der Datenbank gespeichert
+			activity._idTeilnehmer = user._id;
+			activity.save(function (err) {
+                if (err) {
+					console.log(err);
+					return handleError(err);
+				}
+                res.redirect("/aktlist");
+            });
+			console.log("id" + activity._idTeilnehmer);
+        });	
+	});	
 	
 	app.get('/edit/:id',isLoggedIn, function(req, res) {		
 		var Activity = require('../models/activity');
