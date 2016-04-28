@@ -8,6 +8,7 @@ var passport = require('passport');
 var flash    = require('connect-flash');
 var session  = require('express-session');
 var mongoose = require('mongoose');
+var MongoStore = require('connect-mongo/es5')(session);
 
 var app = express();
 
@@ -28,8 +29,17 @@ app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));
 app.use('/public', express.static(__dirname + "/public"));
 
+// store session to the database
 // required for passport
-app.use(session({ secret: '1e8804554c1f41249ae1b522b23f7937' })); // session secret
+app.use(session({ 
+	secret: '1e8804554c1f41249ae1b522b23f7937',
+	maxAge: new Date(Date.now() + 3600000),
+    store: new MongoStore(
+        {mongooseConnection:mongoose.connection},
+        function(err){
+            console.log(err || 'connect-mongodb setup ok');
+        })
+})); 
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
