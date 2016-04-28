@@ -1,10 +1,179 @@
-{"_id":{"$oid":"86cd799439011507f1f77bcf"},"_idErsteller":{"$oid":"86cd799439011507f1f77bcf"},"name":"Bowling","kbeschreibung":"Am Freitag wollen wir in Stammheim in das Bowlingcenter gehen.","beschreibung":"Am Freitag wollen wir in Stammheim in das Bowlingcenter gehen.","datum":{"$date":"2017-12-11T23:00:00.000Z"},"uhrzeit":"18:00","dauer":"ca. 2 Stunden","teilnehmer":"3","bild":"bowling.jpg","adresse":{"stadt":"Stuttagrt","strasse":"Rotebülhlplatz","hausnr":"15B","plz":"70328"}}
-{"_id":{"$oid":"507f1f77bcf86cd799439011"},"_idErsteller":{"$oid":"86cd799439011507f1f77bcf"},"name":"Sunday Brunch at Cafe Felix","kbeschreibung":"Let's meet up for a leisurely Sunday brunch!  Brunch is for own account at €16,50 (one hot beverage included).","beschreibung":"Let's meet up for a leisurely Sunday brunch!  Brunch is for own account at €16,50 (one hot beverage included). There is a choice of hot and cold breakfast dishes from the buffet - German \"Weisswurst\" is one of the specialities, homemade pancakes, and Vegetarian options like Müsli, to name just a few.","datum":{"$date":"2016-03-05T23:00:00.000Z"},"uhrzeit":"10:00","dauer":"ca. 3 Stunden","teilnehmer":"2","bild":"brunch.jpg","adresse":{"stadt":"Stuttagrt","strasse":"Robert-Bosch-Platz","hausnr":"1","plz":"70174"}}
-{"_id":{"$oid":"5349b4ddd2781d08c09890f3"},"_idErsteller":{"$oid":"86cd799439011507f1f77bcf"},"name":"Lasertag","beschreibung":"Am Samsatg wollen wir in das Spiel-Zentrum gehen.","datum":"Sun Jul 17 2016 19:00:00 GMT+0200 (CEST)","uhrzeit":"17:00","dauer":"3 St.","teilnehmer":"10","bild":"laser_tag.jpg","adresse":{"stadt":"Stuttgart","strasse":"xstr.","hausnr":"21","plz":"70174"}}
-{"_id":{"$oid":"5349b4ddd2781d08c09890f4"},"_idErsteller":{"$oid":"86cd799439011507f1f77bcf"},"name":"Mirage Show / Travestie und Sinatra Show","kbeschreibung":"Lust auf einen bunten, unvergesslichen Abend mit vielen verschiedenen Künstlern? Eine Darbietung von Travestie Künstlern aus namhaften Variete Bühnen.","beschreibung":"\u003cp\u003eLust auf einen bunten, unvergesslichen Abend mit vielen verschiedenen Künstlern? Eine Darbietung von Travestie Künstlern aus namhaften Variete Bühnen.\u003c/p\u003e\u003cp\u003eTanja Silzer Events präsentiert die \"Mirage Show\" am Sonntag den[masked] im Club Rouhg Rockz Einlass ist ab 18.00 Uhr und Showbeginn um 19.00 Uhr.\u003c/p\u003e\u003cp\u003eTicketpreise:\u003c/p\u003e\u003cp\u003eVIP Tickets gibt es nicht an der Abendkasse\u003cbr/\u003eVIP Ticket: 29,90 inklusive VVK Gebühren\u003cbr/\u003eNormale Tickets: 19,90 inklusive VVK Gebühren\u003cbr/\u003eAbendkasse 25,00 Euro\u003c/p\u003e","datum":"Sun Jul 17 2016 19:00:00 GMT+0200 (CEST)","uhrzeit":"19:00","dauer":"ca. 3 Stunden","teilnehmer":"2","bild":"migrate-show.jpg","adresse":{"stadt":"Stuttagrt","strasse":"Holderäckerstr.","hausnr":"10","plz":"70499"}}
-{"_id":{"$oid":"56f25da8b1f67f581f83042a"},"_idErsteller":{"$oid":"86cd799439011507f1f77bcf"},"name":"Zocken","beschreibung":"wird gezockt","datum":"Sun Jul 17 2016 19:00:00 GMT+0200 (CEST)","uhrzeit":"12:00","dauer":"20","teilnehmer":"20","bild":"zocken.jpg","adresse":{"stadt":"Stuttgart","strasse":"Bahnhof","hausnr":"1","plz":"71220"}}
-{"_id":{"$oid":"56f26810701d5f2006d189d7"},"_idErsteller":{"$oid":"86cd799439011507f1f77bcf"},"name":"a","beschreibung":"Das ist test Beschreibung","datum":{"$date":"2016-12-11T23:00:00.000Z"},"uhrzeit":"12:00","dauer":"2","teilnehmer":"2","bild":"","adresse":{"stadt":"Stuttgart","strasse":"Bahnhof","hausnr":"1","plz":"71220"}}
-{"_id":{"$oid":"0c19729de860ea507f191e81"},"_idErsteller":{"$oid":"86cd799439011507f1f77bcf"},"name":"Casino","kbeschreibung":"Am Samstag um 19 Uhr wollen wir in das Casino gehen.","beschreibung":"Am Samstag um 19 Uhr wollen wir in das Casino gehen.","datum":"Tue Mar 22 2016 20:00:00 GMT+0100 (CET)","uhrzeit":"20:00","dauer":"4 St.","teilnehmer":"5","bild":"casino.jpg","adresse":{"stadt":"München","strasse":"Hauptstr.","hausnr":"23","plz":"69023"}}
-{"_id":{"$oid":"507f191e810c19729de860ea"},"_idErsteller":{"$oid":"86cd799439011507f1f77bcf"},"name":"Paintball","beschreibung":"Am Freitag wollen wir in das Paintball-Club gehen.","datum":"Fri Jun 03 2016 10:00:00 GMT+0200 (CEST)","uhrzeit":"15:00","dauer":"2 St.","teilnehmer":"8","bild":"paintball.jpg","adresse":{"stadt":"Stuttgart","strasse":"Bahnhofstr.","hausnr":"10","plz":"70174"}}
-{"_id":{"$oid":"571fdc8eb613820c153ff98b"},"teilnehmer":"10","dauer":"1","uhrzeit":"12:12","datum":{"$date":"2012-12-11T23:00:00.000Z"},"beschreibung":"testTestTest","name":"TestMitId","_idErsteller":{"$oid":"5704d746a16cf23c1ebdf4ee"},"adresse":{"plz":"71220","hausnr":"1","strasse":"Pirolweg","stadt":"Stuttgart"},"__v":0}
-{"_id":{"$oid":"5720c0ae3a7f1d88126f2bcb"},"teilnehmer":"","dauer":"1","uhrzeit":"","datum":null,"beschreibung":"check","name":"testWiderMitId","_idErsteller":{"$oid":"5704d746a16cf23c1ebdf4ee"},"adresse":{"plz":"71220","hausnr":"1","strasse":"Bahnhof","stadt":"Stuttgart"},"__v":0}
+[
+  {
+    "_id": {
+      "$oid": "0c19729de860ea507f191e81"
+    },
+    "ersteller_id": "",
+    "name": "Casino",
+    "kbeschreibung": "Am Samstag um 19 Uhr wollen wir in das Casino gehen.",
+    "beschreibung": "Am Samstag um 19 Uhr wollen wir in das Casino gehen.",
+    "datum": "Tue Mar 22 2016 20:00:00 GMT+0100 (CET)",
+    "uhrzeit": "20:00",
+    "dauer": "4 St.",
+    "teilnehmer": "5",
+    "bild": "casino.jpg",
+    "adresse": {
+      "stadt": "München",
+      "strasse": "Hauptstr.",
+      "hausnr": "23",
+      "plz": "69023"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "86cd799439011507f1f77bcf"
+    },
+    "ersteller_id": "",
+    "name": "Bowling",
+    "kbeschreibung": "Am Freitag wollen wir in Stammheim in das Bowlingcenter gehen.",
+    "beschreibung": "Am Freitag wollen wir in Stammheim in das Bowlingcenter gehen.",
+    "datum": "Fri Apr 15 2016 18:00:00 GMT+0200 (CEST)",
+    "uhrzeit": "18:00",
+    "dauer": "ca. 2 Stunden",
+    "teilnehmer": "3",
+    "bild": "bowling.jpg",
+    "adresse": {
+      "stadt": "Stuttagrt",
+      "strasse": "Rotebülhlplatz",
+      "hausnr": "15B",
+      "plz": "70328"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "507f191e810c19729de860ea"
+    },
+    "ersteller_id": "",
+    "name": "Paintball",
+    "beschreibung": "Am Freitag wollen wir in das Paintball-Club gehen.",
+    "datum": "Fri Jun 03 2016 10:00:00 GMT+0200 (CEST)",
+    "uhrzeit": "15:00",
+    "dauer": "2 St.",
+    "teilnehmer": "8",
+    "bild": "paintball.jpg",
+    "adresse": {
+      "stadt": "Stuttgart",
+      "strasse": "Bahnhofstr.",
+      "hausnr": "10",
+      "plz": "70174"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "507f1f77bcf86cd799439011"
+    },
+    "ersteller_id": "",
+    "name": "Sunday Brunch at Cafe Felix",
+    "kbeschreibung": "Let's meet up for a leisurely Sunday brunch!  Brunch is for own account at €16,50 (one hot beverage included).",
+    "beschreibung": "<p>Let's meet up for a leisurely Sunday brunch!  Brunch is for own account at €16,50 (one hot beverage included). There is a choice of hot and cold breakfast dishes from the buffet - German \"Weisswurst\" is one of the specialities, homemade pancakes, and Vegetarian options like Müsli, to name just a few.</p>",
+    "datum": "Fri Jun 03 2016 10:00:00 GMT+0200 (CEST)",
+    "uhrzeit": "10:00",
+    "dauer": "ca. 3 Stunden",
+    "teilnehmer": "2",
+    "bild": "brunch.jpg",
+    "adresse": {
+      "stadt": "Stuttagrt",
+      "strasse": "Robert-Bosch-Platz",
+      "hausnr": "1",
+      "plz": "70174"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "5349b4ddd2781d08c09890f4"
+    },
+    "ersteller_id": "",
+    "name": "Mirage Show / Travestie und Sinatra Show",
+    "kbeschreibung": "Lust auf einen bunten, unvergesslichen Abend mit vielen verschiedenen Künstlern? Eine Darbietung von Travestie Künstlern aus namhaften Variete Bühnen.",
+    "beschreibung": "<p>Lust auf einen bunten, unvergesslichen Abend mit vielen verschiedenen Künstlern? Eine Darbietung von Travestie Künstlern aus namhaften Variete Bühnen.</p><p>Tanja Silzer Events präsentiert die \"Mirage Show\" am Sonntag den[masked] im Club Rouhg Rockz Einlass ist ab 18.00 Uhr und Showbeginn um 19.00 Uhr.</p><p>Ticketpreise:</p><p>VIP Tickets gibt es nicht an der Abendkasse<br/>VIP Ticket: 29,90 inklusive VVK Gebühren<br/>Normale Tickets: 19,90 inklusive VVK Gebühren<br/>Abendkasse 25,00 Euro</p>",
+    "datum": "Sun Jul 17 2016 19:00:00 GMT+0200 (CEST)",
+    "uhrzeit": "19:00",
+    "dauer": "ca. 3 Stunden",
+    "teilnehmer": "2",
+    "bild": "migrate-show.jpg",
+    "adresse": {
+      "stadt": "Stuttagrt",
+      "strasse": "Holderäckerstr.",
+      "hausnr": "10",
+      "plz": "70499"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "5349b4ddd2781d08c09890f3"
+    },
+    "ersteller_id": "",
+    "name": "Lasertag",
+    "beschreibung": "Am Samsatg wollen wir in das Spiel-Zentrum gehen.",
+    "datum": "Sun Jul 17 2016 19:00:00 GMT+0200 (CEST)",
+    "uhrzeit": "17:00",
+    "dauer": "3 St.",
+    "teilnehmer": "10",
+    "bild": "laser_tag.jpg",
+    "adresse": {
+      "stadt": "Stuttgart",
+      "strasse": "xstr.",
+      "hausnr": "21",
+      "plz": "70174"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "56f25da8b1f67f581f83042a"
+    },
+    "name": "Zocken",
+    "beschreibung": "wird gezockt",
+    "datum": "Sun Jul 17 2016 19:00:00 GMT+0200 (CEST)",
+    "uhrzeit": "12:00",
+    "dauer": "20",
+    "teilnehmer": "20",
+    "bild": "zocken.jpg",
+    "adresse": {
+      "stadt": "Stuttgart",
+      "strasse": "Bahnhof",
+      "hausnr": "1",
+      "plz": "71220"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "56f26810701d5f2006d189d7"
+    },
+    "name": "a",
+    "beschreibung": "a",
+    "datum": "Sun Jul 17 2016 19:00:00 GMT+0200 (CEST)",
+    "uhrzeit": "12:00",
+    "dauer": "2",
+    "teilnehmer": "2",
+    "bild": "",
+    "adresse": {
+      "stadt": "Stuttgart",
+      "strasse": "Bahnhof",
+      "hausnr": "1",
+      "plz": "71220"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "5721b168a33d43ac22344c84"
+    },
+    "teilnehmer": "4",
+    "dauer": "2 St",
+    "uhrzeit": "13:00",
+    "datum": {
+      "$date": "2016-04-12T00:00:00.000Z"
+    },
+    "beschreibung": "wregrhhtdyjtjt",
+    "name": "Test",
+    "_idErsteller": {
+      "$oid": "56f04760af8a305954acc68c"
+    },
+    "adresse": {
+      "plz": "12324",
+      "hausnr": "23",
+      "strasse": "qwwq",
+      "stadt": "qq"
+    },
+    "__v": 0
+  }
+]

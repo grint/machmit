@@ -7,7 +7,9 @@
         res.render('index', { 
             title: 'Express', 
             menu: 'home',
-            isAuthenticated: req.isAuthenticated() 
+            message: req.flash('loginMessage'),
+            isAuthenticated: req.isAuthenticated(),
+            currentUser: req.session.passport.user
         });
     });
 
@@ -15,18 +17,20 @@
     // =====================================
     // Activities List =====================
     // =====================================
-	    app.get('/aktlist',isLoggedIn, function(req, res) {
+	    app.get('/aktlist', function(req, res) {
         // load up the activity model
         var Activity = require('../models/activity');
-			
+
         // query db for all activities
         Activity.find( function ( err, items, count ) {
             //console.log(items);
             res.render( 'aktlist', {
                 title : 'Aktivitäten',
                 menu: 'aktlist',
+                message: req.flash('loginMessage'),
                 aktlist : items,
-                isAuthenticated: req.isAuthenticated() 
+                isAuthenticated: req.isAuthenticated(),
+                currentUser: req.session.passport.user
             })
         })
     });
@@ -167,17 +171,17 @@
     // LOGIN ===============================
     // =====================================
     // show the login form
-    app.get('/login', function(req, res) {
-        // render the page and pass in any flash data if it exists
-        res.render('login', { 
-            message: req.flash('loginMessage'),
-            menu: 'login'
-        }); 
-    });
+    // app.get('/login', function(req, res) {
+    //     // render the page and pass in any flash data if it exists
+    //     res.render('login', { 
+    //         message: req.flash('loginMessage'),
+    //         menu: 'login'
+    //     }); 
+    // });
 
     // process the login form
     app.post('/login', passport.authenticate('local-login', {
-        successRedirect : '/profile', // redirect to the secure profile section
+        successRedirect : 'back', // redirect back to the previous page
         failureRedirect : '/login', // redirect back to the login page if there is an error
         failureFlash : true // allow flash messages
     }));
@@ -187,13 +191,13 @@
     // SIGNUP ==============================
     // =====================================
     // show the signup form
-    app.get('/signup', function(req, res) {
-        // render the page and pass in any flash data if it exists
-        res.render('signup', { 
-            message: req.flash('signupMessage'),
-            menu: 'signup'
-        });
-    });
+    // app.get('/signup', function(req, res) {
+    //     // render the page and pass in any flash data if it exists
+    //     res.render('signup', { 
+    //         message: req.flash('signupMessage'),
+    //         menu: 'signup'
+    //     });
+    // });
 
      // process the signup form
     app.post('/signup', passport.authenticate('local-signup', {

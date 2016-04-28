@@ -19,4 +19,16 @@ $(document).ready(function(){
 		openEffect	: 'none',
 		closeEffect	: 'none'
 	});
+
+	$('.show-signup-form').click(function() {
+		$('.signup-form').removeClass('hide');
+		$('.login-form').addClass('hide');
+		return false;
+	});
+
+	$('.show-login-form').click(function() {
+		$('.login-form').removeClass('hide');
+		$('.signup-form').addClass('hide');
+		return false;
+	});
 }); 

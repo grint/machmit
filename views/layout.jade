@@ -9,7 +9,7 @@ html
 		link(rel='stylesheet', href='/public/stylesheets/font-awesome.min.css')
 		link(rel='stylesheet', href='/public/stylesheets/steam-web.css')
 		link(rel='stylesheet', href='/public/javascripts/fancybox/jquery.fancybox.css')
-		//- link(rel='stylesheet', href='/public/stylesheets/style.css')
+		link(rel='stylesheet', href='/public/stylesheets/style.css')
 
 		link(href='http://fonts.googleapis.com/css?family=Montserrat', rel='stylesheet', type='text/css')
 		link(href='http://fonts.googleapis.com/css?family=Dosis', rel='stylesheet', type='text/css')
@@ -19,65 +19,117 @@ html
 		script(src='/public/javascripts/fancybox/jquery.fancybox.pack.js')
 		script(type='text/javascript', src='/public/javascripts/jquery-hover-effect.js')
 		script(src='/public/javascripts/scripts.js')
+	
 	body
+		.header-top
+			.wrap
+				.logo
+					a(href='index.html')
+						img(src='/public/images/logo.png', alt='')
+				.cssmenu
+					nav#nav(role='navigation')
+						a(href='#nav', title='Show navigation') Show navigation
+						a(href='#', title='Hide navigation') Hide navigation
+						ul.clearfix
+							li(class= menu=='home'?'active':'')
+								a(href='/') Home
+							li(class= menu=='aktlist'?'active':'')
+								a(href='/aktlist')
+									span Aktivitäten
+							.clear
+				.buttons
+					if isAuthenticated
+						.login_btn
+							a(href='/logout') Logout
+						.get_btn
+							a(href='/profile') Profile
+					else
+						.login_btn
+							a.fancybox-inline(href='#login-form') Login / Signup
+					.clear
+				.clear
+				h2.head
+					| Find the 
+					span.m_1 next event 
+					| You'll want 
+					span.m_1 to attend
+			
+		.main
+			.wrap
+				include ../helpers/functions.jade
+				block content
 
-	.header-top
-		.wrap
-			.logo
-				a(href='index.html')
-					img(src='/public/images/logo.png', alt='')
-			.cssmenu
-				nav#nav(role='navigation')
-					a(href='#nav', title='Show navigation') Show navigation
-					a(href='#', title='Hide navigation') Hide navigation
-					ul.clearfix
+		.footer
+			.wrap
+				.footer-menu
+					ul
 						li(class= menu=='home'?'active':'')
 							a(href='/') Home
 						li(class= menu=='aktlist'?'active':'')
-							a(href='/aktlist')
-								span Aktivitäten
+							a(href='/aktlist') Aktivitäten
+						li(class= menu=='profile'?'active':'')
+							a(href='/profile') Profile
 						.clear
-			.buttons
-				if isAuthenticated
-					.get_btn
-						a(href='/profile') Profile
-				else
-					.login_btn
-						a(href='/login') Login / Signup
-				.clear
-			.clear
-			h2.head
-				| Find the 
-				span.m_1 next event 
-				| You'll want 
-				span.m_1 to attend
-		
-	.main
-		.wrap
-			include ../helpers/functions.jade
-			block content
-
-	.footer
-		.wrap
-			.footer-menu
-				ul
-					li(class= menu=='home'?'active':'')
-						a(href='/') Home
-					li(class= menu=='aktlist'?'active':'')
-						a(href='/aktlist') Aktivitäten
-					li(class= menu=='profile'?'active':'')
-						a(href='/profile') Profile
+				.footer-bottom
+					.copy
+						p
+							| © 2016 Machmit
+					.social
+						ul
+							li.facebook
+								a(href='#')
+									span
+							li.twitter
+								a(href='#')
+									span
 					.clear
-			.footer-bottom
-				.copy
-					p
-						| © 2016 Machmit
-				.social
-					ul
-						li.facebook
-							a(href='#')
-								span
-						li.twitter
-							a(href='#')
-								span
-				.clear
+
+	#login-form(style='display:none')
+		.login-form
+			h1
+				i.fa.fa-sign-in
+				|  Login
+			
+			if (message.length > 0)
+				.alert.alert-danger #{message}
+
+			form(action='/login', method='post')
+				.form-group
+					label Email
+					input.form-control(type='text', name='email')
+				.form-group
+					label Password
+					input.form-control(type='password', name='password')
+				.form-group
+					button.btn.btn-warning.btn-lg(type='submit') Login
+			
+			hr
+			
+			p Need an account? 
+				a.show-signup-form(href='') Signup
+
+		.signup-form.hide
+			h1
+				i.fa.fa-sign-in
+				|  Signup
+			
+			if (message.length > 0)
+				.alert.alert-danger #{message}
+
+			form(action='/signup', method='post')
+				.form-group
+					label Email
+					input.form-control(type='text', name='email')
+				.form-group
+					label Password
+					input.form-control(type='password', name='password')
+				.form-group
+					button.btn.btn-warning.btn-lg(type='submit') Signup
+			
+			hr
+			
+			p Already have an account? 
+				a.show-login-form(href='') Login
+
+
+

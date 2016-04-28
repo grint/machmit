@@ -3,26 +3,46 @@ extends layout
 block content
 	h2.head1 Aktivitäten List
 	if isAuthenticated
-		.text-center
-			a.btn.btn-default.btn-sm(href='/newaktivity') Neue Aktivität
+		.text-center.margin-bottom
+			a.btn.btn-default(href='/newaktivity') Neue Aktivität erstellen
 	section.activities#activities
 		ul.activities-list
 			each akt in aktlist
 				li
-					a.image.fancybox-inline(href='#akt-'+akt.name)
-						if akt.bild
-							img(src="/public/images/activities/#{akt.bild}", width="200")
-						else
-							img(src="/public/images/activities/default.jpg", width="200")
+					if akt.bild
+						-var image = "/public/images/activities/"+akt.bild
+					else
+						-var image = "/public/images/activities/default.jpg"
+					
+					a.image.fancybox-inline(href='#akt-'+(akt.name).replace(/[^\w\s!?]/g,'').replace(/ /g, "-").toLowerCase(), style='background-image:url('+image+')')
 						span #{akt.name} 
 
-					.lb-overlay(id='akt-'+akt.name)
+					.lb-overlay(id='akt-'+(akt.name).replace(/[^\w\s!?]/g,'').replace(/ /g, "-").toLowerCase())
 						if akt.bild
 							img(src="/public/images/activities/#{akt.bild}", width="200")
 						else
 							img(src="/public/images/activities/default.jpg", width="200")
+						h3 #{akt.name} 
 						div
-							h3 #{akt.name} 
+							p.time
+								if akt.datum !== ""
+									span.date.label.label-default
+										i.fa.fa-calendar
+										|  #{prettyDate(akt.datum)} 
+									span &nbsp;
+								
+								if akt.uhrzeit !== ""
+									span.time.label.label-default
+										i.fa.fa-clock-o 
+										|  #{akt.uhrzeit} 
+									span &nbsp;
+								
+								if akt.dauer !== ""
+									span.duration.label.label-default
+										i.fa.fa-ellipsis-h 
+										|  #{akt.dauer} 
+									span &nbsp;
+
 							p.address
 								span.label.label-info
 									i.fa.fa-map-marker
@@ -36,6 +56,12 @@ block content
 									if akt.adresse.plz !== ""
 										| , 
 										span.plz #{akt.adresse.plz}
+								span &nbsp;
+
+								if akt.teilnehmer !== ""
+									span.persons.label.label-default
+										i.fa.fa-users
+										|  #{akt.teilnehmer} 
 						p #{akt.kbeschreibung}
 
 					.m_desc1
@@ -70,8 +96,10 @@ block content
 						p #{akt.kbeschreibung}
 
 						a.btn.btn-default.btn-sm(href="/activity/#{akt._id}") Read More
-						if isAuthenticated
+						
+						if isAuthenticated && akt._idErsteller == currentUser
 							a#editActivity.btn.btn-primary.btn-sm.pull-right(href="/edit/#{akt._id}")
 								i.fa.fa-pencil
-						a#mitmachen.btn.btn-primary.btn-sm.pull-right.margin-right-sm Mitmachen
+						if isAuthenticated
+							a#mitmachen.btn.btn-primary.btn-sm.pull-right.margin-right-sm Mitmachen
 			.clear
