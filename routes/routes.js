@@ -42,6 +42,7 @@
         res.render('newaktivity', { 
             title: 'Neue Aktivität erstellen',
             menu: 'newaktivity',
+			message: req.flash('loginMessage')
         });
     });
 	
@@ -85,7 +86,7 @@
         });
     });		
 	
-	 app.get('/machmit-:id', function(req, res) {		
+	 app.get('/machmit-:id',isLoggedIn, function(req, res) {		
 		var Activity = require('../models/activity');
 	    var user = req.user;           		 
 	    Activity.findById(req.params.id, function (err, activity) {            	
@@ -119,6 +120,7 @@
     			res.render( 'edit', {
                     title : 'Edit Aktivität',
                     menu: 'editaktivity',
+					message: req.flash('loginMessage'),
                     akt : activity
                 });		 
 			}
@@ -162,6 +164,7 @@
     app.get('/profile', isLoggedIn, function(req, res) {
         res.render('profile', {
             user : req.user, // get the user out of session and pass to template,
+			message: req.flash('loginMessage'),
             menu: 'profile',
         });
     });
