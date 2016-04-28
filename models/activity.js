@@ -7,7 +7,7 @@ var user = require('./user'); //see ref
 var activitySchema = mongoose.Schema({
 	_id                 : mongoose.Schema.Types.ObjectId,
     _idErsteller        : { type: mongoose.Schema.Types.ObjectId, ref: 'user._id' },
-	_idTeilnehmer       : { type: mongoose.Schema.Types.ObjectId, ref: 'user._id' },
+	_idTeilnehmer       : [{ type: mongoose.Schema.Types.ObjectId, ref: 'user._id' }],
     name                : String,
     kbeschreibung       : String,
     beschreibung        : String,
