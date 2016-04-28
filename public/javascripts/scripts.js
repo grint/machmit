@@ -1,14 +1,31 @@
-$(document).ready(function(){
-	$(function() {
-		$('ul.da-thumbs > li').hoverdir();
-	});
+function getCurrentDate() {
+	return moment(Date.now()).format('YYYY-MM-DD');
+}
 
-	$(".scroll").click(function(event){		
-		event.preventDefault();
-		$('html,body').animate({scrollTop:$(this.hash).offset().top},1200);
-	});
+function isPastOrFuture(firstDate, secondDate) {
+	if(moment(secondDate).isBefore(firstDate)) {
+		return 'past';
+	}
+	if(moment(secondDate).isAfter(firstDate)) {
+		return 'future';
+	}
+	if(moment(secondDate).isSame(firstDate)) {
+		return 'same';
+	}
+}
 
-	$(".fancybox-inline").fancybox({
+function timeToFrom(firstDate, secondDate) {
+	var firstDateParts = firstDate.split('-');
+	var secondDateParts = secondDate.split('-');
+
+	var a = moment([firstDateParts[0], firstDateParts[1], firstDateParts[2]]);
+	var b = moment([secondDateParts[0], secondDateParts[1], secondDateParts[2]]);
+
+	return a.to(b)
+}
+
+function fancyboxInline(el) {
+	$(el).fancybox({
 		maxWidth	: 800,
 		maxHeight	: 600,
 		fitToView	: false,
@@ -19,6 +36,21 @@ $(document).ready(function(){
 		openEffect	: 'none',
 		closeEffect	: 'none'
 	});
+}
+
+$(document).ready(function(){
+	moment.locale("de");
+
+	$(function() {
+		$('ul.da-thumbs > li').hoverdir();
+	});
+
+	$(".scroll").click(function(event){		
+		event.preventDefault();
+		$('html,body').animate({scrollTop:$(this.hash).offset().top},1200);
+	});
+
+	fancyboxInline(".fancybox-inline");
 
 	$('.show-signup-form').click(function() {
 		$('.signup-form').removeClass('hide');
@@ -31,4 +63,5 @@ $(document).ready(function(){
 		$('.signup-form').addClass('hide');
 		return false;
 	});
+
 }); 

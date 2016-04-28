@@ -20,24 +20,64 @@
 	    app.get('/aktlist', function(req, res) {
         // load up the activity model
         var Activity = require('../models/activity');
+        var currentUser = req.session.passport.user;
 
         // query db for all activities
         Activity.find( function ( err, items, count ) {
-            //console.log(items);
+
+            // check if the current user attends an event
+            for (var i= 0; i < items.length; i++) {
+                for (var j= 0; j < items[i]._idTeilnehmer.length; j++) {
+                    if(items[i]._idTeilnehmer[j] == currentUser) {
+                        items[i].isAttendee = true;
+                    }
+                }
+            }
+
             res.render( 'aktlist', {
                 title : 'Aktivitäten',
                 menu: 'aktlist',
                 message: req.flash('loginMessage'),
                 aktlist : items,
                 isAuthenticated: req.isAuthenticated(),
-                currentUser: req.session.passport.user
+                currentUser: currentUser,
             })
         })
     });
 	
     require('./activities')(app);
-	
-		/* GET New Aktivitaet page. */
+
+
+    /* GET One Activity page. */
+    app.get('/activity/:id', function(req, res) {        
+        var Activity = require('../models/activity');
+        var currentUser = req.session.passport.user;
+        
+        Activity.findById(req.params.id).populate('_idErsteller').populate('_idTeilnehmer')
+            .exec(function (err, activity) {             
+                if (err) return handleError(err);
+
+                // check if the current user attends an event
+                for (var i = 0; i < activity._idTeilnehmer.length; i++) {
+                    if(activity._idTeilnehmer[i]._id == currentUser) {
+                        activity.isAttendee = true;
+                    }
+                }
+
+                res.render( 'activity', {
+                    title : activity.name,
+                    menu: 'aktlist',
+                    message: req.flash('loginMessage'),
+                    isAuthenticated: req.isAuthenticated(),
+                    currentUser: currentUser,
+                    akt : activity
+                }); 
+            });                
+    });
+
+
+
+	/* GET New Aktivitaet page. */
     app.get('/newaktivity',isLoggedIn, function(req, res) {
         res.render('newaktivity', { 
             title: 'Neue Aktivität erstellen',

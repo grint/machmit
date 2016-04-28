@@ -5,7 +5,7 @@ License: Creative Commons Attribution 3.0 Unported
 License URL: http://creativecommons.org/licenses/by/3.0/
 */
 /* reset */
-html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;}
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,dl,dt,dd,ol,nav ul,nav li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video{margin:0;padding:0;border:0;font-size:140%;font:inherit;line-height:1.4;vertical-align:baseline;}
 article, aside, details, figcaption, figure,footer, header, hgroup, menu, nav, section {display: block;}
 ol,ul{list-style:none;margin:0;padding:0;}
 blockquote,q{quotes:none;}
@@ -31,10 +31,10 @@ a{text-decoration:none;}
 .underline{	padding-bottom:5px;	border-bottom: 1px solid #eee; margin:0 0 20px 0;}/* Add 5px bottom padding and a underline */
 nav.vertical ul li{	display:block;}/* vertical menu */
 nav.horizontal ul li{	display: inline-block;}/* horizontal menu */
-img{max-width:100%;}
+// img{max-width:100%;}
 /*end reset*/
 body{
-	font-family: 'Dosis', sans-serif;
+	font-family: 'Josefin Sans', sans-serif;
 	background:#fff;
 }
 .wrap{
@@ -342,7 +342,7 @@ ul.events li {
 	width:100%;
 	background:#fff;
 	border: none;
-	font-family: 'Dosis', sans-serif;
+	font-family: 'Josefin Sans', sans-serif;
 }
 .textbox {
 	float: left;
@@ -364,7 +364,7 @@ ul.events li {
 	background: none;
 	font-size:1em;
 	color:#555;
-	font-family: 'Dosis', sans-serif;
+	font-family: 'Josefin Sans', sans-serif;
 	width: 87%;
 	-webkit-apperance: none;
 }
@@ -378,7 +378,7 @@ ul.events li {
 	outline: none;
 	padding:7px;
 	color: #999;
-	font-family: 'Dosis', sans-serif;
+	font-family: 'Josefin Sans', sans-serif;
 }
 .main{
 	background:#f4f4f4;
@@ -826,27 +826,27 @@ h2.head1{
 .activities-list li:nth-child(4), .activities-list li:nth-child(8), .activities-list li:nth-child(12) {
 	margin-right: 0;
 }
-.activities-list li > a, .activities-list li > a img {
+.activities-list li > .image, .activities-list li > .image img {
 	display: block;
 	width: 100%;
 }
-.activities-list li > a {
+.activities-list li > .image {
 	position: relative;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
 	border-radius: 4px 4px 4px 4px;
 }
-.activities-list li > a span {
+.activities-list li > .image > span {
 	position:absolute;
 	width: 100%;
 	height: 100%;
 	top: 0px;
 	left: 0px;
 	text-align: center;
-	line-height: 220px;
+	height: 150px;
+	padding-top: 40px;
 	color: #fff;
 	text-shadow: 0px 1px 1px rgba(255,255,255,0.6);
-	font-size: 24px;
 	opacity: 0;
 	filter: alpha(opacity=0); /* internet explorer */
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=0)"; /*IE8*/
@@ -855,11 +855,32 @@ h2.head1{
 	-o-transition: opacity 0.3s linear;
 	-ms-transition: opacity 0.3s linear;
 	transition: opacity 0.3s linear;
+	cursor: pointer;
 }
-.activities-list li > a:hover span {
+.activities-list li > .image > .readMore {
+	position:absolute;
+	bottom: 20px;
+	left: 50%;
+	transform: translateX(-50%);
+	opacity: 0;
+	filter: alpha(opacity=0); /* internet explorer */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=0)"; /*IE8*/
+	-moz-transition: opacity 0.3s linear;
+	-o-transition: opacity 0.3s linear;
+	-ms-transition: opacity 0.3s linear;
+	transition: opacity 0.3s linear;
+}
+.activities-list li > .image:hover > span,
+.activities-list li > .image:hover > .readMore {
 	opacity: 1;
 	filter: alpha(opacity=99); /* internet explorer */
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(opacity=99)"; /*IE8*/
+}
+.activities-list li > .image >span * {
+	line-height: 1.5;
+}
+.activities-list li > .image >span div {
+	font-size: 24px;
 }
 .lb-overlay {
 	display: none;
@@ -874,6 +895,7 @@ h2.head1{
 
 .lb-overlay h3 {
 	font-size: 30px;
+	margin-top: 20px;
 }
 
 .lb-overlay > div {
@@ -1009,8 +1031,8 @@ h4.m_5{
 }
 .m_desc1 h4 a{
 	color: #555;
-	font-size: 0.95em;
-	text-transform: uppercase;
+	font-size: 1.3em;
+	line-height: 1.3;
 	margin: 10px 0;
 }
 .m_desc1 h4 a:hover{
@@ -1178,19 +1200,6 @@ p.m_6{
 }
 .alpha {
 	margin-right:5.6%;
-}
-.date {
-	background:#FE2232;
-	font-size: 0.8125em;
-	color: #FFF;
-	text-align: center;
-	text-transform: uppercase;
-}
-.date span {
-	display: inline-block;
-	margin-bottom: 7px;
-	font-size:2em;
-	line-height: 22px;
 }
 .grid_2{
 	width:78.5%;
@@ -1472,7 +1481,7 @@ h4.m_6{
  	text-shadow:none;
  	text-decoration:none;
  	width:400px;
- 	font-family: 'Dosis', sans-serif;
+ 	font-family: 'Josefin Sans', sans-serif;
 }
 /* CSS3 Left Effect */
 article.css3-4
@@ -2409,7 +2418,7 @@ span.tab-img{
 	line-height: 1.5em;
 	cursor:pointer;
 	font-size:1em;
-	font-family: 'Dosis', sans-serif;
+	font-family: 'Josefin Sans', sans-serif;
 }
 .search form input[type="submit"] {
 	background: url('../images/search.png') no-repeat 7px 3px;
@@ -2501,7 +2510,7 @@ ul.list1 li a:hover{
 	background:#E4E4E4;
 	outline: none;
 	display: block;
-	font-family: 'Dosis', sans-serif;
+	font-family: 'Josefin Sans', sans-serif;
 }
 .comments-area textarea {
 	padding: 7px 15px;
@@ -2513,7 +2522,7 @@ ul.list1 li a:hover{
 	display: block;
 	border: none;
 	background:#E4E4E4;
-	font-family: 'Dosis', sans-serif;
+	font-family: 'Josefin Sans', sans-serif;
 }
 .comments-area input[type="submit"] {
 	padding: 8px 15px;
@@ -2522,7 +2531,7 @@ ul.list1 li a:hover{
 	border:none;
 	cursor: pointer;
 	outline:none;
-	font-family: 'Dosis', sans-serif;
+	font-family: 'Josefin Sans', sans-serif;
 	font-size:1em;
 }
 .comments-area input[type="submit"]:hover{
@@ -2565,7 +2574,7 @@ fieldset.input input[type="submit"] {
 	padding: 8px 40px;
 	cursor: pointer;
 	font-size: 1.2em;
-	font-family: 'Dosis', sans-serif;
+	font-family: 'Josefin Sans', sans-serif;
 }
 fieldset.input input[type="submit"]:hover {
 	background:#FE2232;
@@ -2760,7 +2769,7 @@ fieldset.input input[type="submit"]:hover {
 		margin: 0 13px;
 		line-height: 1.8em;
 	}
-	.activities-list li > a span {
+	.activities-list li > .image span {
 		line-height: 130px;
 	}
 	.da-thumbs li article h3 {
@@ -2844,7 +2853,7 @@ fieldset.input input[type="submit"]:hover {
 		margin: 0 13px;
 		line-height: 1.8em;
 	}
-	.activities-list li > a span {
+	.activities-list li > .image span {
 		line-height: 130px;
 	}
 	.da-thumbs li article h3 {
@@ -2978,7 +2987,7 @@ fieldset.input input[type="submit"]:hover {
 		margin: 0 13px;
 		line-height: 1.8em;
 	}
-	.activities-list li > a span {
+	.activities-list li > .image span {
 		line-height:310px;
 	}
 	.da-thumbs li article h3 {
@@ -3130,7 +3139,7 @@ fieldset.input input[type="submit"]:hover {
 		margin: 0 13px;
 		line-height: 1.8em;
 	}
-	.activities-list li > a span {
+	.activities-list li > .image span {
 		line-height:230px;
 	}
 	.da-thumbs li article h3 {

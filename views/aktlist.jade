@@ -14,8 +14,10 @@ block content
 					else
 						-var image = "/public/images/activities/default.jpg"
 					
-					a.image.fancybox-inline(href='#akt-'+(akt.name).replace(/[^\w\s!?]/g,'').replace(/ /g, "-").toLowerCase(), style='background-image:url('+image+')')
-						span #{akt.name} 
+					.image(style='background-image:url('+image+')')
+						span.fancybox-inline(href='#akt-'+(akt.name).replace(/[^\w\s!?]/g,'').replace(/ /g, "-").toLowerCase())
+							div #{trimString(akt.name, 20)} 
+						a.readMore.btn.btn-default.btn-sm(href="/activity/#{akt._id}") Mehr Information
 
 					.lb-overlay(id='akt-'+(akt.name).replace(/[^\w\s!?]/g,'').replace(/ /g, "-").toLowerCase())
 						if akt.bild
@@ -66,7 +68,7 @@ block content
 
 					.m_desc1
 						h4
-							a(href='#') #{akt.name} 
+							a(href="/activity/#{akt._id}") #{akt.name} 
 						
 
 						p
@@ -81,25 +83,22 @@ block content
 									i.fa.fa-clock-o 
 									|  #{akt.uhrzeit} 
 								span &nbsp;
-							
-							if akt.dauer !== ""
-								span.duration.label.label-default
-									i.fa.fa-ellipsis-h 
-									|  #{akt.dauer} 
-								span &nbsp;
-							
-							if akt.teilnehmer !== ""
-								span.persons.label.label-default
-									i.fa.fa-users
-									|  #{akt.teilnehmer} 
 
 						p #{akt.kbeschreibung}
 
-						a.btn.btn-default.btn-sm(href="/activity/#{akt._id}") Read More
 						
 						if isAuthenticated && akt._idErsteller == currentUser
-							a#editActivity.btn.btn-primary.btn-sm.pull-right(href="/edit/#{akt._id}")
+							a#editActivity.btn.btn-default.btn-sm.pull-right(href="/edit/#{akt._id}")
 								i.fa.fa-pencil
-						if isAuthenticated
-							a#mitmachen.btn.btn-primary.btn-sm.pull-right.margin-right-sm(href="/machmit-#{akt._id}") Mitmachen
+						if isAuthenticated  && akt._idErsteller != currentUser
+							if !akt.isAttendee
+								a#mitmachen.btn.btn-default.btn-sm.margin-right-sm(href="/machmit-#{akt._id}") Mitmachen
+							else
+								span.text-success.margin-right-sm.i-am-attendee
+									i.fa.fa-check
+									|  Ich mache mit
+						else
+							span.text-success.margin-right-sm.i-am-attendee
+									i.fa.fa-info
+									|  Meine
 			.clear

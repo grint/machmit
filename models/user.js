@@ -2,12 +2,12 @@
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
 //require('./activity.js');
-var aktivit = require('./activity'); //see ref
+var Aktivity = require('./activity'); //see ref
 
 // define the schema for our user model
 var userSchema = mongoose.Schema({
 	_id              : mongoose.Schema.Types.ObjectId,
-	aktivitis		 :[{ type: mongoose.Schema.Types.ObjectId, ref: 'aktivit._id' }],
+	aktivitis		 :[{ type: mongoose.Schema.Types.ObjectId, ref: 'Aktivity' }],
     username:        String,
     name:            String,
     city:            String,

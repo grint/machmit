@@ -1,0 +1,112 @@
+extends layout
+
+block content
+    .row
+        .col-xs-12
+            h2.head1 #{akt.name}
+    
+    .row.activity-details
+        .col-xs-12.col-sm-3.col-md-3
+            if akt.bild
+                -var image = "/public/images/activities/"+akt.bild
+            else
+                -var image = "/public/images/activities/default.jpg"
+            img.activity-image(src="#{image}", alt="#{akt.name}")
+
+            .eventDetailsInfoBox.organisator
+                h3 Organisator: 
+                .media
+                    .media-left
+                        img.media-object(src='/public/images/no-photo.png', width='50px')
+                    .media-body
+                        h4.media-heading #{akt._idErsteller.name}
+        
+
+        .col-xs-12.col-sm-6.col-md-6
+            .eventDetailsInfoBox
+                i.fa.fa-clock-o
+                p.date 
+                    span #{prettyDate(akt.datum)}
+                    |  um #{akt.uhrzeit} (#{akt.dauer})
+                p.human-date
+
+            .eventDetailsInfoBox
+                i.fa.fa-map-marker
+                p #{akt.adresse.strasse} #{akt.adresse.hausnr} 
+                p #{akt.adresse.stadt}, #{akt.adresse.plz}
+
+
+            .row
+                .col-xs-12
+                    .description !{akt.beschreibung}
+
+        .col-xs-12.col-sm-3.col-md-3
+            .eventDetailsInfoBox.attendee-status
+                if isAuthenticated  && akt._idErsteller._id != currentUser
+                    if !akt.isAttendee
+                        p 
+                            i.fa.fa-question
+                            | Machst du mit?
+                        a#mitmachen.btn.btn-default.btn-sm.margin-right-sm(href="/machmit-#{akt._id}") Mitmachen
+                    else
+                        h3.text-success.margin-right-sm.i-am-attendee
+                            i.fa.fa-check
+                            |  Ich mache mit
+                else
+                    h3.text-success.margin-right-sm.i-am-attendee
+                        i.fa.fa-info
+                        |  Das ist meine Aktivität
+            .eventDetailsInfoBox.attendees-number
+                i.fa.fa-user
+                
+                p.number-of-attendees 
+                    if(akt._idTeilnehmer.length+1 == 1)
+                        | #{akt._idTeilnehmer.length+1} macht mit
+                    else
+                        | #{akt._idTeilnehmer.length+1} machen mit
+               
+                -var leftPlaces = parseInt(akt.teilnehmer) - (akt._idTeilnehmer.length+1)
+                if(parseInt(leftPlaces) > 0)
+                    p.free-places #{leftPlaces} Plätze frei
+                else 
+                    p.free-places Keine Plätze mehr
+
+            
+            
+            .eventDetailsInfoBox.attendees
+                .media
+                    .media-left
+                        img.media-object(src='/public/images/no-photo.png', width='50px')
+                    .media-body
+                        h4.media-heading #{akt._idErsteller.name}
+                        p (Organisator)
+        
+                each attendee in akt._idTeilnehmer
+                    if attendee
+                        .media
+                            .media-left
+                                img.media-object(src='/public/images/no-photo.png', width='50px')
+                            .media-body
+                                h4.media-heading #{attendee.name}
+    
+
+block append footer-scripts
+    script.
+        $(document).ready(function(){
+            var dateType = isPastOrFuture(getCurrentDate(), "#{prettyDate(akt.datum, 'y-m-d')}");
+            var humanDateAppendText;
+            var humanDatePrependText;
+            if(dateType == 'past') {
+                humanDatePrependText = "Die Aktivität hat "
+                humanDateAppendText = " stattgefunden";
+            }
+            else if(dateType == 'future') {
+                humanDatePrependText = "Startet "
+                humanDateAppendText = "";
+            }
+            else if(dateType == 'same') {
+                humanDatePrependText = "Startet "
+                humanDateAppendText = "";
+            }
+            $('.human-date').text(humanDatePrependText + timeToFrom(getCurrentDate(), "#{prettyDate(akt.datum, 'y-m-d')}") + humanDateAppendText);
+        });

@@ -23,6 +23,11 @@
 	text-align: left !important;
 }
 
+.label {
+	font-size: 90%;
+	padding-top: .4em;
+}
+
 .image {
 	display: block;
 	width: 100%;
@@ -30,4 +35,83 @@
 	background-position: 50% 0;
 	background-repeat: no-repeat;
 	background-size: 100%;
+}
+
+
+.activity-details {
+	margin-top: 20px;
+}
+
+.eventDetailsInfoBox {
+	padding-left: 40px;
+	position: relative;
+	margin-bottom: 20px;
+}
+
+.eventDetailsInfoBox .fa {
+	position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 30px;
+    width: 30px;
+    text-align: center;
+}
+
+.eventDetailsInfoBox p:first-of-type,
+.eventDetailsInfoBox.attendees {
+	line-height: 30px;
+}
+
+.eventDetailsInfoBox.attendees,
+.eventDetailsInfoBox.organisator {
+	padding-left: 0;
+}
+
+.eventDetailsInfoBox.organisator h3 {
+	font-size: 24px;
+}
+
+.eventDetailsInfoBox.attendee-status {
+	border-bottom: 1px solid #dedede;
+	padding-bottom: 20px;
+}
+
+.eventDetailsInfoBox.organisator {
+	margin-top: 20px;
+}
+
+.activity-image {
+	width: 100%;
+}
+
+.date span {
+	font-size: 24px;
+}
+
+.description {
+	border-top: 1px solid #dedede;
+	padding-top: 20px;
+}
+
+.i-am-attendee {
+	padding: 5px 10px;
+	padding-left: 0;
+    line-height: 1.5;
+}
+
+.number-of-attendees {
+	font-size: 24px;
+	margin-bottom: 0;
+}
+
+.free-places {
+	color: #999;
+}
+
+.btn {
+	font-size: 100%;
+}
+
+.btn-sm {
+	font-size: 90%;
 }

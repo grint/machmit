@@ -1,7 +1,14 @@
--function prettyDate(dateString) {
-    -var date = new Date(dateString);
-    -var d = ('0' + date.getDate()).slice(-2);
-    -var m = ('0' + (date.getMonth()+1)).slice(-2);
-    -var y = date.getFullYear();
-    -return d + '.' + m + '.' + y;
+-function prettyDate(dateString, dateFormat) {
+	-var date = new Date(dateString);
+	-var d = ('0' + date.getDate()).slice(-2);
+	-var m = ('0' + (date.getMonth()+1)).slice(-2);
+	-var y = date.getFullYear();
+	if(dateFormat == 'y-m-d')
+		-return y + '-' + m + '-' + d;
+	else
+		-return d + '.' + m + '.' + y;
+-}
+
+-function trimString(string, maxlength) {
+	-return (string.length > maxlength) ? string.substr(0, maxlength-1) + '...' : string;
 -}
