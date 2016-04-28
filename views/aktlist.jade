@@ -56,5 +56,5 @@ block content
 								| , 
 								span.plz #{akt.adresse.plz}
 								a#editActivity.btn.btn-primary.btn-lg.pull-right(href="/edit/#{akt._id}") Bearbeiten
-								a#editActivity.btn.btn-primary.btn-lg.pull-right.margin-right-sm Mitmachen
+								a#editActivity.btn.btn-primary.btn-lg.pull-right.margin-right-sm(href="/machmit-#{akt._id}") Mitmachen
 					p #{akt.kbeschreibung}
