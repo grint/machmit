@@ -64,6 +64,7 @@
 		 newAkt._idErsteller = user._id;		 
          newAkt.name = req.body.name;
     	 newAkt.beschreibung = req.body.beschreibung;
+		 newAkt.kbeschreibung = req.body.kurzbeschreibung;
     	 newAkt.datum = req.body.datum;
     	 newAkt.uhrzeit = req.body.uhrzeit;
     	 newAkt.dauer = req.body.dauer;
@@ -139,6 +140,7 @@
             // Get form values. 
 			activity.name = req.body.name;
             activity.beschreibung = req.body.beschreibung;
+            activity.kbeschreibung = req.body.kurzbeschreibung;
 			activity.datum = req.body.datum;			
 		    activity.uhrzeit = req.body.uhrzeit;
 			activity.dauer = req.body.dauer;
