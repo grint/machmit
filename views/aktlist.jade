@@ -1,60 +1,77 @@
 extends layout
 
 block content
-	include ../helpers/functions.jade
-
-	h1 Aktivitänten List
-	a.btn.btn-default.btn-sm(href='/newaktivity') Neue Aktivität
-	a.btn.btn-default.btn-sm(href='/profile') Profil
-	.activities
-		each akt in aktlist
-			.media.activity
-				.media-left
-					.img-thumbnail
-						if akt.bild !== ""
+	h2.head1 Aktivitäten List
+	if isAuthenticated
+		.text-center
+			a.btn.btn-default.btn-sm(href='/newaktivity') Neue Aktivität
+	section.activities#activities
+		ul.activities-list
+			each akt in aktlist
+				li
+					a.image.fancybox-inline(href='#akt-'+akt.name)
+						if akt.bild
 							img(src="/public/images/activities/#{akt.bild}", width="200")
 						else
 							img(src="/public/images/activities/default.jpg", width="200")
-				.media-body
-					h2.media-heading #{akt.name} 
+						span #{akt.name} 
 
-					p
-						if akt.datum !== ""
-							span.date.label.label-default
-								i.fa.fa-calendar
-								|  #{prettyDate(akt.datum)} 
-							span &nbsp;
+					.lb-overlay(id='akt-'+akt.name)
+						if akt.bild
+							img(src="/public/images/activities/#{akt.bild}", width="200")
+						else
+							img(src="/public/images/activities/default.jpg", width="200")
+						div
+							h3 #{akt.name} 
+							p.address
+								span.label.label-info
+									i.fa.fa-map-marker
+									|  
+									if akt.adresse.stadt !== ""
+										span.city #{akt.adresse.stadt}, 
+									if akt.adresse.strasse !== ""
+										span.street #{akt.adresse.strasse}
+									if akt.adresse.hausnr !== ""
+										| , #{akt.adresse.hausnr}
+									if akt.adresse.plz !== ""
+										| , 
+										span.plz #{akt.adresse.plz}
+						p #{akt.kbeschreibung}
+
+					.m_desc1
+						h4
+							a(href='#') #{akt.name} 
 						
-						if akt.uhrzeit !== ""
-							span.time.label.label-default
-								i.fa.fa-clock-o 
-								|  #{akt.uhrzeit} 
-							span &nbsp;
-						
-						if akt.dauer !== ""
-							span.duration.label.label-default
-								i.fa.fa-ellipsis-h 
-								|  #{akt.dauer} 
-							span &nbsp;
-						
-						if akt.teilnehmer !== ""
-							span.persons.label.label-default
-								i.fa.fa-users
-								|  #{akt.teilnehmer} 
-					
-					p.address
-						span.label.label-info
-							i.fa.fa-map-marker
-							|  
-							if akt.adresse.stadt !== ""
-								span.city #{akt.adresse.stadt}, 
-							if akt.adresse.strasse !== ""
-								span.street #{akt.adresse.strasse}
-							if akt.adresse.hausnr !== ""
-								| , #{akt.adresse.hausnr}
-							if akt.adresse.plz !== ""
-								| , 
-								span.plz #{akt.adresse.plz}
-								a#editActivity.btn.btn-primary.btn-lg.pull-right(href="/edit/#{akt._id}") Bearbeiten
-								a#editActivity.btn.btn-primary.btn-lg.pull-right.margin-right-sm Mitmachen
-					p #{akt.kbeschreibung}
+
+						p
+							if akt.datum !== ""
+								span.date.label.label-default
+									i.fa.fa-calendar
+									|  #{prettyDate(akt.datum)} 
+								span &nbsp;
+							
+							if akt.uhrzeit !== ""
+								span.time.label.label-default
+									i.fa.fa-clock-o 
+									|  #{akt.uhrzeit} 
+								span &nbsp;
+							
+							if akt.dauer !== ""
+								span.duration.label.label-default
+									i.fa.fa-ellipsis-h 
+									|  #{akt.dauer} 
+								span &nbsp;
+							
+							if akt.teilnehmer !== ""
+								span.persons.label.label-default
+									i.fa.fa-users
+									|  #{akt.teilnehmer} 
+
+						p #{akt.kbeschreibung}
+
+						a.btn.btn-default.btn-sm(href="/activity/#{akt._id}") Read More
+						if isAuthenticated
+							a#editActivity.btn.btn-primary.btn-sm.pull-right(href="/edit/#{akt._id}")
+								i.fa.fa-pencil
+						a#mitmachen.btn.btn-primary.btn-sm.pull-right.margin-right-sm Mitmachen
+			.clear

@@ -2,11 +2,82 @@ doctype html
 html
 	head
 		title= title
+		meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+		meta(http-equiv='Content-Type', content='text/html; charset=utf-8')
+
 		link(rel='stylesheet', href='/public/stylesheets/bootstrap.min.css')
 		link(rel='stylesheet', href='/public/stylesheets/font-awesome.min.css')
-		link(rel='stylesheet', href='/public/stylesheets/style.css')
+		link(rel='stylesheet', href='/public/stylesheets/steam-web.css')
+		link(rel='stylesheet', href='/public/javascripts/fancybox/jquery.fancybox.css')
+		//- link(rel='stylesheet', href='/public/stylesheets/style.css')
+
+		link(href='http://fonts.googleapis.com/css?family=Montserrat', rel='stylesheet', type='text/css')
+		link(href='http://fonts.googleapis.com/css?family=Dosis', rel='stylesheet', type='text/css')
+
 		script(src='/public/javascripts/jquery-2.2.2.min.js')
 		script(src='/public/javascripts/bootstrap.min.js')
+		script(src='/public/javascripts/fancybox/jquery.fancybox.pack.js')
+		script(type='text/javascript', src='/public/javascripts/jquery-hover-effect.js')
+		script(src='/public/javascripts/scripts.js')
 	body
-		.container
+
+	.header-top
+		.wrap
+			.logo
+				a(href='index.html')
+					img(src='/public/images/logo.png', alt='')
+			.cssmenu
+				nav#nav(role='navigation')
+					a(href='#nav', title='Show navigation') Show navigation
+					a(href='#', title='Hide navigation') Hide navigation
+					ul.clearfix
+						li(class= menu=='home'?'active':'')
+							a(href='/') Home
+						li(class= menu=='aktlist'?'active':'')
+							a(href='/aktlist')
+								span Aktivitäten
+						.clear
+			.buttons
+				if isAuthenticated
+					.get_btn
+						a(href='/profile') Profile
+				else
+					.login_btn
+						a(href='/login') Login / Signup
+				.clear
+			.clear
+			h2.head
+				| Find the 
+				span.m_1 next event 
+				| You'll want 
+				span.m_1 to attend
+		
+	.main
+		.wrap
+			include ../helpers/functions.jade
 			block content
+
+	.footer
+		.wrap
+			.footer-menu
+				ul
+					li(class= menu=='home'?'active':'')
+						a(href='/') Home
+					li(class= menu=='aktlist'?'active':'')
+						a(href='/aktlist') Aktivitäten
+					li(class= menu=='profile'?'active':'')
+						a(href='/profile') Profile
+					.clear
+			.footer-bottom
+				.copy
+					p
+						| © 2016 Machmit
+				.social
+					ul
+						li.facebook
+							a(href='#')
+								span
+						li.twitter
+							a(href='#')
+								span
+				.clear

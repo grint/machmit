@@ -4,7 +4,11 @@
     // HOME PAGE (with login links) ========
     // =====================================
     app.get('/', function(req, res) {
-        res.render('index', { title: 'Express', isAuthenticated: req.isAuthenticated() });
+        res.render('index', { 
+            title: 'Express', 
+            menu: 'home',
+            isAuthenticated: req.isAuthenticated() 
+        });
     });
 
 
@@ -19,8 +23,10 @@
         Activity.find( function ( err, items, count ) {
             console.log(items);
             res.render( 'aktlist', {
-                title : 'Activities',
-                aktlist : items
+                title : 'Aktivitäten',
+                menu: 'aktlist',
+                aktlist : items,
+                isAuthenticated: req.isAuthenticated() 
             })
         })
     });
@@ -29,7 +35,10 @@
 	
 		/* GET New Aktivitaet page. */
     app.get('/newaktivity',isLoggedIn, function(req, res) {
-        res.render('newaktivity', { title: 'Add New Aktivitaet' });
+        res.render('newaktivity', { 
+            title: 'Neue Aktivität erstellen',
+            menu: 'newaktivity',
+        });
     });
 	
 	
@@ -80,6 +89,7 @@
             if (err) return handleError(err);
 			res.render( 'edit', {
                 title : 'Edit Aktivität',
+                menu: 'editaktivity',
                 akt : activity
             });		 
         }); 	  		   
@@ -119,7 +129,8 @@
     // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/profile', isLoggedIn, function(req, res) {
         res.render('profile', {
-            user : req.user // get the user out of session and pass to template
+            user : req.user, // get the user out of session and pass to template,
+            menu: 'profile',
         });
     });
 
@@ -151,7 +162,10 @@
     // show the login form
     app.get('/login', function(req, res) {
         // render the page and pass in any flash data if it exists
-        res.render('login', { message: req.flash('loginMessage') }); 
+        res.render('login', { 
+            message: req.flash('loginMessage'),
+            menu: 'login'
+        }); 
     });
 
     // process the login form
@@ -168,7 +182,10 @@
     // show the signup form
     app.get('/signup', function(req, res) {
         // render the page and pass in any flash data if it exists
-        res.render('signup', { message: req.flash('signupMessage') });
+        res.render('signup', { 
+            message: req.flash('signupMessage'),
+            menu: 'signup'
+        });
     });
 
      // process the signup form
