@@ -1,7 +1,7 @@
 // load the things we need
 var mongoose = require('mongoose');
 var bcrypt   = require('bcrypt-nodejs');
-require('./activity.js');
+//require('./activity.js');
 var aktivit = require('./activity'); //see ref
 
 // define the schema for our user model
