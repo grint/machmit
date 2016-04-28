@@ -21,7 +21,7 @@
 			
         // query db for all activities
         Activity.find( function ( err, items, count ) {
-            console.log(items);
+            //console.log(items);
             res.render( 'aktlist', {
                 title : 'Aktivitäten',
                 menu: 'aktlist',
@@ -82,16 +82,23 @@
     });	
 	
 	
-	app.get('/edit/:id',isLoggedIn, function(req, res) {
+	app.get('/edit/:id',isLoggedIn, function(req, res) {		
 		var Activity = require('../models/activity');
-	    var user = req.user;	       		
-	    Activity.findById(req.params.id, function (err, activity) {		
+	    var user = req.user;           		 
+	    Activity.findById(req.params.id, function (err, activity) {            	
             if (err) return handleError(err);
-			res.render( 'edit', {
-                title : 'Edit Aktivität',
-                menu: 'editaktivity',
-                akt : activity
-            });		 
+			//Es wird geprüft, dass die Aktivität nur von ihrem Besitzer bearbeitet wird
+			var erstellerId = activity._idErsteller.toString();			
+			var userId = user._id.toString();				
+			if(erstellerId === userId){
+    			res.render( 'edit', {
+                    title : 'Edit Aktivität',
+                    menu: 'editaktivity',
+                    akt : activity
+                });		 
+			}
+            else
+              res.send(500,'Du kannst diese Aktivität nicht bearbeiten, weil sie nicht dir gehört') ;				
         }); 	  		   
     });	
 	

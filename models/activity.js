@@ -1,6 +1,6 @@
 // load the things we need
 var mongoose = require('mongoose');
-require('./user.js');
+//require('./user.js');
 var user = require('./user'); //see ref
 
 // define the schema for our activities model
