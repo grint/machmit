@@ -79,16 +79,20 @@ mixin oneActivity(akt, status)
 
 			p #{akt.kbeschreibung}
 
-			
+			-var leftPlaces = parseInt(akt.teilnehmer) - (akt._idTeilnehmer.length+1)
 			
 			if status == 'active' && isAuthenticated && akt._idErsteller == currentUser
 				a#editActivity.btn.btn-default.btn-sm.pull-right(href="/edit/#{akt._id}")
 					i.fa.fa-pencil
 			
 			if isAuthenticated  && akt._idErsteller != currentUser
-				if status == 'active' 
-					if !akt.isAttendee
+				if status == 'active'
+					if !akt.isAttendee && parseInt(leftPlaces) > 0
 						a#mitmachen.btn.btn-default.btn-sm.margin-right-sm(href="/machmit-#{akt._id}") Mitmachen
+					else if !akt.isAttendee && parseInt(leftPlaces) <= 0
+						span.text-info.margin-right-sm.i-am-attendee
+							i.fa.fa-ban
+							|  Keine Plätze mehr
 					else
 						span.text-success.margin-right-sm.i-am-attendee
 							i.fa.fa-check
@@ -112,7 +116,7 @@ mixin pastEvents(aktlist)
 
 
 block content
-	h2.head1 Aktualle Aktivitäten 
+	h2.head1 Aktuelle Aktivitäten 
 
 	if isAuthenticated
 		.text-center.margin-bottom

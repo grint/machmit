@@ -40,14 +40,20 @@ block content
                 .col-xs-12
                     .description !{akt.beschreibung}
 
+        -var leftPlaces = parseInt(akt.teilnehmer) - (akt._idTeilnehmer.length+1)
+
         .col-xs-12.col-sm-3.col-md-3
             .eventDetailsInfoBox.attendee-status
                 if isAuthenticated  && akt._idErsteller._id != currentUser
-                    if !akt.isAttendee
+                    if !akt.isAttendee && parseInt(leftPlaces) > 0
                         p 
                             i.fa.fa-question
                             | Machst du mit?
                         a#mitmachen.btn.btn-default.btn-sm.margin-right-sm(href="/machmit-#{akt._id}") Mitmachen
+                    else if !akt.isAttendee && parseInt(leftPlaces) <= 0
+                        span.text-info.margin-right-sm.i-am-attendee
+                            i.fa.fa-ban
+                            |  Keine Plätze mehr
                     else
                         h3.text-success.margin-right-sm.i-am-attendee
                             i.fa.fa-check
@@ -65,7 +71,6 @@ block content
                     else
                         | #{akt._idTeilnehmer.length+1} machen mit
                
-                -var leftPlaces = parseInt(akt.teilnehmer) - (akt._idTeilnehmer.length+1)
                 if(parseInt(leftPlaces) > 0)
                     p.free-places #{leftPlaces} Plätze frei
                 else 
