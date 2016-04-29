@@ -1,5 +1,7 @@
  module.exports = function(app, passport) {
 
+    var moment = require('moment');
+
     // =====================================
     // HOME PAGE (with login links) ========
     // =====================================
@@ -21,6 +23,7 @@
         // load up the activity model
         var Activity = require('../models/activity');
         var currentUser = req.session.passport.user;
+        var today = moment(Date.now()).format('YYYY-MM-DD');;
 
         // query db for all activities
         Activity.find( function ( err, items, count ) {
@@ -32,7 +35,21 @@
                         items[i].isAttendee = true;
                     }
                 }
+
+                var activityDate = moment(items[i].datum).format("YYYY-MM-DD");
+
+                if (moment(today).isAfter(activityDate)) {
+                    items[i].status = 'past';
+                }
+                else if (moment(today).isBefore(activityDate)) {
+                    items[i].status = 'future';
+                }
+                else {
+                    items[i].status = 'today';
+                }
             }
+
+            
 
             res.render( 'aktlist', {
                 title : 'Aktivitäten',
@@ -57,7 +74,7 @@
             .exec(function (err, activity) {             
                 if (err) return handleError(err);
 
-                // check if the current user attends an event
+                // check if the current user attends the event
                 for (var i = 0; i < activity._idTeilnehmer.length; i++) {
                     if(activity._idTeilnehmer[i]._id == currentUser) {
                         activity.isAttendee = true;
@@ -127,7 +144,7 @@
         });
     });		
 	
-	 app.get('/machmit-:id',isLoggedIn, function(req, res) {		
+	 app.get('/machmit-:id', isLoggedIn, function(req, res) {		
 		var Activity = require('../models/activity');
 	    var user = req.user;           		 
 	    Activity.findById(req.params.id, function (err, activity) {            	
@@ -145,7 +162,6 @@
 				}
                 res.redirect("/aktlist");
             });
-			console.log("id" + activity._idTeilnehmer);
         });	
 	});	
 	
@@ -207,6 +223,7 @@
         res.render('profile', {
             user : req.user, // get the user out of session and pass to template,
 			message: req.flash('loginMessage'),
+            isAuthenticated: req.isAuthenticated(),
             menu: 'profile',
         });
     });

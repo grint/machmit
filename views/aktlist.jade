@@ -1,104 +1,127 @@
 extends layout
 
+mixin oneActivity(akt, status)
+	li
+		if akt.bild
+			-var image = "/public/images/activities/"+akt.bild
+		else
+			-var image = "/public/images/activities/default.jpg"
+		
+		.image(style='background-image:url('+image+')')
+			span.fancybox-inline(href='#akt-'+(akt.name).replace(/[^\w\s!?]/g,'').replace(/ /g, "-").toLowerCase())
+				div #{trimString(akt.name, 20)} 
+			a.readMore.btn.btn-default.btn-sm(href="/activity/#{akt._id}") Mehr Information
+
+		.lb-overlay(id='akt-'+(akt.name).replace(/[^\w\s!?]/g,'').replace(/ /g, "-").toLowerCase())
+			if akt.bild
+				img(src="/public/images/activities/#{akt.bild}", width="200")
+			else
+				img(src="/public/images/activities/default.jpg", width="200")
+			h3 #{akt.name} 
+			div
+				p.time
+					if akt.datum !== ""
+						span.date.label.label-default
+							i.fa.fa-calendar
+							|  #{prettyDate(akt.datum)} 
+						span &nbsp;
+					
+					if akt.uhrzeit !== ""
+						span.time.label.label-default
+							i.fa.fa-clock-o 
+							|  #{akt.uhrzeit} 
+						span &nbsp;
+					
+					if akt.dauer !== ""
+						span.duration.label.label-default
+							i.fa.fa-ellipsis-h 
+							|  #{akt.dauer} 
+						span &nbsp;
+
+				p.address
+					span.label.label-info
+						i.fa.fa-map-marker
+						|  
+						if akt.adresse.stadt !== ""
+							span.city #{akt.adresse.stadt}, 
+						if akt.adresse.strasse !== ""
+							span.street #{akt.adresse.strasse}
+						if akt.adresse.hausnr !== ""
+							| , #{akt.adresse.hausnr}
+						if akt.adresse.plz !== ""
+							| , 
+							span.plz #{akt.adresse.plz}
+					span &nbsp;
+
+					if akt.teilnehmer !== ""
+						span.persons.label.label-default
+							i.fa.fa-users
+							|  #{akt.teilnehmer} 
+			p #{akt.kbeschreibung}
+
+		.m_desc1
+			h4
+				a(href="/activity/#{akt._id}") #{akt.name} 
+			
+
+			p
+				if akt.datum !== ""
+					span.date.label.label-default
+						i.fa.fa-calendar
+						|  #{prettyDate(akt.datum)} 
+					span &nbsp;
+				
+				if akt.uhrzeit !== ""
+					span.time.label.label-default
+						i.fa.fa-clock-o 
+						|  #{akt.uhrzeit} 
+					span &nbsp;
+
+			p #{akt.kbeschreibung}
+
+			
+			
+			if status == 'active' && isAuthenticated && akt._idErsteller == currentUser
+				a#editActivity.btn.btn-default.btn-sm.pull-right(href="/edit/#{akt._id}")
+					i.fa.fa-pencil
+			
+			if isAuthenticated  && akt._idErsteller != currentUser
+				if status == 'active' 
+					if !akt.isAttendee
+						a#mitmachen.btn.btn-default.btn-sm.margin-right-sm(href="/machmit-#{akt._id}") Mitmachen
+					else
+						span.text-success.margin-right-sm.i-am-attendee
+							i.fa.fa-check
+							|  Ich mache mit
+			else
+				span.text-success.margin-right-sm.i-am-attendee
+						i.fa.fa-info
+						|  Meine
+
+mixin futureEvents(aktlist)
+	ul.activities-list
+		each akt in aktlist
+			if akt.status == 'future' || akt.status == 'today'
+				+oneActivity(akt, 'active')
+
+mixin pastEvents(aktlist)
+	ul.activities-list
+		each akt in aktlist
+			if akt.status == 'past'
+				+oneActivity(akt, 'disabled')
+
+
 block content
-	h2.head1 Aktivitäten List
+	h2.head1 Aktualle Aktivitäten 
+
 	if isAuthenticated
 		.text-center.margin-bottom
 			a.btn.btn-default(href='/newaktivity') Neue Aktivität erstellen
+	
 	section.activities#activities
-		ul.activities-list
-			each akt in aktlist
-				li
-					if akt.bild
-						-var image = "/public/images/activities/"+akt.bild
-					else
-						-var image = "/public/images/activities/default.jpg"
-					
-					.image(style='background-image:url('+image+')')
-						span.fancybox-inline(href='#akt-'+(akt.name).replace(/[^\w\s!?]/g,'').replace(/ /g, "-").toLowerCase())
-							div #{trimString(akt.name, 20)} 
-						a.readMore.btn.btn-default.btn-sm(href="/activity/#{akt._id}") Mehr Information
+		+futureEvents(aktlist)
 
-					.lb-overlay(id='akt-'+(akt.name).replace(/[^\w\s!?]/g,'').replace(/ /g, "-").toLowerCase())
-						if akt.bild
-							img(src="/public/images/activities/#{akt.bild}", width="200")
-						else
-							img(src="/public/images/activities/default.jpg", width="200")
-						h3 #{akt.name} 
-						div
-							p.time
-								if akt.datum !== ""
-									span.date.label.label-default
-										i.fa.fa-calendar
-										|  #{prettyDate(akt.datum)} 
-									span &nbsp;
-								
-								if akt.uhrzeit !== ""
-									span.time.label.label-default
-										i.fa.fa-clock-o 
-										|  #{akt.uhrzeit} 
-									span &nbsp;
-								
-								if akt.dauer !== ""
-									span.duration.label.label-default
-										i.fa.fa-ellipsis-h 
-										|  #{akt.dauer} 
-									span &nbsp;
+		h2.head1 Vergangene Aktivitäten 
+		+pastEvents(aktlist)
 
-							p.address
-								span.label.label-info
-									i.fa.fa-map-marker
-									|  
-									if akt.adresse.stadt !== ""
-										span.city #{akt.adresse.stadt}, 
-									if akt.adresse.strasse !== ""
-										span.street #{akt.adresse.strasse}
-									if akt.adresse.hausnr !== ""
-										| , #{akt.adresse.hausnr}
-									if akt.adresse.plz !== ""
-										| , 
-										span.plz #{akt.adresse.plz}
-								span &nbsp;
-
-								if akt.teilnehmer !== ""
-									span.persons.label.label-default
-										i.fa.fa-users
-										|  #{akt.teilnehmer} 
-						p #{akt.kbeschreibung}
-
-					.m_desc1
-						h4
-							a(href="/activity/#{akt._id}") #{akt.name} 
-						
-
-						p
-							if akt.datum !== ""
-								span.date.label.label-default
-									i.fa.fa-calendar
-									|  #{prettyDate(akt.datum)} 
-								span &nbsp;
-							
-							if akt.uhrzeit !== ""
-								span.time.label.label-default
-									i.fa.fa-clock-o 
-									|  #{akt.uhrzeit} 
-								span &nbsp;
-
-						p #{akt.kbeschreibung}
-
-						
-						if isAuthenticated && akt._idErsteller == currentUser
-							a#editActivity.btn.btn-default.btn-sm.pull-right(href="/edit/#{akt._id}")
-								i.fa.fa-pencil
-						if isAuthenticated  && akt._idErsteller != currentUser
-							if !akt.isAttendee
-								a#mitmachen.btn.btn-default.btn-sm.margin-right-sm(href="/machmit-#{akt._id}") Mitmachen
-							else
-								span.text-success.margin-right-sm.i-am-attendee
-									i.fa.fa-check
-									|  Ich mache mit
-						else
-							span.text-success.margin-right-sm.i-am-attendee
-									i.fa.fa-info
-									|  Meine
-			.clear
+		.clear
