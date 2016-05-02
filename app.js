@@ -9,6 +9,7 @@ var flash    = require('connect-flash');
 var session  = require('express-session');
 var mongoose = require('mongoose');
 var MongoStore = require('connect-mongo/es5')(session);
+var methodOverride = require('method-override');	
 
 var app = express();
 
@@ -24,6 +25,7 @@ require('./config/database.js');
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
+app.use(methodOverride());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 // app.use(express.static(path.join(__dirname, 'public')));

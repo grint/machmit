@@ -10,6 +10,19 @@ block content
 		a.btn.btn-default.btn-sm(href='/search') Suche
 
 	.row
+		.col-xs-12
+			if success_messages && success_messages.length > 0
+				.alert.alert-success.alert-dismissible.fade-in(role="alert")
+					button.close(type="button" data-dismiss="alert" aria-label="Close")
+						span(aria-hidden="true") ×
+					| #{success_messages}
+			if error_messages && error_messages.length > 0
+				.alert.alert-danger.alert-dismissible.fade-in(role="alert")
+					button.close(type="button" data-dismiss="alert" aria-label="Close")
+						span(aria-hidden="true") ×
+					| #{error_messages}
+
+	.row
 		form#formUpdateProfile.form-horizontal(name="updateprofile", method="post", action="/updateprofile")
 			.col-sm-6
 				.form-group
@@ -29,8 +42,20 @@ block content
 				.form-group
 					.col-sm-offset-2.col-sm-10
 						button.btn.btn-primary.btn-lg.pull-right#btnSubmit(type="submit") Speichern
-	
-	.row
+
+
+		form#uploadImage(name="upload_avatar", action="/upload", method="post", enctype="multipart/form-data")
+			.form-group
+				.col-xs-12.margin-bottom
+					label.control-label(for="avatar") Select an image to upload:
+			.form-group
+				.col-sm-5
+					input.form-control(type="file", multiple, name="avatar")
+				.col-sm-4
+					button.btn.btn-primary(type="submit", value="Upload") Upload File
+
+
+	.row.margin-top
 		.col-sm-6
 			.well
 				h3

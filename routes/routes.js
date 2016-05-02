@@ -64,6 +64,8 @@
 	
     require('./activities')(app);
 
+    require('./images')(app);
+
 
     /* GET One Activity page. */
     app.get('/activity/:id', function(req, res) {        
@@ -224,6 +226,8 @@
             user : req.user, // get the user out of session and pass to template,
 			message: req.flash('loginMessage'),
             isAuthenticated: req.isAuthenticated(),
+            success_messages: req.flash('success'),
+            error_messages: req.flash('success'),
             menu: 'profile',
         });
     });
