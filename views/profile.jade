@@ -1,13 +1,9 @@
 extends layout
 
 block content
-	.page-header.text-center
-		h1
-			span.fa.fa-anchor
-			|  Profile Page
-		a.btn.btn-default.btn-sm(href='/logout') Logout
-		a.btn.btn-default.btn-sm(href='/aktlist') Aktivitäten
-		a.btn.btn-default.btn-sm(href='/search') Suche
+	.row
+		.col-xs-12
+			h2.head1 Profile
 
 	.row
 		.col-xs-12
@@ -26,6 +22,8 @@ block content
 		.col-xs-12
 			if user.avatar
 				img#userImage(src="/public/images/uploads/profile/#{user.avatar}", width="200px")
+			else
+				img#userImage(src="/public/images/no-photo.png", width="200px")
 	.row
 		form#formUpdateProfile.form-horizontal(name="updateprofile", method="post", action="/updateprofile")
 			.row

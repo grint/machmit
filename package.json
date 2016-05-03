@@ -29,7 +29,8 @@
     "express-session": "~1.0.0",
 
     "multer": "latest",
-    "method-override": "latest"
+    "method-override": "latest",
+    "fs": "latest"
 
   }
 }
