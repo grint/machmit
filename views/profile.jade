@@ -23,36 +23,43 @@ block content
 					| #{error_messages}
 
 	.row
+		.col-xs-12
+			if user.avatar
+				img#userImage(src="/public/images/uploads/profile/#{user.avatar}", width="200px")
+	.row
 		form#formUpdateProfile.form-horizontal(name="updateprofile", method="post", action="/updateprofile")
-			.col-sm-6
-				.form-group
-					label.col-sm-2.control-label(for='name') Name
-					.col-sm-10
-						input.form-control#name(type="text", placeholder='Name', value="#{user.name}", name="name")
-				
-			.col-sm-6
-				.form-group
-					label.col-sm-2.control-label(for='city') Adresse
-					.col-sm-10
-						.row
-							.col-xs-6
-								input.form-control#city(type="text", placeholder='Stadt', value="#{user.city}", name="city")
-							.col-xs-6
-								input.form-control#address(type="text", placeholder='Adresse', value="#{user.address}", name="address")
+			.row
+				.col-sm-6
+					.form-group
+						label.col-sm-2.control-label(for='name') Name
+						.col-sm-10
+							input.form-control#name(type="text", placeholder='Name', value="#{user.name}", name="name")
+					
+				.col-sm-6
+					.form-group
+						label.col-sm-2.control-label(for='city') Adresse
+						.col-sm-10
+							.row
+								.col-xs-6
+									input.form-control#city(type="text", placeholder='Stadt', value="#{user.city}", name="city")
+								.col-xs-6
+									input.form-control#address(type="text", placeholder='Adresse', value="#{user.address}", name="address")
+			.row
+				.col-sm-6
+
+					.form-group
+						label.col-sm-2.control-label(for="avatar") Userbild:
+						.col-sm-10
+							.input-group
+								input.form-control#avatar(type="file", multiple, name="avatar")
+								span.input-group-btn
+									.btn.btn-default#uploadImageBtn Hochladen
+
+			.row
 				.form-group
 					.col-sm-offset-2.col-sm-10
 						button.btn.btn-primary.btn-lg.pull-right#btnSubmit(type="submit") Speichern
 
-
-		form#uploadImage(name="upload_avatar", action="/upload", method="post", enctype="multipart/form-data")
-			.form-group
-				.col-xs-12.margin-bottom
-					label.control-label(for="avatar") Select an image to upload:
-			.form-group
-				.col-sm-5
-					input.form-control(type="file", multiple, name="avatar")
-				.col-sm-4
-					button.btn.btn-primary(type="submit", value="Upload") Upload File
 
 
 	.row.margin-top

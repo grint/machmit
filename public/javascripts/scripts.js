@@ -64,4 +64,24 @@ $(document).ready(function(){
 		return false;
 	});
 
+
+	// Hnade user image upload with ajax
+    var uploadBtn = $('#uploadImageBtn'); 
+    uploadBtn.click(function (event) {
+		var formData = new FormData();
+		formData.append('avatar', $('#avatar').get(0).files[0]);
+		var request = $.ajax({
+			url: "/upload",
+			method: "POST",
+			data: formData,
+			contentType: false,
+			processData: false,
+			cache: false
+		}).done(function(data){
+			var newImageSrc = $(data).find('#userImage')[0].src;
+			$('#userImage').attr('src', newImageSrc);
+			uploadBtn.text("Hochgeladet");
+		});
+	});
+
 }); 
