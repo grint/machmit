@@ -6,8 +6,7 @@ var Aktivity = require('./activity'); //see ref
 
 // define the schema for our user model
 var userSchema = mongoose.Schema({
-	_id              : mongoose.Schema.Types.ObjectId,
-	aktivitis		 :[{ type: mongoose.Schema.Types.ObjectId, ref: 'Aktivity' }],
+    aktivitis        :[{ type: mongoose.Schema.Types.ObjectId, ref: 'Aktivity' }],
     username:        String,
     name:            String,
     city:            String,

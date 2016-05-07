@@ -15,11 +15,88 @@
         });
     });
 
+    app.post('/searchActivity', function(req, res) {
+        // load up the activity model
+        var Activity = require('../models/activity');
+        var currentUser = req.session.passport.user;
+        var today = moment(Date.now()).format('YYYY-MM-DD');
+		console.log("-" + req.body.searchName + "-");
+		console.log("-" + req.body.searchTime + "-");
+		console.log("-" + req.body.searchDate + "-");
+		console.log("-" + req.body.searchDuration + "-");
+        // query db for all activities
+        Activity.find( function ( err, items, count ) {
 
+            // check if the current user attends an event
+            for (var i= 0; i < items.length; i++) {
+                for (var j= 0; j < items[i]._idTeilnehmer.length; j++) {
+                    if(items[i]._idTeilnehmer[j] == currentUser) {
+                        items[i].isAttendee = true;
+                    }
+                }
+
+                var activityDate = moment(items[i].datum).format("YYYY-MM-DD");
+				var activityName = items[i].name.toUpperCase();
+				var activityTime = items[i].uhrzeit;
+				var activityDuration = items[i].dauer;
+				
+				var searchName = (req.body.searchName).toUpperCase();
+				var searchDate = (req.body.searchDate).toUpperCase();
+				var searchTime = (req.body.searchTime).toUpperCase();
+				var searchDuration = (req.body.searchDuration).toUpperCase();
+				console.log(searchDate);
+                if (moment(today).isAfter(activityDate)) {
+                    items[i].status = 'past';
+                }
+                else if (moment(today).isBefore(activityDate)) {
+                    items[i].status = 'future';
+                }
+                else {
+                    items[i].status = 'today';
+                }
+				if (searchName != "") {
+					if (!activityName.includes(searchName)) {
+					items[i].status = 'null';
+					console.log("_name");
+				}
+				}
+				if (searchDate != "") {
+					if (activityDate != searchDate) {
+					items[i].status = 'null';
+					console.log("_date");
+				}
+				}
+				if (searchTime != "") {
+					if (!activityTime.includes(searchTime)) {
+					items[i].status = 'null';
+					console.log("_time");
+				}
+				}
+				if (searchDuration != "") {
+					if (!activityDuration.includes(searchDuration)) {
+					items[i].status = 'null';
+					console.log("_duration");
+				}
+				}
+				
+            }
+
+            
+
+            res.render( 'aktlist', {
+                title : 'Aktivitäten',
+                menu: 'aktlist',
+                message: req.flash('loginMessage'),
+                aktlist : items,
+                isAuthenticated: req.isAuthenticated(),
+                currentUser: currentUser,
+            })
+        })
+    });
     // =====================================
     // Activities List =====================
     // =====================================
-	    app.get('/aktlist', function(req, res) {
+    app.get('/aktlist', function(req, res) {
         // load up the activity model
         var Activity = require('../models/activity');
         var currentUser = req.session.passport.user;

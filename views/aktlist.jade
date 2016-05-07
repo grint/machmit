@@ -115,7 +115,17 @@ mixin pastEvents(aktlist)
 				+oneActivity(akt, 'disabled')
 
 
+
 block content
+
+	form#formSearchActivity.form-horizontal(name="searchAkt", method="post", action="/searchActivity")
+		.col-sm-offset-2.col-sm-10
+		input#inputName.form-control(type="text", placeholder="Name", name="searchName", value="")
+		input#inputName.form-control(type="date", placeholder="YYYY-MM-DD", name="searchDate", value="")
+		input#inputName.form-control(type="text", placeholder="HH:MM", name="searchTime", value="")
+		input#inputName.form-control(type="text", placeholder="Dauer", name="searchDuration", value="")
+		button#btnSubmit.btn.btn-primary.btn-lg.pull-right(type="submit") Suchen
+
 	h2.head1 Aktuelle Aktivitäten 
 
 	if isAuthenticated
