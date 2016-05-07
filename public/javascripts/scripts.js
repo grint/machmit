@@ -71,7 +71,7 @@ $(document).ready(function(){
 		var formData = new FormData();
 		formData.append('avatar', $('#avatar').get(0).files[0]);
 		var request = $.ajax({
-			url: "/upload",
+			url: "/uploadAvatar",
 			method: "POST",
 			data: formData,
 			contentType: false,
@@ -80,7 +80,25 @@ $(document).ready(function(){
 		}).done(function(data){
 			var newImageSrc = $(data).find('#userImage')[0].src;
 			$('#userImage').attr('src', newImageSrc);
-			uploadBtn.text("Hochgeladet");
+			uploadBtn.text("Hochgeladen");
+		});
+	});
+    
+    var uploadBtn = $('#uploadBildBtn'); 
+    uploadBtn.click(function (event) {
+		var formData = new FormData();
+		formData.append('bild', $('#bild').get(0).files[0]);
+		var request = $.ajax({
+			url: "/uploadBild",
+			method: "POST",
+			data: formData,
+			contentType: false,
+			processData: false,
+			cache: false
+		}).done(function(data){
+			var newImageSrc = $(data).find('#aktImage')[0].src;
+			$('#aktImage').attr('src', newImageSrc);
+			uploadBtn.text("Hochgeladen");
 		});
 	});
 

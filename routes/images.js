@@ -5,7 +5,7 @@
 
 	var userPhotosPath = 'public/images/uploads/profile/';
 
-	var storage = multer.diskStorage({
+	var userPhotosStorage = multer.diskStorage({
 		destination: function (req, file, cb) {
 			cb(null, userPhotosPath);
 		},
@@ -18,8 +18,8 @@
 		}
 	});
 
-	var upload = multer({
-		storage: storage,
+	var uploadUserPhotos = multer({
+		storage: userPhotosStorage,
 		limits: {
 			files: 1,
 			fileSize: 1000000 // 1mb
@@ -38,23 +38,12 @@
 	}).single('avatar'); // avatar - name of the file field in the form
 
 
-    app.post('/upload', function(req, res) {
-
-    	// req.body - other form fields
-    	// req.file is form files:
-    	// { fieldname: 'avatar',
-    	//   originalname:,
-    	//   encoding: '7bit',
-    	//   mimetype: 'image/jpeg',
-    	//   destination: 'public/images/uploads/profile',
-    	//   filename:,
-    	//   path: 'public/images/uploads/profile/....jpg',
-    	//   size: 34236 }
+    app.post('/uploadAvatar', function(req, res) {
 
     	// load up the user model
         var User = require('../models/user');
      
-    	upload(req,res,function(err) {
+    	uploadUserPhotos(req,res,function(err) {
 	        if(err) {
 	        	req.flash('error', 'Error uploading file.');
         	} else {
@@ -78,6 +67,79 @@
 	            user.save(function (err) {
 	                if (err) return handleError(err);
 	                res.redirect("profile");
+	            });
+	        });
+	    });
+    });
+    
+    
+    
+    
+    var activitiesPhotosPath = 'public/images/activities/';
+
+	var activitiesPhotosStorage = multer.diskStorage({
+		destination: function (req, file, cb) {
+			cb(null, activitiesPhotosPath);
+		},
+		filename: function (req, file, cb) {
+			var originalname = file.originalname;
+			var extension = originalname.split(".");
+            console.log(req.akt);
+			var activityname = req.akt.name.replace(" ", "_").toLowerCase();
+			filename = activityname + "_" + Date.now() + '.' + extension[extension.length-1];
+			cb(null, filename);
+		}
+	});
+
+	var uploadActivitiesPhotos = multer({
+		storage: activitiesPhotosStorage,
+		limits: {
+			files: 1,
+			fileSize: 1000000 // 1mb
+		},
+		fileFilter: function (req, file, cb) {
+			if (file.mimetype !== 'image/png'
+			&& file.mimetype !== 'image/jpg'
+			&& file.mimetype !== 'image/jpeg'
+			&& file.mimetype !== 'image/gif') {
+				// console.log('Got file of type', file.mimetype);
+				req.flash('error', 'Only image files are allowed!');
+				return cb(null, false, new Error('Only image files are allowed!'));
+			}
+			cb(null, true);
+		}
+	}).single('bild'); // avatar - name of the file field in the form
+
+
+    app.post('/uploadBild', function(req, res) {
+
+    	// load up the user model
+        var Akt = require('../models/activity');
+     
+    	uploadActivitiesPhotos(req,res,function(err) {
+	        if(err) {
+	        	req.flash('error', 'Error uploading file.');
+        	} else {
+	        	req.flash('success', 'The image is successfully uploaded.');
+	        }
+
+	        // console.log(req.file);
+
+	        // Submit to DB
+	        Akt.findById(req.akt._id, function (err, akt) {
+	            if (err) return handleError(err);
+
+	            // remove old avatar
+	            fs.unlink("./" + activitiesPhotosPath + req.akt.avatar, function(err){
+					if (err) throw err;
+				});
+
+	            // write new avatar to DB
+	            akt.avatar = req.file.filename;
+
+	            akt.save(function (err) {
+	                if (err) return handleError(err);
+	                res.redirect("edit");
 	            });
 	        });
 	    });

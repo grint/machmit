@@ -6,6 +6,14 @@ block content
 
     
     form#formAddAktivi.form-horizontal(name="updateAkt", method="post", action="/update/#{akt._id}")
+        
+        .row
+            .col-xs-12
+                if akt.bild
+                    img#aktImage(src="/public/images/activities/#{akt.bild}", width="200px")
+                else
+                    img#aktImage(src="/public/images/activities/default.jpg", width="200px")
+
         .row.margin-bottom
             .col-xs-12.margin-bottom
                 h2 
@@ -81,6 +89,14 @@ block content
                     label.col-xs-12.margin-bottom(for='beschreibung') Kurzbeschreibung
                     .col-xs-12
                         input#inputBeschreibung.form-control(type="text", placeholder="Kurzbeschreibung", name="kurzbeschreibung", value="#{akt.kbeschreibung}")                
+
+                .form-group
+                    label.col-sm-2.control-label(for="bild") Bild:
+                    .col-sm-10
+                        .input-group
+                            input.form-control#bild(type="file", multiple, name="bild")
+                            span.input-group-btn
+                                .btn.btn-default#uploadBildBtn Hochladen
                 
                 .form-group
                     .col-sm-offset-2.col-sm-10
