@@ -184,9 +184,49 @@
 	
 	
 	/* POST to Add User Service */
-    app.post('/addaktivity',isLoggedIn, function(req, res) {
+    app.post('/addactivity',isLoggedIn, function(req, res) {
 		
 		var mongoose = require('mongoose');
+        var multer  = require('multer');
+        var fs  = require('fs');
+
+        var ActivityPhotosPath = 'public/images/activities';
+        
+        
+        
+        var ActivityPhotosStorage = multer.diskStorage({
+            destination: function (req, file, cb) {
+                cb(null, ActivityPhotosPath);
+            },
+            filename: function (req, file, cb) {
+                var originalname = file.originalname;
+                var extension = originalname.split(".");
+                console.log("name" + req.body.name);
+                var aktname = req.body.name.replace(" ", "_").toLowerCase();
+                filename = aktname + "_" + Date.now() + '.' + extension[extension.length-1];
+                cb(null, filename);
+            }
+        });
+
+        var uploadAktPhotos = multer({
+            storage: ActivityPhotosStorage,
+            limits: {
+                files: 1,
+                fileSize: 1000000 // 1mb
+            },
+            fileFilter: function (req, file, cb) {
+                if (file.mimetype !== 'image/png'
+                && file.mimetype !== 'image/jpg'
+                && file.mimetype !== 'image/jpeg'
+                && file.mimetype !== 'image/gif') {
+                    // console.log('Got file of type', file.mimetype);
+                    req.flash('error', 'Only image files are allowed!');
+                    return cb(null, false, new Error('Only image files are allowed!'));
+                }
+                console.log("in multer" + file);
+                cb(null, true);
+            }
+        }).single('bild'); // avatar - name of the file field in the form
 
         // load up the activity model
         var Activity = require('../models/activity');
@@ -196,22 +236,35 @@
     	var newAkt = new Activity();		
 
         // Get our form values. These rely on the "name" attributes
-		 newAkt._id = mongoose.Types.ObjectId();
-		 newAkt._idErsteller = user._id;		 
-         newAkt.name = req.body.name;
-    	 newAkt.beschreibung = req.body.beschreibung;
-		 newAkt.kbeschreibung = req.body.kurzbeschreibung;
-    	 newAkt.datum = req.body.datum;
-    	 newAkt.uhrzeit = req.body.uhrzeit;
-    	 newAkt.dauer = req.body.dauer;
-    	 newAkt.teilnehmer = req.body.teilnehmer;
-    	 newAkt.adresse.stadt = req.body.stadt;
-    	 newAkt.adresse.strasse = req.body.strasse;
-    	 newAkt.adresse.hausnr = req.body.hausnr;
-    	 newAkt.adresse.plz = req.body.plz; 
+		  
+		 
 
-        // Submit to the DB
-        newAkt.save(function (err, doc) {
+        uploadAktPhotos(req,res,function(err) {
+            if(err) {
+                req.flash('error', 'Error uploading file.');
+                console.log("ERROR");
+            } else {
+                req.flash('success', 'The image is successfully uploaded.');
+                console.log("kein ERROR")
+            }
+            console.log("nach if error" + req.file);
+            
+            newAkt._id = mongoose.Types.ObjectId();
+            newAkt._idErsteller = user._id;		 
+            newAkt.name = req.body.name;
+            newAkt.beschreibung = req.body.beschreibung;
+            newAkt.kbeschreibung = req.body.kurzbeschreibung;
+            newAkt.datum = req.body.datum;
+            newAkt.uhrzeit = req.body.uhrzeit;
+            newAkt.dauer = req.body.dauer;
+            newAkt.teilnehmer = req.body.teilnehmer;
+            newAkt.adresse.stadt = req.body.stadt;
+            newAkt.adresse.strasse = req.body.strasse;
+            newAkt.adresse.hausnr = req.body.hausnr;
+            newAkt.adresse.plz = req.body.plz;
+            newAkt.bild = req.file.filename;
+            
+            newAkt.save(function (err, doc) {
             if (err) {
                 // If it failed, return error
                 res.send("There was a problem adding the information to the database: " + err);
@@ -221,7 +274,11 @@
                 res.redirect("aktlist");
             }
         });
+        });
+        
     });		
+    
+
 	
 	 app.get('/machmit-:id', isLoggedIn, function(req, res) {		
 		var Activity = require('../models/activity');
@@ -265,7 +322,31 @@
         }); 	  		   
     });	
 	
-	
+	var multer  = require('multer');
+    app.get('/test', function(req, res){
+  res.render('test');
+});
+
+
+app.post('/test', function(req,res){
+	console.log(req.body); //form fields
+	/* example output:
+	{ title: 'abc' }
+	 */
+	console.log(req.file); //form files
+	/* example output:
+            { fieldname: 'upl',
+              originalname: 'grumpy.png',
+              encoding: '7bit',
+              mimetype: 'image/png',
+              destination: './uploads/',
+              filename: '436ec561793aa4dc475a88e84776b1b9',
+              path: 'uploads/436ec561793aa4dc475a88e84776b1b9',
+              size: 277056 }
+	 */
+	res.status(204).end();
+});
+
 	app.post('/update/:id', isLoggedIn,function(req, res) {
         // load up the activity model
         var Activity = require('../models/activity');

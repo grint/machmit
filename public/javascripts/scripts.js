@@ -88,6 +88,10 @@ $(document).ready(function(){
     uploadBtn.click(function (event) {
 		var formData = new FormData();
 		formData.append('bild', $('#bild').get(0).files[0]);
+        formData.append('oldname', $('#oldname').get(0).value);
+        formData.append('oldbild', $('#oldbild').get(0).value);
+        formData.append('aktid', $('#aktid').get(0).value);
+        formData.append('name', $('#inputName').get(0).value);
 		var request = $.ajax({
 			url: "/uploadBild",
 			method: "POST",

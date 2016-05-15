@@ -4,7 +4,7 @@ block content
    
 
     
-    form#formAddAktivi.form-horizontal(name="addaktivity", method="post", action="/addaktivity")
+    form#formAddAktivi.form-horizontal(name="addaktivity", method="post", enctype="multipart/form-data", action="/addactivity")
         .row.margin-bottom
             .col-xs-12.margin-bottom
                 h2 
@@ -79,7 +79,12 @@ block content
                 .form-group.margin-bottom
                     label.col-xs-12.margin-bottom(for='kurzbeschreibung') Kurzbeschreibung
                     .col-xs-12
-                        textarea#inputBeschreibung.form-control(placeholder="Kurzbeschreibung", name="kurzbeschreibung", rows="1")                                
+                        textarea#inputBeschreibung.form-control(placeholder="Kurzbeschreibung", name="kurzbeschreibung", rows="1")
+        .row
+            .col-xs-12
+                .form-group.margin-bottom
+                    label.col-xs-12.margin-bottom(for='bild') Bild
+                    input(type="file",name="bild")
                 
                 .form-group
                     .col-sm-offset-2.col-sm-10

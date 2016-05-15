@@ -71,8 +71,7 @@
 	        });
 	    });
     });
-    
-    
+
     
     
     var activitiesPhotosPath = 'public/images/activities/';
@@ -84,13 +83,13 @@
 		filename: function (req, file, cb) {
 			var originalname = file.originalname;
 			var extension = originalname.split(".");
-            console.log(req.akt);
-			var activityname = req.akt.name.replace(" ", "_").toLowerCase();
+			var activityname = req.body.name;
 			filename = activityname + "_" + Date.now() + '.' + extension[extension.length-1];
 			cb(null, filename);
 		}
 	});
 
+    
 	var uploadActivitiesPhotos = multer({
 		storage: activitiesPhotosStorage,
 		limits: {
@@ -109,10 +108,10 @@
 			cb(null, true);
 		}
 	}).single('bild'); // avatar - name of the file field in the form
-
-
+    
     app.post('/uploadBild', function(req, res) {
-
+    
+    console.log(req.body.name);
     	// load up the user model
         var Akt = require('../models/activity');
      
@@ -122,24 +121,26 @@
         	} else {
 	        	req.flash('success', 'The image is successfully uploaded.');
 	        }
-
+                    
+            console.log(req.body.oldname);
+            console.log(req.body.oldbild);
 	        // console.log(req.file);
 
 	        // Submit to DB
-	        Akt.findById(req.akt._id, function (err, akt) {
+	        Akt.findById(req.body.aktid, function (err, akt) {
 	            if (err) return handleError(err);
 
 	            // remove old avatar
-	            fs.unlink("./" + activitiesPhotosPath + req.akt.avatar, function(err){
+	            fs.unlink("./" + activitiesPhotosPath + req.body.oldbild, function(err){
 					if (err) throw err;
 				});
 
 	            // write new avatar to DB
-	            akt.avatar = req.file.filename;
+	            akt.bild = req.file.filename;
 
 	            akt.save(function (err) {
 	                if (err) return handleError(err);
-	                res.redirect("edit");
+	                res.redirect("edit/"+req.body.aktid);
 	            });
 	        });
 	    });

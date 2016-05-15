@@ -85,6 +85,7 @@ block content
                         input#inputBeschreibung.form-control(type="text", placeholder="Beschreibung", name="beschreibung", value="#{akt.beschreibung}")
         .row
             .col-xs-12
+            
                 .form-group.margin-bottom
                     label.col-xs-12.margin-bottom(for='beschreibung') Kurzbeschreibung
                     .col-xs-12
@@ -94,6 +95,9 @@ block content
                     label.col-sm-2.control-label(for="bild") Bild:
                     .col-sm-10
                         .input-group
+                            input#oldname(type= 'hidden' name='oldname' value="#{akt.name}")
+                            input#oldbild(type= 'hidden' name='oldbild' value="#{akt.bild}")
+                            input#aktid(type= 'hidden' name='aktid' value="#{akt._id}")
                             input.form-control#bild(type="file", multiple, name="bild")
                             span.input-group-btn
                                 .btn.btn-default#uploadBildBtn Hochladen
