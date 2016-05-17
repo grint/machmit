@@ -8,7 +8,10 @@ block content_full_width_top
 
 block content
 	.row
-		each akt in aktlist
+		each akt, i in aktlist
+			//- if i % 3 == 0
+			//- 	.row
+			
 			.col_1_of_3.span_1_of_3.homepage-activity
 				if akt.bild
 					-var image = "/public/images/activities/"+akt.bild

@@ -74,6 +74,7 @@ $(document).ready(function(){
         format: 'DD.MM.YYYY'
     });
 
+	// Dropdown timepicker
     $('.timepicker').datetimepicker({
         locale: 'de',
         format: 'LT',

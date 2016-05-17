@@ -282,7 +282,9 @@
             newAkt.adresse.strasse = req.body.strasse;
             newAkt.adresse.hausnr = req.body.hausnr;
             newAkt.adresse.plz = req.body.plz;
-            newAkt.bild = req.file.filename;
+            if(req.file) {
+                newAkt.bild = req.file.filename;
+            }
             
             newAkt.save(function (err, doc) {
             if (err) {
