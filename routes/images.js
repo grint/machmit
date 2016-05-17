@@ -3,6 +3,10 @@
 	var multer  = require('multer');
 	var fs  = require('fs');
 
+	
+    // =====================================
+    // AVATAR UPLOAD =======================
+    // =====================================
 	var userPhotosPath = 'public/images/uploads/profile/';
 
 	var userPhotosStorage = multer.diskStorage({
@@ -46,6 +50,7 @@
 	}).single('avatar'); // avatar - name of the file field in the form
 
 
+    // Post user avatar upload
     app.post('/uploadAvatar', function(req, res) {
 
     	// load up the user model
@@ -82,7 +87,9 @@
 	            }
 
 	            // write new avatar to DB
-	            user.avatar = req.file.filename;
+	            if(req.file) {
+	            	user.avatar = req.file.filename;
+	            }
 
 	            user.save(function (err) {
 	                if (err) return handleError(err);
@@ -92,8 +99,15 @@
 	    });
     });
 
-    
-    
+   
+
+
+
+
+    // =====================================
+    // ACTIVITY IMAGE UPLOAD ===============
+    // =====================================
+
     var activitiesPhotosPath = 'public/images/activities/';
 
 	var activitiesPhotosStorage = multer.diskStorage({
@@ -109,7 +123,6 @@
 		}
 	});
 
-    
 	var uploadActivitiesPhotos = multer({
 		storage: activitiesPhotosStorage,
 		limits: {
@@ -129,9 +142,10 @@
 		}
 	}).single('bild'); // avatar - name of the file field in the form
     
+
+    // Post activity image upload
     app.post('/uploadBild', function(req, res) {
     
-    console.log(req.body.name);
     	// load up the user model
         var Akt = require('../models/activity');
      
@@ -141,10 +155,6 @@
         	} else {
 	        	req.flash('success', 'The image is successfully uploaded.');
 	        }
-                    
-            console.log(req.body.oldname);
-            console.log(req.body.oldbild);
-	        // console.log(req.file);
 
 	        // Submit to DB
 	        Akt.findById(req.body.aktid, function (err, akt) {
