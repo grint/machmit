@@ -413,6 +413,7 @@
 
             // Get form values. 
             user.name = req.body.name;
+            user.local.username = req.body.username;
             user.city = req.body.city;
             user.address = req.body.address;
 
