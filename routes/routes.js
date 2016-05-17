@@ -41,9 +41,6 @@
         var Activity = require('../models/activity');
         var currentUser = req.session.passport.user;
         var today = moment(Date.now()).format('YYYY-MM-DD');
-		// console.log("-" + req.body.searchName + "-");
-		// console.log("-" + req.body.searchTime + "-");
-		// console.log("-" + req.body.searchDate + "-");
         
         // query db for all activities
         Activity.find( function ( err, items, count ) {
@@ -81,23 +78,19 @@
                 }
 
 				if (searchName) {
-					if (activityName.indexOf(searchName) !== 0) {
+                    console.log(activityName.indexOf(searchName));
+					if (activityName.indexOf(searchName) == -1) {
     					items[i].status = 'null';
-    					console.log("_name");
 				    }
 				}
 				if (searchDate) {
-                    // console.log(activityDate);
-                    // console.log(searchDate);
 					if (activityDate != searchDate) {
     					items[i].status = 'null';
-    					console.log("_date");
     				}
 				}
 				if (searchTime) {
-					if (activityTime.indexOf(searchTime) !== 0) {
+					if (activityTime.indexOf(searchTime) == -1) {
     					items[i].status = 'null';
-    					console.log("_time");
     				}
 				}
             }
@@ -220,7 +213,6 @@
             filename: function (req, file, cb) {
                 var originalname = file.originalname;
                 var extension = originalname.split(".");
-                console.log("name" + req.body.name);
                 var aktname = req.body.name.replace(" ", "_").toLowerCase();
                 filename = aktname + "_" + Date.now() + '.' + extension[extension.length-1];
                 cb(null, filename);
@@ -242,7 +234,6 @@
                     req.flash('error', 'Only image files are allowed!');
                     return cb(null, false, new Error('Only image files are allowed!'));
                 }
-                console.log("in multer" + file);
                 cb(null, true);
             }
         }).single('bild'); // avatar - name of the file field in the form
@@ -259,10 +250,9 @@
         uploadAktPhotos(req, res, function(err) {
             if(err) {
                 req.flash('error', 'Error uploading file.');
-                console.log("ERROR");
+                console.log("ERROR " + err);
             } else {
                 req.flash('success', 'The image is successfully uploaded.');
-                console.log("kein ERROR")
             }
             console.log("nach if error" + req.file);
             
@@ -304,7 +294,6 @@
 	    Activity.findById(req.params.id, function (err, activity) {            	
             if (err) {
 				console.log(err);
-				return handleError(err);
 			}
 				
 			//Id vom Teilnehmer wird für Aktivität in der Datenbank gespeichert
@@ -312,7 +301,6 @@
 			activity.save(function (err) {
                 if (err) {
 					console.log(err);
-					return handleError(err);
 				}
                 res.redirect("/aktlist");
             });
@@ -331,7 +319,6 @@
 
             // Format date to human-friendly
             activity.human_datum = moment(activity.datum).format('DD.MM.YYYY');
-            console.log(activity.human_datum);		
 			
             if(erstellerId === userId){
     			res.render( 'edit', {
@@ -357,7 +344,6 @@
         Activity.findById(req.params.id, function (err, activity) {
             if (err) console.log(err);	
 
-            // console.log(req.body.beschreibung);	
             // Get form values. 
 			activity.name = req.body.name;
             activity.beschreibung = req.body.beschreibung;
