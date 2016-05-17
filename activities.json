@@ -1,28 +1,6 @@
 [
   {
     "_id": {
-      "$oid": "0c19729de860ea507f191e81"
-    },
-    "_idErsteller": {
-      "$oid": "99f04760af8a405954acc68c"
-    },
-    "name": "Casino",
-    "kbeschreibung": "Am Samstag um 19 Uhr wollen wir in das Casino gehen.",
-    "beschreibung": "Am Samstag um 19 Uhr wollen wir in das Casino gehen.",
-    "datum": "Tue Mar 22 2016 20:00:00 GMT+0100 (CET)",
-    "uhrzeit": "20:00",
-    "dauer": "4 St.",
-    "teilnehmer": "5",
-    "bild": "casino.jpg",
-    "adresse": {
-      "stadt": "München",
-      "strasse": "Hauptstr.",
-      "hausnr": "23",
-      "plz": "69023"
-    }
-  },
-  {
-    "_id": {
       "$oid": "86cd799439011507f1f77bcf"
     },
     "_idErsteller": {
@@ -62,7 +40,13 @@
       "strasse": "Bahnhofstr.",
       "hausnr": "10",
       "plz": "70174"
-    }
+    },
+    "_idTeilnehmer": [
+      {
+        "$oid": "56f04760af8a305954acc68c"
+      }
+    ],
+    "__v": 1
   },
   {
     "_id": {
@@ -95,8 +79,10 @@
     },
     "name": "Mirage Show / Travestie und Sinatra Show",
     "kbeschreibung": "Lust auf einen bunten, unvergesslichen Abend mit vielen verschiedenen Künstlern? Eine Darbietung von Travestie Künstlern aus namhaften Variete Bühnen.",
-    "beschreibung": "<p>Lust auf einen bunten, unvergesslichen Abend mit vielen verschiedenen Künstlern? Eine Darbietung von Travestie Künstlern aus namhaften Variete Bühnen.</p><p>Tanja Silzer Events präsentiert die \"Mirage Show\" am Sonntag den[masked] im Club Rouhg Rockz Einlass ist ab 18.00 Uhr und Showbeginn um 19.00 Uhr.</p><p>Ticketpreise:</p><p>VIP Tickets gibt es nicht an der Abendkasse<br/>VIP Ticket: 29,90 inklusive VVK Gebühren<br/>Normale Tickets: 19,90 inklusive VVK Gebühren<br/>Abendkasse 25,00 Euro</p>",
-    "datum": "Sun Jul 17 2016 19:00:00 GMT+0200 (CEST)",
+    "beschreibung": "<p>Lust auf einen bunten, unvergesslichen Abend mit vielen verschiedenen Künstlern? Eine Darbietung von Travestie Künstlern aus namhaften Variete Bühnen.</p><p>Tanja Silzer Events präsentiert die \"Mirage Show\" am Sonntag im Club Rouhg Rockz Einlass ist ab 18.00 Uhr und Showbeginn um 19.00 Uhr.</p><p><b>Ticketpreise:</b></p><p></p><ul><li>VIP Tickets gibt es nicht an der Abendkasse<br></li><li>VIP Ticket: 29,90 inklusive VVK Gebühren<br></li><li>Normale Tickets: 19,90 inklusive VVK Gebühren<br></li><li>Abendkasse 25,00 Euro<br></li></ul><p></p>",
+    "datum": {
+      "$date": "2016-10-05T22:00:00.000Z"
+    },
     "uhrzeit": "19:00",
     "dauer": "ca. 3 Stunden",
     "teilnehmer": "2",
@@ -193,5 +179,27 @@
       "stadt": "qq"
     },
     "__v": 0
+  },
+  {
+    "_id": {
+      "$oid": "0c19729de860ea507f191e81"
+    },
+    "_idErsteller": {
+      "$oid": "99f04760af8a405954acc68c"
+    },
+    "name": "Casino",
+    "kbeschreibung": "Am Samstag um 19 Uhr wollen wir in das Casino gehen.",
+    "beschreibung": "Am Samstag um 19 Uhr wollen wir in das Casino gehen.",
+    "datum": "Tue Mar 22 2016 20:00:00 GMT+0100 (CET)",
+    "uhrzeit": "20:00",
+    "dauer": "4 St.",
+    "teilnehmer": "5",
+    "bild": "casino.jpg",
+    "adresse": {
+      "stadt": "München",
+      "strasse": "Hauptstr.",
+      "hausnr": "23",
+      "plz": "69023"
+    }
   }
 ]

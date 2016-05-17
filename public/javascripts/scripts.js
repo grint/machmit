@@ -15,6 +15,8 @@ function isPastOrFuture(firstDate, secondDate) {
 }
 
 function timeToFrom(firstDate, secondDate) {
+	moment.locale("de");
+
 	var firstDateParts = firstDate.split('-');
 	var secondDateParts = secondDate.split('-');
 

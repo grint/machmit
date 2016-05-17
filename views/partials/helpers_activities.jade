@@ -131,10 +131,11 @@ mixin oneActivity(akt, status, pageType)
 						span.persons.label.label-default
 							i.fa.fa-users
 							|  #{akt.teilnehmer} 
-			if akt.kbeschreibung
+			
+			if akt.beschreibung
+				p !{akt.beschreibung}
+			else if akt.kbeschreibung
 				p #{akt.kbeschreibung}
-			else
-				p !{akt.beschreibung.replace(/(<([^>]+)>)/ig,"").substring(0, 200)}
 
 		.m_desc1
 			h4
