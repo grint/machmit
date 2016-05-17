@@ -3,7 +3,7 @@ var mongoose = require( 'mongoose' );
 
 // Build the connection string 
 // var dbURI = 'mongodb://localhost/machmit';
-var dbURI = 'mongodb://grint:1a2s3d4fGrint@afternoon-peak-99251.herokuapp.com/';
+var dbURI = 'mongodb://root:root@ds023902.mlab.com:23902/heroku_48lq82jn';
 
 // Create the database connection 
 mongoose.connect(dbURI); 
