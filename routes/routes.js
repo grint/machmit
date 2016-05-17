@@ -1,6 +1,9 @@
  module.exports = function(app, passport) {
 
     var moment = require('moment');
+    var multer  = require('multer');
+
+    require('./images')(app);
 
     // =====================================
     // HOME PAGE (with login links) ========
@@ -9,7 +12,7 @@
         // load up the activity model
         var Activity = require('../models/activity');
         var currentUser = req.session.passport.user;
-        var today = moment(Date.now()).format('YYYY-MM-DD');;
+        var today = moment(Date.now()).format('YYYY-MM-DD');
 
         // query db for all activities
         Activity.find( function ( err, items, count ) {
@@ -145,8 +148,6 @@
                 }
             }
 
-            
-
             res.render( 'aktlist', {
                 title : 'Aktivitäten',
                 menu: 'aktlist',
@@ -158,9 +159,6 @@
         })
     });
 	
-    require('./activities')(app);
-
-    require('./images')(app);
 
 
     /* GET One Activity page. */
@@ -192,12 +190,13 @@
 
 
 
-	/* GET New Aktivitaet page. */
+	/* GET New Activity page. */
     app.get('/newaktivity',isLoggedIn, function(req, res) {
         res.render('newaktivity', { 
             title: 'Neue Aktivität erstellen',
             isAuthenticated: req.isAuthenticated(),
             menu: 'newaktivity',
+            headerStyle: 'small',
 			message: req.flash('loginMessage')
         });
     });
@@ -257,9 +256,7 @@
 
         // Get our form values. These rely on the "name" attributes
 		  
-		 
-
-        uploadAktPhotos(req,res,function(err) {
+        uploadAktPhotos(req, res, function(err) {
             if(err) {
                 req.flash('error', 'Error uploading file.');
                 console.log("ERROR");
@@ -287,22 +284,21 @@
             }
             
             newAkt.save(function (err, doc) {
-            if (err) {
-                // If it failed, return error
-                res.send("There was a problem adding the information to the database: " + err);
-            }
-            else {
-                // And forward to success page
-                res.redirect("aktlist");
-            }
-        });
+                if (err) {
+                    // If it failed, return error
+                    res.send("There was a problem adding the information to the database: " + err);
+                }
+                else {
+                    // And forward to success page
+                    res.redirect("aktlist");
+                }
+            });
         });
         
     });		
     
 
-	
-	 app.get('/machmit-:id', isLoggedIn, function(req, res) {		
+	app.get('/machmit-:id', isLoggedIn, function(req, res) {		
 		var Activity = require('../models/activity');
 	    var user = req.user;           		 
 	    Activity.findById(req.params.id, function (err, activity) {            	
@@ -327,15 +323,23 @@
 		var Activity = require('../models/activity');
 	    var user = req.user;           		 
 	    Activity.findById(req.params.id, function (err, activity) {            	
-            if (err) return handleError(err);
+            if (err) console.log(err);
+
 			//Es wird geprüft, dass die Aktivität nur von ihrem Besitzer bearbeitet wird
 			var erstellerId = activity._idErsteller.toString();			
-			var userId = user._id.toString();				
-			if(erstellerId === userId){
+			var userId = user._id.toString();
+
+            // Format date to human-friendly
+            activity.human_datum = moment(activity.datum).format('DD.MM.YYYY');
+            console.log(activity.human_datum);		
+			
+            if(erstellerId === userId){
     			res.render( 'edit', {
                     title : 'Edit Aktivität',
                     menu: 'editaktivity',
 					message: req.flash('loginMessage'),
+                    headerStyle: 'small',
+                    isAuthenticated: req.isAuthenticated(),
                     akt : activity
                 });		 
 			}
@@ -344,43 +348,25 @@
         }); 	  		   
     });	
 	
-	var multer  = require('multer');
-    app.get('/test', function(req, res){
-  res.render('test');
-});
+	
 
-
-app.post('/test', function(req,res){
-	console.log(req.body); //form fields
-	/* example output:
-	{ title: 'abc' }
-	 */
-	console.log(req.file); //form files
-	/* example output:
-            { fieldname: 'upl',
-              originalname: 'grumpy.png',
-              encoding: '7bit',
-              mimetype: 'image/png',
-              destination: './uploads/',
-              filename: '436ec561793aa4dc475a88e84776b1b9',
-              path: 'uploads/436ec561793aa4dc475a88e84776b1b9',
-              size: 277056 }
-	 */
-	res.status(204).end();
-});
-
-	app.post('/update/:id', isLoggedIn,function(req, res) {
+	app.post('/update/:id', isLoggedIn, function(req, res) {
         // load up the activity model
         var Activity = require('../models/activity');
 		// Submit to DB
         Activity.findById(req.params.id, function (err, activity) {
-            if (err) return handleError(err);		
+            if (err) console.log(err);	
+
+            // console.log(req.body.beschreibung);	
             // Get form values. 
 			activity.name = req.body.name;
             activity.beschreibung = req.body.beschreibung;
             activity.kbeschreibung = req.body.kurzbeschreibung;
-			activity.datum = req.body.datum;			
-		    activity.uhrzeit = req.body.uhrzeit;
+			
+            moment.locale("de");
+            activity.datum = moment(req.body.datum, "DD.MM.YYYY").toISOString();
+		    
+            activity.uhrzeit = req.body.uhrzeit;
 			activity.dauer = req.body.dauer;
 			activity.teilnehmer = req.body.teilnehmer;
 			activity.adresse.stadt = req.body.stadt;
@@ -389,12 +375,13 @@ app.post('/test', function(req,res){
 			activity.adresse.plz = req.body.plz;
 
             activity.save(function (err) {
-                if (err) return handleError(err);
+                if (err) console.log(err);  
                 res.redirect("/aktlist");
             });
         });
     });	
     
+
 
     // =====================================
     // PROFILE SECTION =====================
@@ -408,15 +395,36 @@ app.post('/test', function(req,res){
             isAuthenticated: req.isAuthenticated(),
             success_messages: req.flash('success'),
             error_messages: req.flash('success'),
+            headerStyle: 'small',
             menu: 'profile',
         });
     });
 
+    /* POST to update profile */
+    app.post('/updateprofile', function(req, res) {
 
-    // =====================================
-    // Profile Form =====================
-    // =====================================
-    require('./profile')(app);
+        // load up the activity model
+        var User = require('../models/user');
+     
+
+        // Submit to DB
+        User.findById(req.user._id, function (err, user) {
+            if (err) console.log(err);
+
+            // Get form values. 
+            user.name = req.body.name;
+            user.city = req.body.city;
+            user.address = req.body.address;
+
+            user.save(function (err) {
+                if (err) return handleError(err);
+                res.redirect("profile");
+            });
+        });
+    });
+
+
+
 
 
     // =====================================
@@ -434,18 +442,6 @@ app.post('/test', function(req,res){
 
 	// locally --------------------------------
 
-    // =====================================
-    // LOGIN ===============================
-    // =====================================
-    // show the login form
-    // app.get('/login', function(req, res) {
-    //     // render the page and pass in any flash data if it exists
-    //     res.render('login', { 
-    //         message: req.flash('loginMessage'),
-    //         menu: 'login'
-    //     }); 
-    // });
-
     // process the login form
     app.post('/login', passport.authenticate('local-login', {
         successRedirect : 'back', // redirect back to the previous page
@@ -453,18 +449,6 @@ app.post('/test', function(req,res){
         failureFlash : true // allow flash messages
     }));
 
-
-    // =====================================
-    // SIGNUP ==============================
-    // =====================================
-    // show the signup form
-    // app.get('/signup', function(req, res) {
-    //     // render the page and pass in any flash data if it exists
-    //     res.render('signup', { 
-    //         message: req.flash('signupMessage'),
-    //         menu: 'signup'
-    //     });
-    // });
 
      // process the signup form
     app.post('/signup', passport.authenticate('local-signup', {

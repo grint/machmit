@@ -7,7 +7,6 @@ var Aktivity = require('./activity'); //see ref
 // define the schema for our user model
 var userSchema = mongoose.Schema({
     aktivitis        :[{ type: mongoose.Schema.Types.ObjectId, ref: 'Aktivity' }],
-    username:        String,
     name:            String,
     city:            String,
     address:         String,
@@ -15,6 +14,7 @@ var userSchema = mongoose.Schema({
     local            : {
         email        : String,
         password     : String,
+        username:        String,
     },
     facebook         : {
         id           : String,

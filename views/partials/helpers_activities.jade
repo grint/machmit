@@ -179,3 +179,113 @@ mixin oneActivity(akt, status, pageType)
 					span.text-success.margin-right-sm.i-am-attendee
 							i.fa.fa-info
 							|  Meine
+
+
+
+mixin activityForm(pageType, akt)
+	if pageType == "edit"
+		.row.text-center.margin-bottom
+			.col-xs-12
+				if akt.bild
+					img#aktImage.img-thumbnail(src="/public/images/activities/#{akt.bild}", width="200px")
+				else
+					img#aktImage.img-thumbnail(src="/public/images/activities/default.jpg", width="200px")
+
+	.row.margin-bottom
+		.col-xs-12.col-sm-6
+			.form-group.required
+				label.col-sm-3.control-label.text-left.margin-bottom(for='name') Name: 
+				.col-sm-9
+					input#inputName.form-control(type="text", placeholder="Name", name="name", value=pageType=='edit'? akt.name:'', required)
+	
+	.row.margin-bottom
+		.col-xs-12.col-sm-6
+			.form-group
+				label.col-sm-3.control-label.text-left.margin-bottom(for='bild') Bild
+				.col-sm-9
+					.input-group
+						if pageType == "edit"
+							input#oldname(type= 'hidden' name='oldname' value="#{akt.name}")
+							input#oldbild(type= 'hidden' name='oldbild' value="#{akt.bild}")
+							input#aktid(type= 'hidden' name='aktid' value="#{akt._id}")
+						input.form-control#bild(type="file", multiple, name="bild")
+						span.input-group-btn
+							.btn.btn-default#uploadBildBtn Hochladen
+
+
+	.row.margin-bottom
+		.col-sm-6
+			.row
+				.col-sm-6
+					.form-group.required
+						label.col-sm-3.control-label.text-left(for='stadt') Stadt
+						.col-sm-9
+							input#inputStadt.form-control(type="text", placeholder="Stadt", name="stadt", value=pageType=='edit'?akt.adresse.stadt:'', required)
+				.col-sm-6
+					.form-group
+						label.col-sm-4.control-label.text-left(for='plz') PLZ
+						.col-sm-8
+							input#inputPlz.form-control(type="number", placeholder="PLZ", name="plz", value=pageType=='edit'?akt.adresse.plz:'') 
+
+		.col-sm-6
+			.row
+				.col-sm-6
+					.form-group.required
+						label.col-sm-3.control-label.text-left(for='datum') Datum
+						.col-sm-9
+							input#inputDatum.form-control.date.datepicker(type="text", placeholder="dd.mm.yyyy", name="datum", value=pageType=='edit'?akt.human_datum:'', required)
+				.col-sm-6
+					.form-group.required
+						label.col-sm-4.control-label.text-left(for='uhrzeit') Uhrzeit
+						.col-sm-8
+							input#inputUhrzeit.form-control.time.timepicker(type="text", placeholder="HH:MM", name="uhrzeit", value=pageType=='edit'?akt.uhrzeit:'', required)				
+
+	.row.margin-bottom
+		.col-sm-6
+			.row
+				.col-sm-6
+					.form-group.required
+						label.col-sm-3.control-label.text-left(for='strasse') Straße
+						.col-sm-9
+							input#inputStrasse.form-control(type="text", placeholder="Straße", name="strasse", value=pageType=='edit'?akt.adresse.strasse:'', required)
+				.col-sm-6
+					.form-group
+						label.col-sm-4.control-label.text-left(for='hausnr') Haus Nr.
+						.col-sm-8
+							input#inputHausnr.form-control(type="text", placeholder="Haus Nr.", name="hausnr", value=pageType=='edit'?akt.adresse.hausnr:'')
+		.col-sm-6 
+			.row
+				.col-sm-6
+					.form-group
+						label.col-sm-3.control-label.text-left(for='dauer') Dauer
+						.col-sm-9
+							input#inputDauer.form-control(type="text", placeholder="Dauer", name="dauer", value=pageType=='edit'?akt.dauer:'')
+
+				.col-sm-6
+					.form-group.required
+						label.col-sm-4.control-label.text-left(for='teilnehmer') Teilnehmer
+						.col-sm-8
+							input#inputTeilnehmer.form-control(type="number", min="1", max="999", placeholder="Anzahl Teilnehmer", name="teilnehmer", value=pageType=='edit'?akt.teilnehmer:'', required)
+
+	.row
+		.col-xs-12
+			.form-group.margin-bottom
+				label.col-xs-12.margin-bottom(for='beschreibung') Beschreibung
+				.col-xs-12
+					textarea#inputBeschreibung.wysiwyg.form-control(placeholder="Beschreibung", name="beschreibung", rows="10")
+						if pageType=='edit'
+							| #{akt.beschreibung}
+	.row
+		.col-xs-12
+			.form-group.margin-bottom
+				label.col-xs-12.margin-bottom(for='kurzbeschreibung') Kurzbeschreibung
+				.col-xs-12
+					textarea#inputBeschreibung.form-control(placeholder="Kurzbeschreibung (max. 200)", name="kurzbeschreibung", rows="2", maxlength="200")
+						if pageType=='edit'
+							| #{akt.kbeschreibung}
+	
+	.row
+		.col-xs-12
+			.form-group
+				.col-sm-offset-2.col-sm-10
+					button#btnSubmit.btn.btn-primary.btn-lg.pull-right(type="submit") Speichern

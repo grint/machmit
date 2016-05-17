@@ -38,6 +38,17 @@ function fancyboxInline(el) {
 	});
 }
 
+function initWysiwyg() {
+	$('.wysiwyg').wysihtml5({
+		locale: "de-DE",
+		toolbar: {
+			"image": false,
+			"blockquote": false,
+			"color": false
+		}
+	});
+}
+
 $(document).ready(function(){
 	moment.locale("de");
 

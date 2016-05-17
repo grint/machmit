@@ -10,6 +10,7 @@ html
 		link(rel='stylesheet', href='/public/stylesheets/steam-web.css')
 		link(rel='stylesheet', href='/public/javascripts/fancybox/jquery.fancybox.css')
 		link(rel='stylesheet', href='/public/stylesheets/bootstrap-datetimepicker.min.css')
+		block header-css
 		link(rel='stylesheet', href='/public/stylesheets/style.css')
 
 		link(href='http://fonts.googleapis.com/css?family=Montserrat', rel='stylesheet', type='text/css')
@@ -43,14 +44,15 @@ html
 							a.fancybox-inline(href='#login-form') Login / Signup
 					.clear
 				.clear
-				h2.head
-					| Finden Sie 
-					span.m_1 die nächste Aktivität
-					| ,
-					br
-					|  an der Sie 
-					span.m_1 teilnehmen
-					|  möchten.
+				if headerStyle !== 'small'
+					h2.head
+						| Finden Sie 
+						span.m_1 die nächste Aktivität
+						| ,
+						br
+						|  an der Sie 
+						span.m_1 teilnehmen
+						|  möchten.
 			
 		.main
 			include ../helpers/functions.jade
@@ -99,10 +101,10 @@ html
 				form.form-inline(action='/login', method='post')
 					.form-group.margin-right
 						label.margin-right Email
-						input.form-control(type='text', name='email')
+						input.form-control(type='text', name='email', required)
 					.form-group.margin-right
 						label.margin-right Password
-						input.form-control(type='password', name='password')
+						input.form-control(type='password', name='password', required)
 					.form-group
 						button.btn.btn-warning(type='submit') Login
 				
@@ -121,11 +123,14 @@ html
 
 				form.form-inline(action='/signup', method='post')
 					.form-group.margin-right
+						label.margin-right Username
+						input.form-control(type='text', name='username', required)
+					.form-group.margin-right
 						label.margin-right Email
-						input.form-control(type='text', name='email')
+						input.form-control(type='text', name='email', required)
 					.form-group.margin-right
 						label.margin-right Password
-						input.form-control(type='password', name='password')
+						input.form-control(type='password', name='password', required)
 					.form-group
 						button.btn.btn-warning(type='submit') Signup
 				
@@ -160,6 +165,7 @@ html
 		script(src="/public/javascripts/jquery.form.min.js")
 		script(src="/public/javascripts/jquery.inputmask.bundle.js")
 		script(src="/public/javascripts/bootstrap-datetimepicker.min.js")
+		block footer-scripts
 		script(src='/public/javascripts/scripts.js')
 
-		block footer-scripts
+		

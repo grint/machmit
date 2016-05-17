@@ -137,3 +137,7 @@
 .btn-sm {
 	font-size: 90%;
 }
+
+.required input {
+	border-top: 3px solid #EB1222;
+}

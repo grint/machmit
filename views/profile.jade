@@ -19,19 +19,28 @@ block content
 					| #{error_messages}
 
 	.row
-		.col-xs-12
+		.col-xs-12.text-center.margin-bottom
 			if user.avatar
-				img#userImage(src="/public/images/uploads/profile/#{user.avatar}", width="200px")
+				img#userImage.img-thumbnail(src="/public/images/uploads/profile/#{user.avatar}", width="200px")
 			else
-				img#userImage(src="/public/images/no-photo.png", width="200px")
+				img#userImage.img-thumbnail(src="/public/images/no-photo.png", width="200px")
 	.row
+		-var userName = user.name || ''
+		-var userUsername = user.local.username || ''
+		-var userCity = user.city || ''
+		-var userAddress = user.address || ''
+
 		form#formUpdateProfile.form-horizontal(name="updateprofile", method="post", action="/updateprofile")
-			.row
+			.row					
 				.col-sm-6
+					.form-group.required
+						label.col-sm-2.control-label(for='username') Username
+						.col-sm-10
+							input.form-control#username(type="text", placeholder='Username', value="#{userUsername}", name="username", required)
 					.form-group
 						label.col-sm-2.control-label(for='name') Name
 						.col-sm-10
-							input.form-control#name(type="text", placeholder='Name', value="#{user.name}", name="name")
+							input.form-control#name(type="text", placeholder='Name', value="#{userName}", name="name")
 					
 				.col-sm-6
 					.form-group
@@ -39,14 +48,14 @@ block content
 						.col-sm-10
 							.row
 								.col-xs-6
-									input.form-control#city(type="text", placeholder='Stadt', value="#{user.city}", name="city")
+									input.form-control#city(type="text", placeholder='Stadt', value="#{userCity}", name="city")
 								.col-xs-6
-									input.form-control#address(type="text", placeholder='Adresse', value="#{user.address}", name="address")
+									input.form-control#address(type="text", placeholder='Adresse', value="#{userAddress}", name="address")
 			.row
 				.col-sm-6
 
 					.form-group
-						label.col-sm-2.control-label(for="avatar") Userbild:
+						label.col-sm-2.control-label(for="avatar") Userbild
 						.col-sm-10
 							.input-group
 								input.form-control#avatar(type="file", multiple, name="avatar")
@@ -68,17 +77,11 @@ block content
 					|  Local
 				if user.local.email
 					p
-						strong id
-						| : #{user._id}
-						br
-						strong email
+						strong E-Mail
 						| : #{user.local.email}
-						br
-						strong password
-						| : #{user.local.password}
 					a.btn.btn-default(href="/unlink/local") Unlink
 				else
-					a.btn.btn-default(href="/connect/local") Connect Local
+					a.btn.btn-default(href="/connect/local") Local verbinden
 
 		.col-sm-6
 			.well
@@ -87,20 +90,14 @@ block content
 					|  Facebook
 				if user.facebook.token
 					p
-						strong id
-						| : #{user.facebook.id}
-						br
-						strong token
-						| : #{user.facebook.token}
-						br
-						strong email
+						strong E-Mail
 						| : #{user.facebook.email}
 						br
-						strong name
+						strong Name
 						| : #{user.facebook.name}
 					a.btn.btn-default(href="/unlink/facebook") Unlink
 				else
-					a.btn.btn-default(href="/connect/facebook") Connect Facebook
+					a.btn.btn-default(href="/connect/facebook") Facebook verbinden
 
 
 	.row
@@ -111,20 +108,11 @@ block content
 					|  Twitter
 				if user.twitter.token
 					p
-						strong id
-						| : #{user.twitter.id}
-						br
-						strong token
-						| : #{user.twitter.token}
-						br
-						strong username
+						strong Username
 						| : #{user.twitter.username}
-						br
-						strong displayName
-						| : #{user.twitter.displayName}
 					a.btn.btn-default(href="/unlink/twitter") Unlink
 				else
-					a.btn.btn-default(href="/connect/twitter") Connect Twitter
+					a.btn.btn-default(href="/connect/twitter") Twitter verbinden
 
 		.col-sm-6
 			.well
@@ -133,19 +121,13 @@ block content
 					|  Google
 				if user.google.token
 					p
-						strong id
-						| : #{user.google.id}
-						br
-						strong token
-						| : #{user.google.token}
-						br
-						strong email
+						strong E-Mail
 						| : #{user.google.email}
 						br
-						strong name
+						strong Name
 						| : #{user.google.name}
 					a.btn.btn-default(href="/unlink/google") Unlink
 				else
-					a.btn.btn-default(href="/connect/google") Connect Google
+					a.btn.btn-default(href="/connect/google") Google verbinden
 
 

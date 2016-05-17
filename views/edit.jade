@@ -1,107 +1,24 @@
 extends layout
 
+block header-css
+    link(rel='stylesheet', href='/public/stylesheets/bootstrap3-wysihtml5.min.css')
+
 block content
     include ../helpers/functions
-   
+    include partials/helpers_activities.jade
 
+    .row
+        .col-xs-12
+            h2.head1 #{akt.name}
     
     form#formAddAktivi.form-horizontal(name="updateAkt", method="post", action="/update/#{akt._id}")
-        
-        .row
-            .col-xs-12
-                if akt.bild
-                    img#aktImage(src="/public/images/activities/#{akt.bild}", width="200px")
-                else
-                    img#aktImage(src="/public/images/activities/default.jpg", width="200px")
-
-        .row.margin-bottom
-            .col-xs-12.margin-bottom
-                h2 
-                    .pull-left.margin-right Edit Aktivität: 
-                    .pull-left 
-                        input#inputName.form-control(type="text", placeholder="Name", name="name", value="#{akt.name}")
-        
-        .row.margin-bottom
-            .col-sm-6
-                .row
-                    .col-sm-6
-                        .form-group
-                            label.col-sm-3.control-label.text-left(for='stadt') Stadt
-                            .col-sm-9
-                                input#inputStadt.form-control(type="text", placeholder="Stadt", name="stadt", value="#{akt.adresse.stadt}")
-                    .col-sm-6
-                        .form-group
-                            label.col-sm-4.control-label.text-left(for='plz') PLZ
-                            .col-sm-8
-                                input#inputPlz.form-control(type="number", placeholder="PLZ", name="plz", value="#{akt.adresse.plz}") 
-
-            .col-sm-6
-                .row
-                    .col-sm-6
-                        .form-group
-                            label.col-sm-3.control-label.text-left(for='datum') Datum
-                            .col-sm-9
-                                input#inputDatum.form-control(type="text", placeholder="Datum", name="datum", value="#{prettyDate(akt.datum)}")
-                    .col-sm-6
-                        .form-group
-                            label.col-sm-4.control-label.text-left(for='uhrzeit') Uhrzeit
-                            .col-sm-8
-                                input#inputUhrzeit.form-control(type="time", placeholder="Uhrzeit", name="uhrzeit", value="#{akt.uhrzeit}")                
+        +activityForm("edit", akt)
 
 
-
-        .row.margin-bottom
-            .col-sm-6
-                .row
-                    .col-sm-6
-                        .form-group
-                            label.col-sm-3.control-label.text-left(for='strasse') Straße
-                            .col-sm-9
-                                input#inputStrasse.form-control(type="text", placeholder="Straße", name="strasse", value="#{akt.adresse.strasse}")
-                    .col-sm-6
-                        .form-group
-                            label.col-sm-4.control-label.text-left(for='hausnr') Haus Nr.
-                            .col-sm-8
-                                input#inputHausnr.form-control(type="text", placeholder="Haus Nr.", name="hausnr", value="#{akt.adresse.hausnr}")
-            .col-sm-6 
-                .row
-                    .col-sm-6
-                        .form-group
-                            label.col-sm-3.control-label.text-left(for='dauer') Dauer
-                            .col-sm-9
-                                input#inputDauer.form-control(type="text", placeholder="Dauer", name="dauer", value="#{akt.dauer}")
-
-                    .col-sm-6
-                        .form-group
-                            label.col-sm-4.control-label.text-left(for='teilnehmer') Teilnehmer
-                            .col-sm-8
-                                input#inputTeilnehmer.form-control(type="number", placeholder="Anzahl Teilnehmer", name="teilnehmer", value="#{akt.teilnehmer}")
-
-        .row
-            .col-xs-12
-                .form-group.margin-bottom
-                    label.col-xs-12.margin-bottom(for='beschreibung') Beschreibung
-                    .col-xs-12
-                        input#inputBeschreibung.form-control(type="text", placeholder="Beschreibung", name="beschreibung", value="#{akt.beschreibung}")
-        .row
-            .col-xs-12
-            
-                .form-group.margin-bottom
-                    label.col-xs-12.margin-bottom(for='beschreibung') Kurzbeschreibung
-                    .col-xs-12
-                        input#inputBeschreibung.form-control(type="text", placeholder="Kurzbeschreibung", name="kurzbeschreibung", value="#{akt.kbeschreibung}")                
-
-                .form-group
-                    label.col-sm-2.control-label(for="bild") Bild:
-                    .col-sm-10
-                        .input-group
-                            input#oldname(type= 'hidden' name='oldname' value="#{akt.name}")
-                            input#oldbild(type= 'hidden' name='oldbild' value="#{akt.bild}")
-                            input#aktid(type= 'hidden' name='aktid' value="#{akt._id}")
-                            input.form-control#bild(type="file", multiple, name="bild")
-                            span.input-group-btn
-                                .btn.btn-default#uploadBildBtn Hochladen
-                
-                .form-group
-                    .col-sm-offset-2.col-sm-10
-                        button#btnSubmit.btn.btn-primary.btn-lg.pull-right(type="submit") Speichern
+block footer-scripts
+    script(src='/public/javascripts/bootstrap3-wysihtml5.all.min.js')
+    script(src='/public/javascripts/bootstrap-wysihtml5.de-DE.js')
+    script.
+        $(document).ready(function(){
+            initWysiwyg();
+        });

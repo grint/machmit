@@ -12,7 +12,15 @@
 		filename: function (req, file, cb) {
 			var originalname = file.originalname;
 			var extension = originalname.split(".");
-			var username = req.user.name.replace(" ", "_").toLowerCase();
+			
+			var username = '';
+			if(req.user.local.username) {
+				var username = req.user.local.username.replace(" ", "_").toLowerCase();
+			}
+			else if(req.user.name) {
+				var username = req.user.name.replace(" ", "_").toLowerCase();
+			}
+			
 			filename = username + "_" + Date.now() + '.' + extension[extension.length-1];
 			cb(null, filename);
 		}
@@ -55,11 +63,23 @@
 	        // Submit to DB
 	        User.findById(req.user._id, function (err, user) {
 	            if (err) return handleError(err);
-
-	            // remove old avatar
-	            fs.unlink("./" + userPhotosPath + req.user.avatar, function(err){
-					if (err) throw err;
-				});
+	            
+				// remove old image
+	            if(req.user.avatar) {
+		            var oldBild = "./" + userPhotosPath + req.user.avatar;
+		            fs.stat(oldBild, function(err, stat) {
+						if(err == null) {
+							// File exists
+							fs.unlink(oldAvatar, function(err){
+								if (err) throw err;
+							});
+						} else if(err.code == 'ENOENT') {
+							// file does not exist
+						} else {
+							console.log('Some other error: ', err.code);
+						}
+					});
+	            }
 
 	            // write new avatar to DB
 	            user.avatar = req.file.filename;
@@ -130,10 +150,22 @@
 	        Akt.findById(req.body.aktid, function (err, akt) {
 	            if (err) return handleError(err);
 
-	            // remove old avatar
-	            fs.unlink("./" + activitiesPhotosPath + req.body.oldbild, function(err){
-					if (err) throw err;
-				});
+	            // remove old image
+	            if(req.body.oldbild) {
+		            var oldBild = "./" + activitiesPhotosPath + req.body.oldbild;
+		            fs.stat(oldBild, function(err, stat) {
+						if(err == null) {
+							// File exists
+							fs.unlink(oldAvatar, function(err){
+								if (err) throw err;
+							});
+						} else if(err.code == 'ENOENT') {
+							// file does not exist
+						} else {
+							console.log('Some other error: ', err.code);
+						}
+					});
+	            }
 
 	            // write new avatar to DB
 	            akt.bild = req.file.filename;
