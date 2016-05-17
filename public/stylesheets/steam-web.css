@@ -40,6 +40,7 @@ body{
 .wrap{
 	width:80%;
 	margin:0 auto;
+	padding: 20px 0;
 	-moz-transition:all .2s linear;
 	-webkit-transition:all .2s linear; 
 	-o-transition:all .2s linear; 
@@ -292,8 +293,11 @@ span.m_1{
 }
 /*--content--*/
 .content-box{
-	padding: 10px 0 0 0;
+	padding: 20px 0;
 	background:#fff;
+}
+.content-box .wrap {
+	padding: 0;
 }
 ul.events{
 	float:left;
@@ -382,7 +386,7 @@ ul.events li {
 }
 .main{
 	background:#f4f4f4;
-	padding:3% 0;
+	// padding:3% 0;
 }
 /*  GRID OF THREE   ============================================================================= */
 .col_1_of_3{
@@ -458,7 +462,7 @@ p.middle{
 	text-align:center;
 	line-height:0;
 }
-.span_1_of_3  h3 a{
+.homepage-activity  h3 a{
 	color:#444;
 	margin-bottom:0.5em;
 	font-size:1.4em;
@@ -529,11 +533,17 @@ h5.m_3{
 .span_1_of_2 {
 	width: 40.6%;
 	padding: 4.5%;
+	box-sizing: content-box;
 }
+.span_1_of_2 li .img,
 .span_1_of_2 li img{
 	width: 23.1%;
 	margin-right: 11.6%;
 	float: left;
+}
+
+.span_1_of_2 li .img i {
+	font-size: 30px;
 }
 .m_desc{
 	float:left;
@@ -544,9 +554,9 @@ span.m_2{
 	font-size:2em;
 }
 span.m_3{
-	color:#999;
-	font-size:0.95em;
-	text-transform:uppercase;
+	color:#666;
+	// font-size:0.95em;
+	// text-transform:uppercase;
 }
 /*--footer--*/
 .footer{

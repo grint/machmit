@@ -64,8 +64,23 @@ $(document).ready(function(){
 		return false;
 	});
 
+	// Add inputmask to date and time fields
+	$(".date").inputmask("d.m.y", { "placeholder": "dd.mm.yyyy" });
+	$(".time").inputmask("hh:mm", { "placeholder": "HH:MM" });
 
-	// Hnade user image upload with ajax
+	// Dropdown datepicker
+	$('.datepicker').datetimepicker({
+        locale: 'de',
+        format: 'DD.MM.YYYY'
+    });
+
+    $('.timepicker').datetimepicker({
+        locale: 'de',
+        format: 'LT',
+        stepping: "5"
+    });
+
+	// user image upload with ajax
     var uploadBtn = $('#uploadImageBtn'); 
     uploadBtn.click(function (event) {
 		var formData = new FormData();

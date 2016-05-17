@@ -4,11 +4,11 @@ block content_full_width_top
 	include partials/helpers_activities.jade
 	.content-box
 		.wrap
-			+searchForm()
+			+searchForm(searchParams)
 
 block content
 	include partials/helpers_activities.jade
 
 	section.activities#activities
-		+events(aktlist)
+		+events(aktlist, "search")
 		.clear

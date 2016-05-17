@@ -1,6 +1,11 @@
 extends layout
 
 block content
+    if akt._idErsteller && akt._idErsteller.avatar
+        -var authorImage = "/public/images/uploads/profile/" + akt._idErsteller.avatar
+    else 
+        -var authorImage = "/public/images/no-photo.png"
+
     .row
         .col-xs-12
             h2.head1 #{akt.name}
@@ -14,12 +19,13 @@ block content
             img.activity-image(src="#{image}", alt="#{akt.name}")
 
             .eventDetailsInfoBox.organisator
-                h3 Organisator: 
-                .media
-                    .media-left
-                        img.media-object(src='/public/images/no-photo.png', width='50px')
-                    .media-body
-                        h4.media-heading #{akt._idErsteller.name}
+                if akt._idErsteller
+                    h3 Organisator: 
+                    .media
+                        .media-left
+                            img.media-object(src='#{authorImage}', width='50px')
+                        .media-body
+                            h4.media-heading #{akt._idErsteller.name}
         
 
         .col-xs-12.col-sm-6.col-md-6
@@ -44,24 +50,26 @@ block content
 
         .col-xs-12.col-sm-3.col-md-3
             .eventDetailsInfoBox.attendee-status
-                if isAuthenticated  && akt._idErsteller._id != currentUser
-                    if !akt.isAttendee && parseInt(leftPlaces) > 0
-                        p 
-                            i.fa.fa-question
-                            | Machst du mit?
-                        a#mitmachen.btn.btn-default.btn-sm.margin-right-sm(href="/machmit-#{akt._id}") Mitmachen
-                    else if !akt.isAttendee && parseInt(leftPlaces) <= 0
-                        span.text-info.margin-right-sm.i-am-attendee
-                            i.fa.fa-ban
-                            |  Keine Plätze mehr
-                    else
-                        h3.text-success.margin-right-sm.i-am-attendee
-                            i.fa.fa-check
-                            |  Ich mache mit
-                else
-                    h3.text-success.margin-right-sm.i-am-attendee
-                        i.fa.fa-info
-                        |  Das ist meine Aktivität
+                if isAuthenticated  
+                    if akt._idErsteller 
+                        if akt._idErsteller._id != currentUser
+                            if !akt.isAttendee && parseInt(leftPlaces) > 0
+                                p 
+                                    i.fa.fa-question
+                                    | Machst du mit?
+                                a#mitmachen.btn.btn-default.btn-sm.margin-right-sm(href="/machmit-#{akt._id}") Mitmachen
+                            else if !akt.isAttendee && parseInt(leftPlaces) <= 0
+                                span.text-info.margin-right-sm.i-am-attendee
+                                    i.fa.fa-ban
+                                    |  Keine Plätze mehr
+                            else
+                                h3.text-success.margin-right-sm.i-am-attendee
+                                    i.fa.fa-check
+                                    |  Ich mache mit
+                        else
+                            h3.text-success.margin-right-sm.i-am-attendee
+                                i.fa.fa-info
+                                |  Das ist meine Aktivität
             .eventDetailsInfoBox.attendees-number
                 i.fa.fa-user
                 
@@ -79,18 +87,24 @@ block content
             
             
             .eventDetailsInfoBox.attendees
-                .media
-                    .media-left
-                        img.media-object(src='/public/images/no-photo.png', width='50px')
-                    .media-body
-                        h4.media-heading #{akt._idErsteller.name}
-                        p (Organisator)
+                if akt._idErsteller
+                    .media
+                        .media-left
+                            img.media-object(src='#{authorImage}', width='50px')
+                        .media-body
+                            h4.media-heading #{akt._idErsteller.name}
+                            p (Organisator)
         
                 each attendee in akt._idTeilnehmer
                     if attendee
+                        if attendee.avatar
+                            -var attendeeImage = "/public/images/uploads/profile/" + attendee.avatar
+                        else 
+                            -var attendeeImage = "/public/images/no-photo.png"
+
                         .media
                             .media-left
-                                img.media-object(src='/public/images/no-photo.png', width='50px')
+                                img.media-object(src='#{attendeeImage}', width='50px')
                             .media-body
                                 h4.media-heading #{attendee.name}
     

@@ -9,6 +9,7 @@ html
 		link(rel='stylesheet', href='/public/stylesheets/font-awesome.min.css')
 		link(rel='stylesheet', href='/public/stylesheets/steam-web.css')
 		link(rel='stylesheet', href='/public/javascripts/fancybox/jquery.fancybox.css')
+		link(rel='stylesheet', href='/public/stylesheets/bootstrap-datetimepicker.min.css')
 		link(rel='stylesheet', href='/public/stylesheets/style.css')
 
 		link(href='http://fonts.googleapis.com/css?family=Montserrat', rel='stylesheet', type='text/css')
@@ -52,9 +53,14 @@ html
 					|  möchten.
 			
 		.main
+			include ../helpers/functions.jade
+
+			block content_full_width_top
+
 			.wrap
-				include ../helpers/functions.jade
 				block content
+
+			block content_full_width_bottom
 
 		.footer
 			.wrap
@@ -83,50 +89,68 @@ html
 
 		#login-form(style='display:none')
 			.login-form
-				h1
+				h2
 					i.fa.fa-sign-in
 					|  Login
 				
 				if (message.length > 0)
 					.alert.alert-danger #{message}
 
-				form(action='/login', method='post')
-					.form-group
-						label Email
+				form.form-inline(action='/login', method='post')
+					.form-group.margin-right
+						label.margin-right Email
 						input.form-control(type='text', name='email')
-					.form-group
-						label Password
+					.form-group.margin-right
+						label.margin-right Password
 						input.form-control(type='password', name='password')
 					.form-group
-						button.btn.btn-warning.btn-lg(type='submit') Login
+						button.btn.btn-warning(type='submit') Login
 				
 				hr
 				
 				p Need an account? 
-					a.show-signup-form(href='') Signup
+					a.show-signup-form(href='') Sign up
 
 			.signup-form.hide
-				h1
+				h2
 					i.fa.fa-sign-in
 					|  Signup
 				
 				if (message.length > 0)
 					.alert.alert-danger #{message}
 
-				form(action='/signup', method='post')
-					.form-group
-						label Email
+				form.form-inline(action='/signup', method='post')
+					.form-group.margin-right
+						label.margin-right Email
 						input.form-control(type='text', name='email')
-					.form-group
-						label Password
+					.form-group.margin-right
+						label.margin-right Password
 						input.form-control(type='password', name='password')
 					.form-group
-						button.btn.btn-warning.btn-lg(type='submit') Signup
+						button.btn.btn-warning(type='submit') Signup
 				
 				hr
 				
 				p Already have an account? 
 					a.show-login-form(href='') Login
+
+			hr
+
+			.social-netwoks-login
+				h2.margin-bottom Or login / sign up with
+				a.btn.btn-primary.margin-right(href="/auth/facebook")
+					i.fa.fa-facebook
+					|  Facebook
+
+				a.btn.btn-info.margin-right(href="/auth/twitter")
+					i.fa.fa-twitter
+					|  Twitter
+
+				a.btn.btn-danger(href="/auth/google")
+					i.fa.fa-google-plus
+					|  Google
+
+
 
 		script(src='/public/javascripts/jquery-2.2.2.min.js')
 		script(src='/public/javascripts/bootstrap.min.js')
@@ -134,6 +158,8 @@ html
 		script(src='/public/javascripts/jquery-hover-effect.js')
 		script(src='/public/javascripts/moment-with-locales.min.js')
 		script(src="/public/javascripts/jquery.form.min.js")
+		script(src="/public/javascripts/jquery.inputmask.bundle.js")
+		script(src="/public/javascripts/bootstrap-datetimepicker.min.js")
 		script(src='/public/javascripts/scripts.js')
 
 		block footer-scripts

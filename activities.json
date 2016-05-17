@@ -3,7 +3,9 @@
     "_id": {
       "$oid": "0c19729de860ea507f191e81"
     },
-    "ersteller_id": "",
+    "_idErsteller": {
+      "$oid": "99f04760af8a405954acc68c"
+    },
     "name": "Casino",
     "kbeschreibung": "Am Samstag um 19 Uhr wollen wir in das Casino gehen.",
     "beschreibung": "Am Samstag um 19 Uhr wollen wir in das Casino gehen.",
@@ -23,7 +25,9 @@
     "_id": {
       "$oid": "86cd799439011507f1f77bcf"
     },
-    "ersteller_id": "",
+    "_idErsteller": {
+      "$oid": "99f04760af8a405954acc68c"
+    },
     "name": "Bowling",
     "kbeschreibung": "Am Freitag wollen wir in Stammheim in das Bowlingcenter gehen.",
     "beschreibung": "Am Freitag wollen wir in Stammheim in das Bowlingcenter gehen.",
@@ -43,7 +47,9 @@
     "_id": {
       "$oid": "507f191e810c19729de860ea"
     },
-    "ersteller_id": "",
+    "_idErsteller": {
+      "$oid": "99f04760af8a405954acc68c"
+    },
     "name": "Paintball",
     "beschreibung": "Am Freitag wollen wir in das Paintball-Club gehen.",
     "datum": "Fri Jun 03 2016 10:00:00 GMT+0200 (CEST)",
@@ -62,7 +68,9 @@
     "_id": {
       "$oid": "507f1f77bcf86cd799439011"
     },
-    "ersteller_id": "",
+    "_idErsteller": {
+      "$oid": "56f04760af8a305954acc68c"
+    },
     "name": "Sunday Brunch at Cafe Felix",
     "kbeschreibung": "Let's meet up for a leisurely Sunday brunch!  Brunch is for own account at €16,50 (one hot beverage included).",
     "beschreibung": "<p>Let's meet up for a leisurely Sunday brunch!  Brunch is for own account at €16,50 (one hot beverage included). There is a choice of hot and cold breakfast dishes from the buffet - German \"Weisswurst\" is one of the specialities, homemade pancakes, and Vegetarian options like Müsli, to name just a few.</p>",
@@ -82,7 +90,9 @@
     "_id": {
       "$oid": "5349b4ddd2781d08c09890f4"
     },
-    "ersteller_id": "",
+    "_idErsteller": {
+      "$oid": "56f04760af8a305954acc68c"
+    },
     "name": "Mirage Show / Travestie und Sinatra Show",
     "kbeschreibung": "Lust auf einen bunten, unvergesslichen Abend mit vielen verschiedenen Künstlern? Eine Darbietung von Travestie Künstlern aus namhaften Variete Bühnen.",
     "beschreibung": "<p>Lust auf einen bunten, unvergesslichen Abend mit vielen verschiedenen Künstlern? Eine Darbietung von Travestie Künstlern aus namhaften Variete Bühnen.</p><p>Tanja Silzer Events präsentiert die \"Mirage Show\" am Sonntag den[masked] im Club Rouhg Rockz Einlass ist ab 18.00 Uhr und Showbeginn um 19.00 Uhr.</p><p>Ticketpreise:</p><p>VIP Tickets gibt es nicht an der Abendkasse<br/>VIP Ticket: 29,90 inklusive VVK Gebühren<br/>Normale Tickets: 19,90 inklusive VVK Gebühren<br/>Abendkasse 25,00 Euro</p>",
@@ -102,7 +112,9 @@
     "_id": {
       "$oid": "5349b4ddd2781d08c09890f3"
     },
-    "ersteller_id": "",
+    "_idErsteller": {
+      "$oid": "56f04760af8a305954acc68c"
+    },
     "name": "Lasertag",
     "beschreibung": "Am Samsatg wollen wir in das Spiel-Zentrum gehen.",
     "datum": "Sun Jul 17 2016 19:00:00 GMT+0200 (CEST)",
@@ -120,6 +132,9 @@
   {
     "_id": {
       "$oid": "56f25da8b1f67f581f83042a"
+    },
+    "_idErsteller": {
+      "$oid": "99f04760af8a405954acc68c"
     },
     "name": "Zocken",
     "beschreibung": "wird gezockt",
@@ -139,6 +154,9 @@
     "_id": {
       "$oid": "56f26810701d5f2006d189d7"
     },
+    "_idErsteller": {
+      "$oid": "99f04760af8a405954acc68c"
+    },
     "name": "a",
     "beschreibung": "a",
     "datum": "Sun Jul 17 2016 19:00:00 GMT+0200 (CEST)",
@@ -157,6 +175,9 @@
     "_id": {
       "$oid": "5721b168a33d43ac22344c84"
     },
+    "_idErsteller": {
+      "$oid": "99f04760af8a405954acc68c"
+    },
     "teilnehmer": "4",
     "dauer": "2 St",
     "uhrzeit": "13:00",
@@ -165,9 +186,6 @@
     },
     "beschreibung": "wregrhhtdyjtjt",
     "name": "Test",
-    "_idErsteller": {
-      "$oid": "56f04760af8a305954acc68c"
-    },
     "adresse": {
       "plz": "12324",
       "hausnr": "23",

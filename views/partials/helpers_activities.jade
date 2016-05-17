@@ -1,0 +1,181 @@
+mixin searchForm(searchParams)
+	-var searchName = ""
+	-var searchDate = ""
+	-var searchTime = ""
+
+	if searchParams
+		-searchName = searchParams.name
+		-searchDate = searchParams.date
+		-searchTime = searchParams.time
+	
+	form#formSearchActivity.form-inline.text-center(name="searchAkt", method="post", action="/searchActivity")
+		.form-group.margin-right
+			label.control-label.margin-right(for="searchName") Name
+			input#inputName.form-control(type="text", placeholder="Name", name="searchName", value="#{searchName}")
+		.form-group.margin-right
+			label.control-label.margin-right(for="searchDate") Datum
+			input#inputName.form-control.date.datepicker(type="text", placeholder="Beispiel: 03.06.2016", name="searchDate", value="#{searchDate}")
+		.form-group.margin-right
+			label.control-label.margin-right(for="searchTime") Uhrzeit
+			input#inputName.form-control.time.timepicker(type="text", placeholder="HH:MM", name="searchTime", value="#{searchTime}")
+		button#btnSubmit.btn.btn-primary(type="submit") Suchen
+
+
+
+
+-function findFutureEvents(aktlist) {
+	-var foundedActivities = []
+	each akt in aktlist
+		if akt.status == 'future' || akt.status == 'today'
+			-foundedActivities.push(akt)
+	-return foundedActivities
+- }	
+
+
+-function findPastEvents(aktlist) {
+	-var foundedActivities = []
+	each akt in aktlist
+		if akt.status == 'past'
+			-foundedActivities.push(akt)
+	-return foundedActivities
+- }	
+
+
+mixin events(aktlist, pageType)
+	-var futureActivities = findFutureEvents(aktlist)
+	-var pastActivities = findPastEvents(aktlist)
+
+	if futureActivities.length > 0
+		h2.head1 Aktuelle Aktivitäten 
+
+	if isAuthenticated && pageType != "search"
+		.text-center.margin-bottom
+			a.btn.btn-default(href='/newaktivity') Neue Aktivität erstellen
+
+	if futureActivities.length > 0
+		ul.activities-list.active-activities.text-center.margin-bottom
+			each akt in futureActivities
+				+oneActivity(akt, 'active', pageType)
+
+
+	if pastActivities.length > 0
+		h2.head1 Vergangene Aktivitäten 
+
+		ul.activities-list.past-activities.text-center
+			each akt in pastActivities
+				+oneActivity(akt, 'disabled', pageType)
+
+
+	if futureActivities.length == 0 && pastActivities.length == 0
+		.alert.alert-info.text-center
+			if pageType == "search"
+				| Keine Aktivitäten gefunden
+			else
+				| Keine Aktivitäten
+
+
+mixin oneActivity(akt, status, pageType)
+	li.text-left
+		if akt.bild
+			-var image = "/public/images/activities/"+akt.bild
+		else
+			-var image = "/public/images/activities/default.jpg"
+		
+		.image(style='background-image:url('+image+')')
+			span.fancybox-inline(href='#akt-'+(akt.name).replace(/[^\w\s!?]/g,'').replace(/ /g, "-").toLowerCase())
+				div #{trimString(akt.name, 20)} 
+			a.readMore.btn.btn-default.btn-sm(href="/activity/#{akt._id}") Mehr Information
+
+		.lb-overlay(id='akt-'+(akt.name).replace(/[^\w\s!?]/g,'').replace(/ /g, "-").toLowerCase())
+			if akt.bild
+				img(src="/public/images/activities/#{akt.bild}", width="200")
+			else
+				img(src="/public/images/activities/default.jpg", width="200")
+			h3 #{akt.name} 
+			div
+				p.time
+					if akt.datum !== ""
+						span.date.label.label-default
+							i.fa.fa-calendar
+							|  #{prettyDate(akt.datum)} 
+						span &nbsp;
+					
+					if akt.uhrzeit !== ""
+						span.time.label.label-default
+							i.fa.fa-clock-o 
+							|  #{akt.uhrzeit} 
+						span &nbsp;
+					
+					if akt.dauer !== ""
+						span.duration.label.label-default
+							i.fa.fa-ellipsis-h 
+							|  #{akt.dauer} 
+						span &nbsp;
+
+				p.address
+					span.label.label-info
+						i.fa.fa-map-marker
+						|  
+						if akt.adresse.stadt !== ""
+							span.city #{akt.adresse.stadt}, 
+						if akt.adresse.strasse !== ""
+							span.street #{akt.adresse.strasse}
+						if akt.adresse.hausnr !== ""
+							| , #{akt.adresse.hausnr}
+						if akt.adresse.plz !== ""
+							| , 
+							span.plz #{akt.adresse.plz}
+					span &nbsp;
+
+					if akt.teilnehmer !== ""
+						span.persons.label.label-default
+							i.fa.fa-users
+							|  #{akt.teilnehmer} 
+			if akt.kbeschreibung
+				p #{akt.kbeschreibung}
+			else
+				p !{akt.beschreibung.replace(/(<([^>]+)>)/ig,"").substring(0, 200)}
+
+		.m_desc1
+			h4
+				a(href="/activity/#{akt._id}") #{akt.name} 
+			
+
+			p
+				if akt.datum !== ""
+					span.date.label.label-default
+						i.fa.fa-calendar
+						|  #{prettyDate(akt.datum)} 
+					span &nbsp;
+				
+				if akt.uhrzeit !== ""
+					span.time.label.label-default
+						i.fa.fa-clock-o 
+						|  #{akt.uhrzeit} 
+					span &nbsp;
+
+			p #{akt.kbeschreibung}
+
+			-var leftPlaces = parseInt(akt.teilnehmer) - (akt._idTeilnehmer.length+1)
+			
+			if status == 'active' && isAuthenticated && akt._idErsteller == currentUser
+				a#editActivity.btn.btn-default.btn-sm.pull-right(href="/edit/#{akt._id}")
+					i.fa.fa-pencil
+			
+			if isAuthenticated  
+				if akt._idErsteller != currentUser
+					if status == 'active'
+						if !akt.isAttendee && parseInt(leftPlaces) > 0
+							a#mitmachen.btn.btn-default.btn-sm.margin-right-sm(href="/machmit-#{akt._id}") Mitmachen
+						else if !akt.isAttendee && parseInt(leftPlaces) <= 0
+							span.text-info.margin-right-sm.i-am-attendee
+								i.fa.fa-ban
+								|  Keine Plätze mehr
+						else
+							span.text-success.margin-right-sm.i-am-attendee
+								i.fa.fa-check
+								|  Ich mache mit
+				else
+					span.text-success.margin-right-sm.i-am-attendee
+							i.fa.fa-info
+							|  Meine

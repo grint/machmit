@@ -18,14 +18,21 @@
 	margin-right: 10px;
 }
 
-
 .text-left {
 	text-align: left !important;
+}
+
+.w100 {
+	width: 100% !important
 }
 
 .label {
 	font-size: 90%;
 	padding-top: .4em;
+}
+
+#login-form h2 {
+	font-size: 30px;
 }
 
 .image {
@@ -35,6 +42,23 @@
 	background-position: 50% 0;
 	background-repeat: no-repeat;
 	background-size: 100%;
+}
+
+.homepage-activity {
+	margin-bottom: 20px;
+}
+
+.homepage-activity .image {
+	height: 200px;
+}
+
+.homepage-activity .m_fb {
+	background: rgba(0,0,0,0.2);
+	padding: 5px 0;
+}
+
+.form-group {
+	position: relative;
 }
 
 

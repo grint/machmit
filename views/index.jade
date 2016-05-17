@@ -1,39 +1,50 @@
 extends layout
 
+block content_full_width_top
+	include partials/helpers_activities.jade
+	.content-box
+		.wrap
+			+searchForm()
+
 block content
-	if isAuthenticated
-		.jumbotron.text-center
-			a.btn.btn-default(href="/profile")
-				i.fa.fa-user
-				|  Profile
-			a.btn.btn-default(href="/logout")
-				i.fa.fa-lock
-				|  Logout
-	
-	else
-		.jumbotron.text-center
-			h1
-				i.fa.fa-lock
-				|  Authentication
-			
-			p Login or Register with:
-			
-			a.btn.btn-default(href="/login")
-				i.fa.fa-user
-				|  Local Login
-			
-			a.btn.btn-default(href="/signup")
-				i.fa.fa-user
-				|  Local Signup
+	.row
+		each akt in aktlist
+			.col_1_of_3.span_1_of_3.homepage-activity
+				if akt.bild
+					-var image = "/public/images/activities/"+akt.bild
+				else
+					-var image = "/public/images/activities/default.jpg"
+				
+				.image(style='background-image:url('+image+')')
+				ul.m_fb.text-center
+					li
+						span.middle #{prettyDate(akt.datum)} #{akt.uhrzeit} 
+				.desc
+					h3
+						a(href="/activity/#{akt._id}") #{akt.name}
+					if akt.kbeschreibung
+						p #{akt.kbeschreibung}
+					else
+						p !{akt.beschreibung.replace(/(<([^>]+)>)/ig,"").substring(0, 200)}
 
-			a.btn.btn-primary(href="/auth/facebook")
-				i.fa.fa-facebook
-				|  Facebook
 
-			a.btn.btn-info(href="/auth/twitter")
-				i.fa.fa-twitter
-				|  Twitter
+				-var leftPlaces = parseInt(akt.teilnehmer) - (akt._idTeilnehmer.length+1)
 
-			a.btn.btn-danger(href="/auth/google")
-				i.fa.fa-google-plus
-				|  Google
+				.section.group.example
+					.col_1_of_2.span_1_of_2
+						ul
+							li
+								.m_desc.w100
+									span.m_2 #{akt._idTeilnehmer.length+1} 
+									span.m_3 Teilnehmer 
+					.col_1_of_2.span_1_of_2
+						ul
+							li
+								.m_desc.w100
+									span.m_2 #{leftPlaces} 
+									span.m_3 
+										if leftPlaces == 1
+											| freier&nbsp;Platz
+										else
+											| freie&nbsp;Plätze 
+						

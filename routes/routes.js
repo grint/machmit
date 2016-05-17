@@ -6,12 +6,30 @@
     // HOME PAGE (with login links) ========
     // =====================================
     app.get('/', function(req, res) {
-        res.render('index', { 
-            title: 'Express', 
-            menu: 'home',
-            message: req.flash('loginMessage'),
-            isAuthenticated: req.isAuthenticated(),
-            currentUser: req.session.passport.user
+        // load up the activity model
+        var Activity = require('../models/activity');
+        var currentUser = req.session.passport.user;
+        var today = moment(Date.now()).format('YYYY-MM-DD');;
+
+        // query db for all activities
+        Activity.find( function ( err, items, count ) {
+            for (var i = 0; i < items.length; i++) {
+                var activityDate = moment(items[i].datum).format("YYYY-MM-DD");
+                if (moment(today).isAfter(activityDate)) {
+                    items.splice(i, 1);
+                }
+            }
+
+            items.splice(6, items.length);
+
+            res.render( 'index', {
+                title : 'Aktivitäten',
+                menu: 'home',
+                message: req.flash('loginMessage'),
+                aktlist : items,
+                isAuthenticated: req.isAuthenticated(),
+                currentUser: currentUser,
+            })
         });
     });
 
@@ -20,10 +38,10 @@
         var Activity = require('../models/activity');
         var currentUser = req.session.passport.user;
         var today = moment(Date.now()).format('YYYY-MM-DD');
-		console.log("-" + req.body.searchName + "-");
-		console.log("-" + req.body.searchTime + "-");
-		console.log("-" + req.body.searchDate + "-");
-		console.log("-" + req.body.searchDuration + "-");
+		// console.log("-" + req.body.searchName + "-");
+		// console.log("-" + req.body.searchTime + "-");
+		// console.log("-" + req.body.searchDate + "-");
+        
         // query db for all activities
         Activity.find( function ( err, items, count ) {
 
@@ -38,13 +56,17 @@
                 var activityDate = moment(items[i].datum).format("YYYY-MM-DD");
 				var activityName = items[i].name.toUpperCase();
 				var activityTime = items[i].uhrzeit;
-				var activityDuration = items[i].dauer;
 				
 				var searchName = (req.body.searchName).toUpperCase();
-				var searchDate = (req.body.searchDate).toUpperCase();
-				var searchTime = (req.body.searchTime).toUpperCase();
-				var searchDuration = (req.body.searchDuration).toUpperCase();
-				console.log(searchDate);
+				
+                var searchDate = req.body.searchDate;
+                if(searchDate) {
+                    moment.locale("de");
+                    searchDate = moment(searchDate, "DD.MM.YYYY").format("YYYY-MM-DD");
+                }
+				
+                var searchTime = req.body.searchTime;
+
                 if (moment(today).isAfter(activityDate)) {
                     items[i].status = 'past';
                 }
@@ -54,45 +76,42 @@
                 else {
                     items[i].status = 'today';
                 }
-				if (searchName != "") {
-					if (!activityName.includes(searchName)) {
-					items[i].status = 'null';
-					console.log("_name");
+
+				if (searchName) {
+					if (activityName.indexOf(searchName) !== 0) {
+    					items[i].status = 'null';
+    					console.log("_name");
+				    }
 				}
-				}
-				if (searchDate != "") {
+				if (searchDate) {
+                    // console.log(activityDate);
+                    // console.log(searchDate);
 					if (activityDate != searchDate) {
-					items[i].status = 'null';
-					console.log("_date");
+    					items[i].status = 'null';
+    					console.log("_date");
+    				}
 				}
+				if (searchTime) {
+					if (activityTime.indexOf(searchTime) !== 0) {
+    					items[i].status = 'null';
+    					console.log("_time");
+    				}
 				}
-				if (searchTime != "") {
-					if (!activityTime.includes(searchTime)) {
-					items[i].status = 'null';
-					console.log("_time");
-				}
-				}
-				if (searchDuration != "") {
-					if (!activityDuration.includes(searchDuration)) {
-					items[i].status = 'null';
-					console.log("_duration");
-				}
-				}
-				
             }
 
-            
-
-            res.render( 'aktlist', {
+            res.render( 'search_results', {
                 title : 'Aktivitäten',
                 menu: 'aktlist',
                 message: req.flash('loginMessage'),
                 aktlist : items,
+                searchParams: {name: req.body.searchName, date: req.body.searchDate, time: searchTime},
                 isAuthenticated: req.isAuthenticated(),
                 currentUser: currentUser,
             })
         })
     });
+
+
     // =====================================
     // Activities List =====================
     // =====================================
@@ -100,7 +119,7 @@
         // load up the activity model
         var Activity = require('../models/activity');
         var currentUser = req.session.passport.user;
-        var today = moment(Date.now()).format('YYYY-MM-DD');;
+        var today = moment(Date.now()).format('YYYY-MM-DD');
 
         // query db for all activities
         Activity.find( function ( err, items, count ) {
@@ -177,6 +196,7 @@
     app.get('/newaktivity',isLoggedIn, function(req, res) {
         res.render('newaktivity', { 
             title: 'Neue Aktivität erstellen',
+            isAuthenticated: req.isAuthenticated(),
             menu: 'newaktivity',
 			message: req.flash('loginMessage')
         });
