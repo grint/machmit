@@ -59,6 +59,7 @@
     	uploadUserPhotos(req,res,function(err) {
 	        if(err) {
 	        	req.flash('error', 'Error uploading file.');
+	        	console.log('Error uploading file: ' + err);
         	} else {
 	        	req.flash('success', 'The image is successfully uploaded.');
 	        }
@@ -67,7 +68,7 @@
 
 	        // Submit to DB
 	        User.findById(req.user._id, function (err, user) {
-	            if (err) return handleError(err);
+	            if (err) console.log(err);
 	            
 				// remove old image
 	            if(req.user.avatar) {
@@ -92,7 +93,7 @@
 	            }
 
 	            user.save(function (err) {
-	                if (err) return handleError(err);
+	                if (err) console.log(err);
 	                res.redirect("profile");
 	            });
 	        });
@@ -158,7 +159,7 @@
 
 	        // Submit to DB
 	        Akt.findById(req.body.aktid, function (err, akt) {
-	            if (err) return handleError(err);
+	            if (err) return console.log(err);
 
 	            // remove old image
 	            if(req.body.oldbild) {
@@ -181,7 +182,7 @@
 	            akt.bild = req.file.filename;
 
 	            akt.save(function (err) {
-	                if (err) return handleError(err);
+	                if (err) return console.log(err);
 	                res.redirect("edit/"+req.body.aktid);
 	            });
 	        });
